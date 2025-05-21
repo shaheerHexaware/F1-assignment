@@ -97,7 +97,6 @@ class RemoteApiRepositoryTest {
         val year = DUMMY_SEASON
         val responseDTO = createRacesResponse()
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
-        println("url: $url")
 
         `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
@@ -117,7 +116,6 @@ class RemoteApiRepositoryTest {
     fun `getSeasonRaces should throw RestClientException when API call fails`() {
         val year = DUMMY_SEASON
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
-        println("url: $url")
 
         `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR))
@@ -138,7 +136,6 @@ class RemoteApiRepositoryTest {
             ),)
         )
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
-        println("url: $url")
 
         `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))

@@ -51,8 +51,6 @@ class RemoteApiRepository(
                 .build()
                 .toUriString()
 
-            println("url: $url")
-
             val response: ResponseEntity<SeasonRacesResponseDTO> = restTemplate.getForEntity(url)
 
             if (response.statusCode.isError) throw RestClientException("Error retrieving races for season $year")
