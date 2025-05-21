@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.client.RestClientException
 import java.lang.IllegalArgumentException
 
 const val FIRST_FORMULA1_YEAR = 1950
@@ -24,6 +25,10 @@ class F1Controller(
     @ExceptionHandler(InvalidDateRangeException::class)
     fun handleBadRequest(e: InvalidDateRangeException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+
+    @ExceptionHandler(RestClientException::class)
+    fun handleInternalErrorRequest(e: RestClientException): ResponseEntity<String> =
+        ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
 
     @GetMapping
     fun getSeasonsWithChampions(

@@ -1,19 +1,45 @@
 package com.full.stack.assignment.f1.service
 
+import com.full.stack.assignment.f1.data.cache.repository.DriverCacheRepository
+import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository
+import com.full.stack.assignment.f1.mapper.DriverMapper
+import com.full.stack.assignment.f1.mapper.SeasonMapper
 import com.full.stack.assignment.f1.model.Season
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
 class F1ServiceImpl(
     private val remoteApiRepository: RemoteApiRepository,
+    private val driverCacheRepository: DriverCacheRepository,
+    private val seasonCacheRepository: SeasonCacheRepository,
+    private val driverMapper: DriverMapper,
+    private val seasonMapper: SeasonMapper,
 ): F1Service {
+    @Transactional
     override fun getSeasons(
         from: Int,
         to: Int
     ): List<Season> {
-        return (from .. to).map { year ->
-            remoteApiRepository.getSeason(year)
+        val cachedSeasons = seasonCacheRepository.findByYearBetweenOrderByYearAsc(from, to)
+
+        if (cachedSeasons.size == (to - from + 1)) {
+            return cachedSeasons.map { seasonMapper.toDomain(it) }
         }
+
+        val cachedYears = cachedSeasons.map { it.year }.toSet()
+        val missingYears = (from..to).filter { it !in cachedYears }
+
+        val newSeasons = missingYears.map { year -> getAndCacheSeason(year) }
+
+        return (cachedSeasons.map { seasonMapper.toDomain(it) } + newSeasons).sortedBy { it.year }
+    }
+
+    private fun getAndCacheSeason(year: Int): Season{
+        val season = remoteApiRepository.getSeason(year)
+        driverCacheRepository.save(driverMapper.toEntity(season.champion))
+        seasonCacheRepository.save(seasonMapper.toEntity(season))
+        return season
     }
 }
