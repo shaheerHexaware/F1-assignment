@@ -26,6 +26,7 @@ class F1ServiceImpl(
     private val seasonMapper: SeasonMapper,
     private val raceMapper: RaceMapper,
 ): F1Service {
+
     @Transactional
     override fun getSeasons(
         from: Int,

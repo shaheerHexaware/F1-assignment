@@ -182,7 +182,6 @@ class RemoteApiRepositoryTest {
             raceName = raceName,
             circuit = circuit,
             date = "2023-03-05",
-            time = "15:00:00Z",
             results = driverPositions
         )
     }

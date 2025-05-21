@@ -39,8 +39,6 @@ data class RaceDTO(
     val circuit: Circuit,
     @JsonProperty("date")
     val date: String,
-    @JsonProperty("time")
-    val time: String?,
     @JsonProperty("Results")
     val results: List<DriverPositionDTO>
 )
