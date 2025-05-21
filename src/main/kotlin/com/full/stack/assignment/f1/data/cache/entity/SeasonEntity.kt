@@ -5,6 +5,7 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 
@@ -17,4 +18,9 @@ data class SeasonEntity(
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "champion_id")
     val champion: DriverEntity,
-)
+
+    @OneToMany(mappedBy = "season")
+    val races: MutableSet<RaceEntity> = mutableSetOf()
+) {
+    constructor() : this(0, DriverEntity())
+}

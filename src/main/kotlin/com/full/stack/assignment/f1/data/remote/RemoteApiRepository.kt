@@ -20,7 +20,11 @@ class RemoteApiRepository(
     @Autowired private val restTemplate: RestTemplate,
 ) {
     fun getSeason(year: Int): Season {
-        val url = "$baseUrl/$year/$DRIVER_STANDINGS/"
+        val url = UriComponentsBuilder.fromUriString(baseUrl)
+            .pathSegment(year.toString(), DRIVER_STANDINGS)
+            .build()
+            .toUriString()
+
         val response: ResponseEntity<DriverStandingResponseDTO> = restTemplate.getForEntity(url)
 
         if (response.statusCode.isError) throw RestClientException("Error retrieving season $year")
@@ -47,6 +51,7 @@ class RemoteApiRepository(
                 .build()
                 .toUriString()
 
+            println("url: $url")
 
             val response: ResponseEntity<SeasonRacesResponseDTO> = restTemplate.getForEntity(url)
 
@@ -68,15 +73,13 @@ class RemoteApiRepository(
                 val raceData = groupedData.first()
 
                 Race(
-                    season = raceData.season,
+                    seasonYear = raceData.season,
                     round = raceData.round,
                     raceName = raceData.raceName,
                     circuit = raceData.circuit,
                     date = raceData.date,
-                    time = raceData.time,
                     winningDriver = winningPosition.driver,
                     winningConstructor = winningPosition.constructor
-
                 )
             }
     }
@@ -86,6 +89,6 @@ class RemoteApiRepository(
         const val RESULTS_PATH = "results"
         const val LIMIT_PARAM = "limit"
         const val OFFSET_PARAM = "offset"
-        private const val LIMIT = 100
+        const val LIMIT = 100
     }
 }

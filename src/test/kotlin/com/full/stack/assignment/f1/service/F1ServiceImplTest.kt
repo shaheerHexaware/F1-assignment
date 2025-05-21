@@ -2,10 +2,14 @@ package com.full.stack.assignment.f1.service
 
 import com.full.stack.assignment.f1.data.cache.entity.DriverEntity
 import com.full.stack.assignment.f1.data.cache.entity.SeasonEntity
+import com.full.stack.assignment.f1.data.cache.repository.CircuitCacheRepository
+import com.full.stack.assignment.f1.data.cache.repository.ConstructorCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.DriverCacheRepository
+import com.full.stack.assignment.f1.data.cache.repository.RaceCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository
 import com.full.stack.assignment.f1.mapper.DriverMapper
+import com.full.stack.assignment.f1.mapper.RaceMapper
 import com.full.stack.assignment.f1.mapper.SeasonMapper
 import com.full.stack.assignment.f1.model.Driver
 import com.full.stack.assignment.f1.model.Season
@@ -21,8 +25,12 @@ class F1ServiceImplTest {
     private lateinit var remoteApiRepository: RemoteApiRepository
     private lateinit var driverCacheRepository: DriverCacheRepository
     private lateinit var seasonCacheRepository: SeasonCacheRepository
+    private lateinit var raceCacheRepository: RaceCacheRepository
+    private lateinit var constructorCacheRepository: ConstructorCacheRepository
+    private lateinit var circuitCacheRepository: CircuitCacheRepository
     private lateinit var driverMapper: DriverMapper
     private lateinit var seasonMapper: SeasonMapper
+    private lateinit var raceMapper: RaceMapper
     private lateinit var f1Service: F1ServiceImpl
 
     @BeforeEach
@@ -30,15 +38,23 @@ class F1ServiceImplTest {
         remoteApiRepository = mockk()
         driverCacheRepository = mockk(relaxed = true)
         seasonCacheRepository = mockk(relaxed = true)
+        raceCacheRepository = mockk(relaxed = true)
+        constructorCacheRepository = mockk(relaxed = true)
+        circuitCacheRepository = mockk(relaxed = true)
         driverMapper = mockk()
         seasonMapper = mockk()
+        raceMapper = mockk()
 
         f1Service = F1ServiceImpl(
             remoteApiRepository,
             driverCacheRepository,
             seasonCacheRepository,
+            raceCacheRepository,
+            constructorCacheRepository,
+            circuitCacheRepository,
             driverMapper,
-            seasonMapper
+            seasonMapper,
+            raceMapper,
         )
     }
 

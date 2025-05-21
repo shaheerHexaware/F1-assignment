@@ -3,6 +3,7 @@ package com.full.stack.assignment.f1.data.cache.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -23,4 +24,15 @@ data class DriverEntity(
     val dateOfBirth: String,
 
     val nationality: String,
-)
+
+    @OneToMany(mappedBy = "champion")
+    val championshipSeasons: MutableSet<SeasonEntity> = mutableSetOf(),
+
+    @OneToMany(mappedBy = "winningDriver")
+    val racesWon: MutableSet<RaceEntity> = mutableSetOf()
+) {
+    constructor() : this(
+        "", "", "", "", "", "",
+        mutableSetOf(), mutableSetOf()
+    )
+}
