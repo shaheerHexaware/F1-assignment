@@ -1,30 +1,24 @@
 package com.full.stack.assignment.f1.service
 
+import com.full.stack.assignment.f1.DUMMY_SEASON
+import com.full.stack.assignment.f1.Dummies.createDriver
+import com.full.stack.assignment.f1.Dummies.createDriverEntity
+import com.full.stack.assignment.f1.Dummies.createRace
+import com.full.stack.assignment.f1.Dummies.createRaceEntity
+import com.full.stack.assignment.f1.Dummies.createSeason
+import com.full.stack.assignment.f1.Dummies.createSeasonEntity
 import com.full.stack.assignment.f1.data.cache.entity.*
 import com.full.stack.assignment.f1.data.cache.repository.*
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository
 import com.full.stack.assignment.f1.mapper.DriverMapper
 import com.full.stack.assignment.f1.mapper.RaceMapper
 import com.full.stack.assignment.f1.mapper.SeasonMapper
-import com.full.stack.assignment.f1.model.Circuit
-import com.full.stack.assignment.f1.model.CircuitLocation
-import com.full.stack.assignment.f1.model.Constructor
-import com.full.stack.assignment.f1.model.Driver
 import com.full.stack.assignment.f1.model.Race
-import com.full.stack.assignment.f1.model.Season
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.util.Random
-
-private const val DUMMY_DRIVER_ID = "hamilton"
-private const val DUMMY_CONSTRUCTOR_ID = "redbull"
-private const val DUMMY_CIRCUIT_ID = "bahrain"
-private const val DUMMY_RACE_NAME = "Bahrain Grand Prix"
-private const val DUMMY_SEASON = 2023
-private const val DUMMY_ROUND = 1
 
 class F1ServiceImplTest {
 
@@ -310,141 +304,4 @@ class F1ServiceImplTest {
         verify(exactly = 0) { constructorCacheRepository.save(any()) }
         verify(exactly = 0) { driverCacheRepository.save(any()) }
     }
-
-    private fun getDummyCircuit(
-        circuitId: String = DUMMY_CIRCUIT_ID,
-    ): Circuit {
-        return Circuit(
-            id = circuitId,
-            name = "Bahrain International Circuit",
-            location = CircuitLocation(
-                locality = "Sakhir",
-                country = "Bahrain"
-            )
-        )
-    }
-
-    private fun createRace(
-        seasonYear: Int = DUMMY_SEASON,
-        round: Int,
-        raceName: String = DUMMY_RACE_NAME,
-        circuit: Circuit = getDummyCircuit(),
-        driver: Driver = createDriver(),
-        constructor: Constructor = getDummyConstructor(),
-    ): Race {
-        return Race(
-            seasonYear = seasonYear,
-            round = round,
-            raceName = raceName,
-            date = "2023-03-05",
-            circuit = circuit,
-            winningDriver = driver,
-            winningConstructor = constructor
-        )
-    }
-
-    private fun createSeason(
-        year: Int,
-        champion: Driver = createDriver(DUMMY_DRIVER_ID)
-    ): Season {
-        return Season(
-            year = year,
-            champion = champion
-        )
-    }
-
-    private fun getDummyConstructor(
-        constructorId: String = DUMMY_CONSTRUCTOR_ID,
-    ): Constructor {
-        return Constructor(
-            id = constructorId,
-            name = "Red Bull Racing",
-            nationality = "Austrian"
-        )
-    }
-
-    private fun createDriver(
-        driverId: String = DUMMY_DRIVER_ID,
-    ): Driver {
-        return Driver(
-            id = driverId,
-            code = driverId.uppercase().take(3),
-            firstName = "First",
-            lastName = "Last",
-            dateOfBirth = "1985-01-01",
-            nationality = "British"
-        )
-    }
-
-    private fun createCircuitEntity(
-        circuitId: String = DUMMY_CIRCUIT_ID,
-    ): CircuitEntity {
-        return CircuitEntity(
-            id = circuitId,
-            name = "Bahrain International Circuit",
-            location = CircuitLocationEntity(
-                locality = "Sakhir",
-                country = "Bahrain",
-            ),
-            races = mutableSetOf()
-        )
-    }
-
-    private fun createRaceEntity(
-        id: Long = Random().nextLong(),
-        seasonYear: Int = DUMMY_SEASON,
-        round: Int = DUMMY_ROUND,
-        raceName: String = DUMMY_RACE_NAME,
-        seasonEntity: SeasonEntity = createSeasonEntity(seasonYear),
-        circuitEntity: CircuitEntity = createCircuitEntity(),
-        driverEntity: DriverEntity = createDriverEntity(),
-        constructorEntity: ConstructorEntity = createConstructorEntity()
-    ): RaceEntity {
-
-        return RaceEntity(
-            id = id,
-            round = round,
-            raceName = raceName,
-            seasonYear = seasonYear,
-            date = "2023-03-05",
-            circuit = circuitEntity,
-            season = seasonEntity,
-            winningDriver = driverEntity,
-            winningConstructor = constructorEntity
-        )
-    }
-
-    private fun createSeasonEntity(
-        year: Int,
-        champion: DriverEntity = createDriverEntity(DUMMY_DRIVER_ID)
-    ): SeasonEntity {
-        return SeasonEntity(
-            year = year,
-            champion = champion
-        )
-    }
-
-    private fun createDriverEntity(
-        driverId: String = DUMMY_DRIVER_ID,
-    ): DriverEntity {
-        return DriverEntity(
-            id = driverId,
-            code = driverId.uppercase().take(3),
-            firstName = "First",
-            lastName = "Last",
-            dateOfBirth = "1985-01-01",
-            nationality = "British"
-        )
-    }
-
-    private fun createConstructorEntity(
-        constructorId: String = DUMMY_CONSTRUCTOR_ID,
-    ): ConstructorEntity {
-        return ConstructorEntity(
-            id = constructorId,
-            name = "Red Bull Racing",
-            nationality = "Austrian"
-        )
-    }
-
 }

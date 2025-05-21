@@ -1,5 +1,11 @@
 package com.full.stack.assignment.f1.data.remote
 
+import com.full.stack.assignment.f1.DUMMY_BASE_URL
+import com.full.stack.assignment.f1.DUMMY_RACE_NAME
+import com.full.stack.assignment.f1.DUMMY_SEASON
+import com.full.stack.assignment.f1.Dummies.createCircuit
+import com.full.stack.assignment.f1.Dummies.createConstructor
+import com.full.stack.assignment.f1.Dummies.createDriver
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.DRIVER_STANDINGS
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.LIMIT
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.LIMIT_PARAM
@@ -16,7 +22,6 @@ import com.full.stack.assignment.f1.data.remote.model.SeasonRacesResponseDTO
 import com.full.stack.assignment.f1.data.remote.model.SeasonRoundDTO
 import com.full.stack.assignment.f1.data.remote.model.StandingsTableDTO
 import com.full.stack.assignment.f1.model.Circuit
-import com.full.stack.assignment.f1.model.CircuitLocation
 import com.full.stack.assignment.f1.model.Constructor
 import com.full.stack.assignment.f1.model.Driver
 import org.junit.jupiter.api.Assertions.*
@@ -29,12 +34,7 @@ import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
 import java.util.Random
 
-private const val DUMMY_BASE_URL = "https://races.com/f1/api"
-private const val DUMMY_DRIVER_ID = "hamilton"
-private const val DUMMY_CONSTRUCTOR_ID = "redbull"
-private const val DUMMY_CIRCUIT_ID = "bahrain"
-private const val DUMMY_RACE_NAME = "Bahrain Grand Prix"
-private const val DUMMY_SEASON = 2023
+
 
 class RemoteApiRepositoryTest {
 
@@ -44,9 +44,9 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeason should return Season when API call is successful`() {
         val year = DUMMY_SEASON
-        val driver = getDummyDriver()
-        val responseDTO = getDummySeasonApiResponse(
-            driverStandingDTO = getDummyDriverStanding(1, driver),
+        val driver = createDriver()
+        val responseDTO = createSeasonApiResponse(
+            driverStandingDTO = createDriverStandingDTO(1, driver),
         )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
@@ -77,8 +77,8 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeason should throw IllegalStateException when no winning driver is found`() {
         val year = DUMMY_SEASON
-        val responseDTO = getDummySeasonApiResponse(
-            driverStandingDTO = getDummyDriverStanding(2),
+        val responseDTO = createSeasonApiResponse(
+            driverStandingDTO = createDriverStandingDTO(2),
         )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
@@ -95,7 +95,7 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeasonRaces should return a list of Race objects when API call is successful`() {
         val year = DUMMY_SEASON
-        val responseDTO = getDummyRacesResponse()
+        val responseDTO = createRacesResponse()
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
         println("url: $url")
 
@@ -108,9 +108,9 @@ class RemoteApiRepositoryTest {
         val race = result[0]
         assertEquals(DUMMY_RACE_NAME, race.raceName)
         assertEquals(DUMMY_RACE_NAME, race.raceName)
-        assertEquals(getDummyCircuit(), race.circuit)
-        assertEquals(getDummyDriver(), race.winningDriver)
-        assertEquals(getDummyConstructor(), race.winningConstructor)
+        assertEquals(createCircuit(), race.circuit)
+        assertEquals(createDriver(), race.winningDriver)
+        assertEquals(createConstructor(), race.winningConstructor)
     }
 
     @Test
@@ -132,9 +132,9 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeasonRaces should throw RestClientException when no winning driver is found`() {
         val year = DUMMY_SEASON
-        val responseDTO = getDummyRacesResponse(
-            races = listOf(getDummyRace(
-                driverPositions = listOf(getDummyDriverPosition(2))
+        val responseDTO = createRacesResponse(
+            races = listOf(createRaceDTO(
+                driverPositions = listOf(createDriverPositionDTO(2))
             ),)
         )
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
@@ -150,12 +150,12 @@ class RemoteApiRepositoryTest {
         assertEquals("Error retrieving winning driver for race 1", exception.message)
     }
 
-    private fun getDummyRacesResponse(
+    private fun createRacesResponse(
         limit: Int = LIMIT,
         offset: Int = 0,
         total: Int = LIMIT,
         season: Int = DUMMY_SEASON,
-        races: List<RaceDTO> = listOf(getDummyRace())
+        races: List<RaceDTO> = listOf(createRaceDTO())
     ): SeasonRacesResponseDTO{
         return SeasonRacesResponseDTO(
             seasonRacesPagedData = SeasonRacesPagedDataDTO(
@@ -170,11 +170,11 @@ class RemoteApiRepositoryTest {
         )
     }
 
-    private fun getDummyRace(
+    private fun createRaceDTO(
         year: Int = DUMMY_SEASON,
         raceName: String = DUMMY_RACE_NAME,
-        circuit: Circuit = getDummyCircuit(),
-        driverPositions: List<DriverPositionDTO> = listOf(getDummyDriverPosition())
+        circuit: Circuit = createCircuit(),
+        driverPositions: List<DriverPositionDTO> = listOf(createDriverPositionDTO())
     ): RaceDTO {
         return RaceDTO(
             season = year,
@@ -186,10 +186,10 @@ class RemoteApiRepositoryTest {
         )
     }
 
-    private fun getDummyDriverPosition(
+    private fun createDriverPositionDTO(
         position: Int = 1,
-        driver: Driver = getDummyDriver(),
-        constructor: Constructor = getDummyConstructor(),
+        driver: Driver = createDriver(),
+        constructor: Constructor = createConstructor(),
     ): DriverPositionDTO {
         return DriverPositionDTO(
             number = 33,
@@ -203,8 +203,8 @@ class RemoteApiRepositoryTest {
         )
     }
 
-    private fun getDummySeasonApiResponse(
-        driverStandingDTO: DriverStandingDTO = getDummyDriverStanding()
+    private fun createSeasonApiResponse(
+        driverStandingDTO: DriverStandingDTO = createDriverStandingDTO()
     ): DriverStandingResponseDTO {
         val seasonRoundDTO = SeasonRoundDTO(
             round = 1,
@@ -221,51 +221,15 @@ class RemoteApiRepositoryTest {
         )
     }
 
-    private fun getDummyDriverStanding(
+    private fun createDriverStandingDTO(
         position: Int = 1,
-        driver: Driver = getDummyDriver(),
+        driver: Driver = createDriver(),
     ): DriverStandingDTO {
         return DriverStandingDTO(
             position = position,
             points = Random().nextDouble(0.0, 400.0),
             wins = Random().nextInt(7, 12),
             driver = driver
-        )
-    }
-
-    private fun getDummyDriver(
-        driverId: String = DUMMY_DRIVER_ID,
-    ): Driver {
-        return Driver(
-            id = driverId,
-            code = driverId.uppercase().take(3),
-            firstName = "Lewis",
-            lastName = "Hamilton",
-            dateOfBirth = "1985-01-07",
-            nationality = "British"
-        )
-    }
-
-    private fun getDummyConstructor(
-        constructorId: String = DUMMY_CONSTRUCTOR_ID,
-    ): Constructor {
-        return Constructor(
-            id = constructorId,
-            name = "Red Bull Racing",
-            nationality = "Austrian"
-        )
-    }
-
-    private fun getDummyCircuit(
-        circuitId: String = DUMMY_CIRCUIT_ID,
-    ): Circuit {
-        return Circuit(
-            id = circuitId,
-            name = "Bahrain International Circuit",
-            location = CircuitLocation(
-                locality = "Sakhir",
-                country = "Bahrain"
-            )
         )
     }
 
