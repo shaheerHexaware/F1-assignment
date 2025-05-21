@@ -5,6 +5,7 @@ import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
 import com.full.stack.assignment.f1.data.remote.RemoteApiRepository
 import com.full.stack.assignment.f1.mapper.DriverMapper
 import com.full.stack.assignment.f1.mapper.SeasonMapper
+import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
@@ -36,10 +37,16 @@ class F1ServiceImpl(
         return (cachedSeasons.map { seasonMapper.toDomain(it) } + newSeasons).sortedBy { it.year }
     }
 
+    override fun getSeasonRaces(season: Int): List<Race> {
+        return remoteApiRepository.getSeasonRaces(season)
+    }
+
     private fun getAndCacheSeason(year: Int): Season{
         val season = remoteApiRepository.getSeason(year)
         driverCacheRepository.save(driverMapper.toEntity(season.champion))
         seasonCacheRepository.save(seasonMapper.toEntity(season))
         return season
     }
+
+
 }

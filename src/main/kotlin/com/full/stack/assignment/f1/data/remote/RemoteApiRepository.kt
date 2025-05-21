@@ -1,6 +1,9 @@
 package com.full.stack.assignment.f1.data.remote
 
 import com.full.stack.assignment.f1.data.remote.model.DriverStandingResponseDTO
+import com.full.stack.assignment.f1.data.remote.model.RaceDTO
+import com.full.stack.assignment.f1.data.remote.model.SeasonRacesResponseDTO
+import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Repository
 import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForEntity
+import org.springframework.web.util.UriComponentsBuilder
 
 @Repository
 class RemoteApiRepository(
@@ -30,7 +34,58 @@ class RemoteApiRepository(
         )
     }
 
+    fun getSeasonRaces(year: Int): List<Race> {
+        val allResults = mutableListOf<RaceDTO>()
+        var offset = 0
+        var total = Int.MAX_VALUE
+
+        while (offset < total) {
+            val url = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment(year.toString(), RESULTS_PATH)
+                .queryParam(LIMIT_PARAM, LIMIT)
+                .queryParam(OFFSET_PARAM, offset)
+                .build()
+                .toUriString()
+
+
+            val response: ResponseEntity<SeasonRacesResponseDTO> = restTemplate.getForEntity(url)
+
+            if (response.statusCode.isError) throw RestClientException("Error retrieving races for season $year")
+
+            total = response.body?.seasonRacesPagedData?.total?: Int.MAX_VALUE
+
+            allResults += response.body?.seasonRacesPagedData?.raceTable?.races?: emptyList()
+
+            offset += LIMIT
+        }
+
+        return allResults
+            .groupBy { it.round }
+            .map { (round, groupedData) ->
+                val winningPosition = groupedData.flatMap { it.results }.find{ it.position == 1}
+                    ?: throw RestClientException("Error retrieving winning driver for race $round")
+
+                val raceData = groupedData.first()
+
+                Race(
+                    season = raceData.season,
+                    round = raceData.round,
+                    raceName = raceData.raceName,
+                    circuit = raceData.circuit,
+                    date = raceData.date,
+                    time = raceData.time,
+                    winningDriver = winningPosition.driver,
+                    winningConstructor = winningPosition.constructor
+
+                )
+            }
+    }
+
     companion object{
         const val DRIVER_STANDINGS = "driverstandings"
+        const val RESULTS_PATH = "results"
+        const val LIMIT_PARAM = "limit"
+        const val OFFSET_PARAM = "offset"
+        private const val LIMIT = 100
     }
 }
