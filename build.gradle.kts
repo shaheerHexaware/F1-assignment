@@ -23,8 +23,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.postgresql:postgresql")
 
-	implementation("org.springframework.retry:spring-retry:2.0.3")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
 
+	implementation("org.springframework.retry:spring-retry:2.0.3")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
