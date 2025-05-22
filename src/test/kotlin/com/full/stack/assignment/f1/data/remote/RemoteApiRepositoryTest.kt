@@ -31,15 +31,14 @@ import org.mockito.Mockito.`when`
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestClientException
-import org.springframework.web.client.RestTemplate
 import java.util.Random
 
 
 
 class RemoteApiRepositoryTest {
 
-    private val restTemplate: RestTemplate = mock(RestTemplate::class.java)
-    private val repository = RemoteApiRepository(DUMMY_BASE_URL, restTemplate)
+    private val apiClient: ApiClient = mock(ApiClient::class.java)
+    private val repository = RemoteApiRepository(DUMMY_BASE_URL, apiClient)
 
     @Test
     fun `getSeason should return Season when API call is successful`() {
@@ -50,7 +49,7 @@ class RemoteApiRepositoryTest {
         )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
-        `when`(restTemplate.getForEntity(url, DriverStandingResponseDTO::class.java))
+        `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
         val result = repository.getSeason(year)
@@ -64,7 +63,7 @@ class RemoteApiRepositoryTest {
         val year = DUMMY_SEASON
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
 
-        `when`(restTemplate.getForEntity(url, DriverStandingResponseDTO::class.java))
+        `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
             .thenReturn(ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR))
 
         val exception = assertThrows(RestClientException::class.java) {
@@ -82,7 +81,7 @@ class RemoteApiRepositoryTest {
         )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
-        `when`(restTemplate.getForEntity(url, DriverStandingResponseDTO::class.java))
+        `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
         val exception = assertThrows(IllegalStateException::class.java) {
@@ -98,7 +97,7 @@ class RemoteApiRepositoryTest {
         val responseDTO = createRacesResponse()
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
 
-        `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
+        `when`(apiClient.callApi(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
         val result = repository.getSeasonRaces(year)
@@ -117,7 +116,7 @@ class RemoteApiRepositoryTest {
         val year = DUMMY_SEASON
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
 
-        `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
+        `when`(apiClient.callApi(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR))
 
         val exception = assertThrows(RestClientException::class.java) {
@@ -137,7 +136,7 @@ class RemoteApiRepositoryTest {
         )
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
 
-        `when`(restTemplate.getForEntity(url, SeasonRacesResponseDTO::class.java))
+        `when`(apiClient.callApi(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
         val exception = assertThrows(RestClientException::class.java) {

@@ -5,19 +5,15 @@ import com.full.stack.assignment.f1.data.remote.model.RaceDTO
 import com.full.stack.assignment.f1.data.remote.model.SeasonRacesResponseDTO
 import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Repository
 import org.springframework.web.client.RestClientException
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.client.getForEntity
 import org.springframework.web.util.UriComponentsBuilder
 
 @Repository
 class RemoteApiRepository(
     @Value("\${api.base.url}") private val baseUrl: String,
-    @Autowired private val restTemplate: RestTemplate,
+    private val apiClient: ApiClient,
 ) {
     fun getSeason(year: Int): Season {
         val url = UriComponentsBuilder.fromUriString(baseUrl)
@@ -25,7 +21,7 @@ class RemoteApiRepository(
             .build()
             .toUriString()
 
-        val response: ResponseEntity<DriverStandingResponseDTO> = restTemplate.getForEntity(url)
+        val response = apiClient.callApi(url, DriverStandingResponseDTO::class.java)
 
         if (response.statusCode.isError) throw RestClientException("Error retrieving season $year")
 
@@ -51,7 +47,7 @@ class RemoteApiRepository(
                 .build()
                 .toUriString()
 
-            val response: ResponseEntity<SeasonRacesResponseDTO> = restTemplate.getForEntity(url)
+            val response = apiClient.callApi(url, SeasonRacesResponseDTO::class.java)
 
             if (response.statusCode.isError) throw RestClientException("Error retrieving races for season $year")
 
