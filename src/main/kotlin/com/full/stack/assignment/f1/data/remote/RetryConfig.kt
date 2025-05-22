@@ -22,7 +22,7 @@ class RetryConfig {
         }
         
         val retryPolicy = SimpleRetryPolicy().apply {
-            maxAttempts = 5
+            maxAttempts = 1
         }
         
         retryTemplate.setBackOffPolicy(exponentialBackOffPolicy)
