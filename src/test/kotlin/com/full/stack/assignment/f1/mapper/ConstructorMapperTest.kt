@@ -1,6 +1,7 @@
 package com.full.stack.assignment.f1.mapper
 
 import com.full.stack.assignment.f1.data.cache.entity.ConstructorEntity
+import com.full.stack.assignment.f1.data.cache.mapper.ConstructorMapper
 import com.full.stack.assignment.f1.model.Constructor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

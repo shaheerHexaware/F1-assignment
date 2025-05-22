@@ -2,13 +2,13 @@ package com.full.stack.assignment.f1.mapper
 
 import com.full.stack.assignment.f1.data.cache.entity.CircuitEntity
 import com.full.stack.assignment.f1.data.cache.entity.CircuitLocationEntity
+import com.full.stack.assignment.f1.data.cache.mapper.CircuitMapper
 import com.full.stack.assignment.f1.model.Circuit
 import com.full.stack.assignment.f1.model.CircuitLocation
 import io.mockk.MockKAnnotations
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 class CircuitMapperTest {
 

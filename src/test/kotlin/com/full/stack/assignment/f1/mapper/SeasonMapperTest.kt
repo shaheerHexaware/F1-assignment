@@ -4,10 +4,8 @@ import com.full.stack.assignment.f1.Dummies.createDriver
 import com.full.stack.assignment.f1.Dummies.createDriverEntity
 import com.full.stack.assignment.f1.Dummies.createSeason
 import com.full.stack.assignment.f1.Dummies.createSeasonEntity
-import com.full.stack.assignment.f1.data.cache.entity.DriverEntity
-import com.full.stack.assignment.f1.data.cache.entity.SeasonEntity
-import com.full.stack.assignment.f1.model.Driver
-import com.full.stack.assignment.f1.model.Season
+import com.full.stack.assignment.f1.data.cache.mapper.DriverMapper
+import com.full.stack.assignment.f1.data.cache.mapper.SeasonMapper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

@@ -1,10 +1,10 @@
 package com.full.stack.assignment.f1.mapper
 
 import com.full.stack.assignment.f1.data.cache.entity.DriverEntity
+import com.full.stack.assignment.f1.data.cache.mapper.DriverMapper
 import com.full.stack.assignment.f1.model.Driver
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 
 class DriverMapperTest {
 

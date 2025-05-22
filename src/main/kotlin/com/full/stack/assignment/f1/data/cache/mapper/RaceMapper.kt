@@ -1,4 +1,4 @@
-package com.full.stack.assignment.f1.mapper
+package com.full.stack.assignment.f1.data.cache.mapper
 
 import com.full.stack.assignment.f1.data.cache.entity.DriverEntity
 import com.full.stack.assignment.f1.data.cache.entity.RaceEntity

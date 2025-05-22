@@ -5,8 +5,8 @@ import com.full.stack.assignment.f1.data.cache.repository.ConstructorCacheReposi
 import com.full.stack.assignment.f1.data.cache.repository.DriverCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.RaceCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
-import com.full.stack.assignment.f1.mapper.RaceMapper
-import com.full.stack.assignment.f1.mapper.SeasonMapper
+import com.full.stack.assignment.f1.data.cache.mapper.RaceMapper
+import com.full.stack.assignment.f1.data.cache.mapper.SeasonMapper
 import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
 import org.springframework.stereotype.Repository

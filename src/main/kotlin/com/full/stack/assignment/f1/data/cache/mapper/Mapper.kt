@@ -1,4 +1,4 @@
-package com.full.stack.assignment.f1.mapper
+package com.full.stack.assignment.f1.data.cache.mapper
 
 interface Mapper<Domain, Entity> {
     fun toDomain(entity: Entity): Domain

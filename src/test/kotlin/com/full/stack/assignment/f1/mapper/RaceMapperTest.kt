@@ -8,6 +8,10 @@ import com.full.stack.assignment.f1.Dummies.createDriver
 import com.full.stack.assignment.f1.Dummies.createDriverEntity
 import com.full.stack.assignment.f1.Dummies.createRace
 import com.full.stack.assignment.f1.Dummies.createRaceEntity
+import com.full.stack.assignment.f1.data.cache.mapper.CircuitMapper
+import com.full.stack.assignment.f1.data.cache.mapper.ConstructorMapper
+import com.full.stack.assignment.f1.data.cache.mapper.DriverMapper
+import com.full.stack.assignment.f1.data.cache.mapper.RaceMapper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

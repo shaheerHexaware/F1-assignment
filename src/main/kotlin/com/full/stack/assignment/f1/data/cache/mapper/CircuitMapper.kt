@@ -1,4 +1,4 @@
-package com.full.stack.assignment.f1.mapper
+package com.full.stack.assignment.f1.data.cache.mapper
 
 import com.full.stack.assignment.f1.data.cache.entity.CircuitEntity
 import com.full.stack.assignment.f1.data.cache.entity.CircuitLocationEntity
