@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface RaceCacheRepository : JpaRepository<RaceEntity, Long> {
-    fun findBySeasonYear(year: Int): List<RaceEntity>
+    fun findBySeasonYearOrderByRoundAsc(year: Int): List<RaceEntity>
 }

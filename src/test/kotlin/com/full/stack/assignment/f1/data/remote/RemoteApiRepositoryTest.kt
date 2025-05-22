@@ -6,11 +6,11 @@ import com.full.stack.assignment.f1.DUMMY_SEASON
 import com.full.stack.assignment.f1.Dummies.createCircuit
 import com.full.stack.assignment.f1.Dummies.createConstructor
 import com.full.stack.assignment.f1.Dummies.createDriver
-import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.DRIVER_STANDINGS
-import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.LIMIT
-import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.LIMIT_PARAM
-import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.OFFSET_PARAM
-import com.full.stack.assignment.f1.data.remote.RemoteApiRepository.Companion.RESULTS_PATH
+import com.full.stack.assignment.f1.data.remote.RemoteRepository.Companion.DRIVER_STANDINGS
+import com.full.stack.assignment.f1.data.remote.RemoteRepository.Companion.LIMIT
+import com.full.stack.assignment.f1.data.remote.RemoteRepository.Companion.LIMIT_PARAM
+import com.full.stack.assignment.f1.data.remote.RemoteRepository.Companion.OFFSET_PARAM
+import com.full.stack.assignment.f1.data.remote.RemoteRepository.Companion.RESULTS_PATH
 import com.full.stack.assignment.f1.data.remote.model.DriverPositionDTO
 import com.full.stack.assignment.f1.data.remote.model.DriverStandingDTO
 import com.full.stack.assignment.f1.data.remote.model.DriverStandingDataDTO
@@ -38,7 +38,7 @@ import java.util.Random
 class RemoteApiRepositoryTest {
 
     private val apiClient: ApiClient = mock(ApiClient::class.java)
-    private val repository = RemoteApiRepository(DUMMY_BASE_URL, apiClient)
+    private val repository = RemoteRepository(DUMMY_BASE_URL, apiClient)
 
     @Test
     fun `getSeason should return Season when API call is successful`() {

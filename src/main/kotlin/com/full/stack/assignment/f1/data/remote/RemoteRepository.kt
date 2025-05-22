@@ -11,7 +11,7 @@ import org.springframework.web.client.RestClientException
 import org.springframework.web.util.UriComponentsBuilder
 
 @Repository
-class RemoteApiRepository(
+class RemoteRepository(
     @Value("\${api.base.url}") private val baseUrl: String,
     private val apiClient: ApiClient,
 ) {
