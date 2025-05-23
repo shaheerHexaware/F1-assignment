@@ -36,11 +36,6 @@ jobs:
       - name: Build with Gradle
         env:
           BUILD_VERSION: ${{ secrets.BUILD_VERSION }}
-          API_BASE_URL: ${{ secrets.API_BASE_URL }}
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         run: ./gradlew build -x test
 
       - name: Upload build artifacts
