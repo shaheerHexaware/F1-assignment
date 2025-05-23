@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class SeasonMapperTest {
-
     private val driverMapper: DriverMapper = mockk()
 
     private val seasonMapper = SeasonMapper(driverMapper)

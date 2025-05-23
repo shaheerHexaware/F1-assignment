@@ -23,17 +23,15 @@ const val DUMMY_SEASON = 2023
 const val DUMMY_ROUND = 1
 
 object Dummies {
-
-    fun createCircuit(
-        circuitId: String = DUMMY_CIRCUIT_ID,
-    ): Circuit {
+    fun createCircuit(circuitId: String = DUMMY_CIRCUIT_ID): Circuit {
         return Circuit(
             id = circuitId,
             name = "Bahrain International Circuit",
-            location = CircuitLocation(
-                locality = "Sakhir",
-                country = "Bahrain"
-            )
+            location =
+                CircuitLocation(
+                    locality = "Sakhir",
+                    country = "Bahrain",
+                ),
         )
     }
 
@@ -52,54 +50,49 @@ object Dummies {
             date = "2023-03-05",
             circuit = circuit,
             winningDriver = driver,
-            winningConstructor = constructor
+            winningConstructor = constructor,
         )
     }
 
     fun createSeason(
         year: Int = DUMMY_SEASON,
-        champion: Driver = createDriver(DUMMY_DRIVER_ID)
+        champion: Driver = createDriver(DUMMY_DRIVER_ID),
     ): Season {
         return Season(
             year = year,
-            champion = champion
+            champion = champion,
         )
     }
 
-    fun createConstructor(
-        constructorId: String = DUMMY_CONSTRUCTOR_ID,
-    ): Constructor {
+    fun createConstructor(constructorId: String = DUMMY_CONSTRUCTOR_ID): Constructor {
         return Constructor(
             id = constructorId,
             name = "Red Bull Racing",
-            nationality = "Austrian"
+            nationality = "Austrian",
         )
     }
 
-    fun createDriver(
-        driverId: String = DUMMY_DRIVER_ID,
-    ): Driver {
+    fun createDriver(driverId: String = DUMMY_DRIVER_ID): Driver {
         return Driver(
             id = driverId,
             code = driverId.uppercase().take(3),
             firstName = "First",
             lastName = "Last",
             dateOfBirth = "1985-01-01",
-            nationality = "British"
+            nationality = "British",
         )
     }
 
-    fun createCircuitEntity(
-        circuitId: String = DUMMY_CIRCUIT_ID,
-    ): CircuitEntity {
+    fun createCircuitEntity(circuitId: String = DUMMY_CIRCUIT_ID): CircuitEntity {
         return CircuitEntity(
             id = circuitId,
             name = "Bahrain International Circuit",
-            location = CircuitLocationEntity(
-                locality = "Sakhir",
-                country = "Bahrain",
-            ),
-            races = mutableSetOf()
+            location =
+                CircuitLocationEntity(
+                    locality = "Sakhir",
+                    country = "Bahrain",
+                ),
+            races = mutableSetOf(),
         )
     }
 
@@ -111,9 +104,8 @@ object Dummies {
         seasonEntity: SeasonEntity = createSeasonEntity(seasonYear),
         circuitEntity: CircuitEntity = createCircuitEntity(),
         driverEntity: DriverEntity = createDriverEntity(),
-        constructorEntity: ConstructorEntity = createConstructorEntity()
+        constructorEntity: ConstructorEntity = createConstructorEntity(),
     ): RaceEntity {
-
         return RaceEntity(
             id = id,
             round = round,
@@ -123,40 +115,36 @@ object Dummies {
             circuit = circuitEntity,
             season = seasonEntity,
             winningDriver = driverEntity,
-            winningConstructor = constructorEntity
+            winningConstructor = constructorEntity,
         )
     }
 
     fun createSeasonEntity(
         year: Int = DUMMY_SEASON,
-        champion: DriverEntity = createDriverEntity(DUMMY_DRIVER_ID)
+        champion: DriverEntity = createDriverEntity(DUMMY_DRIVER_ID),
     ): SeasonEntity {
         return SeasonEntity(
             year = year,
-            champion = champion
+            champion = champion,
         )
     }
 
-    fun createDriverEntity(
-        driverId: String = DUMMY_DRIVER_ID,
-    ): DriverEntity {
+    fun createDriverEntity(driverId: String = DUMMY_DRIVER_ID): DriverEntity {
         return DriverEntity(
             id = driverId,
             code = driverId.uppercase().take(3),
             firstName = "First",
             lastName = "Last",
             dateOfBirth = "1985-01-01",
-            nationality = "British"
+            nationality = "British",
         )
     }
 
-    fun createConstructorEntity(
-        constructorId: String = DUMMY_CONSTRUCTOR_ID,
-    ): ConstructorEntity {
+    fun createConstructorEntity(constructorId: String = DUMMY_CONSTRUCTOR_ID): ConstructorEntity {
         return ConstructorEntity(
             id = constructorId,
             name = "Red Bull Racing",
-            nationality = "Austrian"
+            nationality = "Austrian",
         )
     }
 }

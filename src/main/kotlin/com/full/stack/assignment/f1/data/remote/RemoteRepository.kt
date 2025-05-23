@@ -16,10 +16,11 @@ class RemoteRepository(
     private val apiClient: ApiClient,
 ) {
     fun getSeason(year: Int): Season {
-        val url = UriComponentsBuilder.fromUriString(baseUrl)
-            .pathSegment(year.toString(), DRIVER_STANDINGS)
-            .build()
-            .toUriString()
+        val url =
+            UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment(year.toString(), DRIVER_STANDINGS)
+                .build()
+                .toUriString()
 
         val response = apiClient.callApi(url, DriverStandingResponseDTO::class.java)
 
@@ -30,7 +31,7 @@ class RemoteRepository(
                 ?: throw IllegalStateException("Unable to find winning driver for year $year")
         return Season(
             year = year,
-            champion = winningDriver.driver
+            champion = winningDriver.driver,
         )
     }
 
@@ -40,20 +41,21 @@ class RemoteRepository(
         var total = Int.MAX_VALUE
 
         while (offset < total) {
-            val url = UriComponentsBuilder.fromUriString(baseUrl)
-                .pathSegment(year.toString(), RESULTS_PATH)
-                .queryParam(LIMIT_PARAM, LIMIT)
-                .queryParam(OFFSET_PARAM, offset)
-                .build()
-                .toUriString()
+            val url =
+                UriComponentsBuilder.fromUriString(baseUrl)
+                    .pathSegment(year.toString(), RESULTS_PATH)
+                    .queryParam(LIMIT_PARAM, LIMIT)
+                    .queryParam(OFFSET_PARAM, offset)
+                    .build()
+                    .toUriString()
 
             val response = apiClient.callApi(url, SeasonRacesResponseDTO::class.java)
 
             if (response.statusCode.isError) throw RestClientException("Error retrieving races for season $year")
 
-            total = response.body?.seasonRacesPagedData?.total?: Int.MAX_VALUE
+            total = response.body?.seasonRacesPagedData?.total ?: Int.MAX_VALUE
 
-            allResults += response.body?.seasonRacesPagedData?.raceTable?.races?: emptyList()
+            allResults += response.body?.seasonRacesPagedData?.raceTable?.races ?: emptyList()
 
             offset += LIMIT
         }
@@ -61,8 +63,9 @@ class RemoteRepository(
         return allResults
             .groupBy { it.round }
             .map { (round, groupedData) ->
-                val winningPosition = groupedData.flatMap { it.results }.find{ it.position == 1}
-                    ?: throw RestClientException("Error retrieving winning driver for race $round")
+                val winningPosition =
+                    groupedData.flatMap { it.results }.find { it.position == 1 }
+                        ?: throw RestClientException("Error retrieving winning driver for race $round")
 
                 val raceData = groupedData.first()
 
@@ -73,12 +76,12 @@ class RemoteRepository(
                     circuit = raceData.circuit,
                     date = raceData.date,
                     winningDriver = winningPosition.driver,
-                    winningConstructor = winningPosition.constructor
+                    winningConstructor = winningPosition.constructor,
                 )
             }
     }
 
-    companion object{
+    companion object {
         const val DRIVER_STANDINGS = "driverstandings"
         const val RESULTS_PATH = "results"
         const val LIMIT_PARAM = "limit"

@@ -1,12 +1,12 @@
 package com.full.stack.assignment.f1.data.cache
 
+import com.full.stack.assignment.f1.data.cache.mapper.RaceMapper
+import com.full.stack.assignment.f1.data.cache.mapper.SeasonMapper
 import com.full.stack.assignment.f1.data.cache.repository.CircuitCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.ConstructorCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.DriverCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.RaceCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
-import com.full.stack.assignment.f1.data.cache.mapper.RaceMapper
-import com.full.stack.assignment.f1.data.cache.mapper.SeasonMapper
 import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
 import org.springframework.stereotype.Repository
@@ -21,7 +21,10 @@ class CacheRepository(
     private val seasonMapper: SeasonMapper,
     private val raceMapper: RaceMapper,
 ) {
-    fun getSeasons(from: Int, to: Int): List<Season> {
+    fun getSeasons(
+        from: Int,
+        to: Int,
+    ): List<Season> {
         return seasonCacheRepository
             .findByYearBetweenOrderByYearAsc(from, to)
             .map { seasonMapper.toDomain(it) }

@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service
 @Service
 class F1ServiceImpl(
     private val remoteRepository: RemoteRepository,
-    private val cacheRepository: CacheRepository
-): F1Service {
-
+    private val cacheRepository: CacheRepository,
+) : F1Service {
     @Transactional
     override fun getSeasons(
         from: Int,
-        to: Int
+        to: Int,
     ): List<Season> {
         val cachedSeasons = cacheRepository.getSeasons(from, to)
 
@@ -52,11 +51,9 @@ class F1ServiceImpl(
         return races
     }
 
-    private fun getAndCacheSeason(year: Int): Season{
+    private fun getAndCacheSeason(year: Int): Season {
         val season = remoteRepository.getSeason(year)
         cacheRepository.saveSeason(season)
         return season
     }
-
-
 }

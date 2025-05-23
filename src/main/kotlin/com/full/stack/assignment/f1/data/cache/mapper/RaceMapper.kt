@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 class RaceMapper(
     private val circuitMapper: CircuitMapper,
     private val driverMapper: DriverMapper,
-    private val constructorMapper: ConstructorMapper
-): Mapper<Race, RaceEntity> {
+    private val constructorMapper: ConstructorMapper,
+) : Mapper<Race, RaceEntity> {
     override fun toDomain(entity: RaceEntity): Race {
         return Race(
             seasonYear = entity.seasonYear,
@@ -20,7 +20,7 @@ class RaceMapper(
             circuit = circuitMapper.toDomain(entity.circuit),
             date = entity.date,
             winningDriver = driverMapper.toDomain(entity.winningDriver),
-            winningConstructor = constructorMapper.toDomain(entity.winningConstructor)
+            winningConstructor = constructorMapper.toDomain(entity.winningConstructor),
         )
     }
 
@@ -33,7 +33,7 @@ class RaceMapper(
             circuit = circuitMapper.toEntity(domain.circuit),
             date = domain.date,
             winningDriver = driverMapper.toEntity(domain.winningDriver),
-            winningConstructor = constructorMapper.toEntity(domain.winningConstructor)
+            winningConstructor = constructorMapper.toEntity(domain.winningConstructor),
         )
     }
 }

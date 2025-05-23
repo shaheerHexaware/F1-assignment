@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class F1ServiceImplTest {
-
     @MockK
     private lateinit var remoteRepository: RemoteRepository
 
@@ -30,10 +29,11 @@ class F1ServiceImplTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        f1Service = F1ServiceImpl(
-            remoteRepository,
-            cacheRepository
-        )
+        f1Service =
+            F1ServiceImpl(
+                remoteRepository,
+                cacheRepository,
+            )
 
         every { cacheRepository.saveRace(any()) } returns mockk()
         every { cacheRepository.saveSeason(any()) } returns mockk()
@@ -43,11 +43,12 @@ class F1ServiceImplTest {
     fun `getSeasons should return cached seasons when all years are cached`() {
         val from = 2020
         val to = 2022
-        val domainSeasons = listOf(
-            createSeason(2020),
-            createSeason(2021),
-            createSeason(2022)
-        )
+        val domainSeasons =
+            listOf(
+                createSeason(2020),
+                createSeason(2021),
+                createSeason(2022),
+            )
 
         every { cacheRepository.getSeasons(from, to) } returns domainSeasons
 
@@ -62,17 +63,20 @@ class F1ServiceImplTest {
     fun `getSeasons should fetch missing years from API when some years are not cached`() {
         val from = 2020
         val to = 2022
-        val domainCachedSeasons = listOf(
-            createSeason(2020),
-            createSeason(2022)
-        )
+        val domainCachedSeasons =
+            listOf(
+                createSeason(2020),
+                createSeason(2022),
+            )
 
         val missingYear = 2021
         val newDriverId = "verstappen"
         val newDriver = createDriver(newDriverId)
-        val newSeason = createSeason(
-            year = missingYear,
-            champion = newDriver)
+        val newSeason =
+            createSeason(
+                year = missingYear,
+                champion = newDriver,
+            )
 
         every { cacheRepository.getSeasons(from, to) } returns domainCachedSeasons
         every { remoteRepository.getSeason(missingYear) } returns newSeason

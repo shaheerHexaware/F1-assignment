@@ -13,15 +13,12 @@ import jakarta.persistence.Table
 data class CircuitEntity(
     @Id
     val id: String,
-
     @Column(name = "circuit_name")
     val name: String,
-
     @Embedded
     val location: CircuitLocationEntity,
-
     @OneToMany(mappedBy = "circuit")
-    val races: MutableSet<RaceEntity> = mutableSetOf()
+    val races: MutableSet<RaceEntity> = mutableSetOf(),
 ) {
     constructor() : this("", "", CircuitLocationEntity(), mutableSetOf())
 }
@@ -29,7 +26,7 @@ data class CircuitEntity(
 @Embeddable
 data class CircuitLocationEntity(
     val locality: String,
-    val country: String
+    val country: String,
 ) {
     constructor() : this("", "")
 }

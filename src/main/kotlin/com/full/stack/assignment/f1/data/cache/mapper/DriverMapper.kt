@@ -5,7 +5,7 @@ import com.full.stack.assignment.f1.model.Driver
 import org.springframework.stereotype.Component
 
 @Component
-class DriverMapper: Mapper<Driver, DriverEntity> {
+class DriverMapper : Mapper<Driver, DriverEntity> {
     override fun toDomain(entity: DriverEntity): Driver {
         return Driver(
             id = entity.id,

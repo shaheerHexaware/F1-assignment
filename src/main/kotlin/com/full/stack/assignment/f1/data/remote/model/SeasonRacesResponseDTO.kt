@@ -7,7 +7,7 @@ import com.full.stack.assignment.f1.model.Driver
 
 data class SeasonRacesResponseDTO(
     @JsonProperty("MRData")
-    val seasonRacesPagedData: SeasonRacesPagedDataDTO
+    val seasonRacesPagedData: SeasonRacesPagedDataDTO,
 )
 
 data class SeasonRacesPagedDataDTO(
@@ -18,14 +18,14 @@ data class SeasonRacesPagedDataDTO(
     @JsonProperty("total")
     val total: Int,
     @JsonProperty("RaceTable")
-    val raceTable: RaceTableDTO
+    val raceTable: RaceTableDTO,
 )
 
 data class RaceTableDTO(
     @JsonProperty("season")
     val season: Int,
     @JsonProperty("Races")
-    val races: List<RaceDTO>
+    val races: List<RaceDTO>,
 )
 
 data class RaceDTO(
@@ -40,7 +40,7 @@ data class RaceDTO(
     @JsonProperty("date")
     val date: String,
     @JsonProperty("Results")
-    val results: List<DriverPositionDTO>
+    val results: List<DriverPositionDTO>,
 )
 
 data class DriverPositionDTO(
@@ -59,5 +59,5 @@ data class DriverPositionDTO(
     @JsonProperty("laps")
     val laps: Int,
     @JsonProperty("status")
-    val status: String
+    val status: String,
 )

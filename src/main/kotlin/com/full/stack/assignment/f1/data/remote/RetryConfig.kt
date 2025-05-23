@@ -10,24 +10,25 @@ import org.springframework.retry.support.RetryTemplate
 @Configuration
 @EnableRetry
 class RetryConfig {
-    
     @Bean
     fun retryTemplate(): RetryTemplate {
         val retryTemplate = RetryTemplate()
-        
-        val exponentialBackOffPolicy = ExponentialBackOffPolicy().apply {
-            initialInterval = 1000L
-            multiplier = 2.0
-            maxInterval = 15000L
-        }
-        
-        val retryPolicy = SimpleRetryPolicy().apply {
-            maxAttempts = 1
-        }
-        
+
+        val exponentialBackOffPolicy =
+            ExponentialBackOffPolicy().apply {
+                initialInterval = 1000L
+                multiplier = 2.0
+                maxInterval = 15000L
+            }
+
+        val retryPolicy =
+            SimpleRetryPolicy().apply {
+                maxAttempts = 1
+            }
+
         retryTemplate.setBackOffPolicy(exponentialBackOffPolicy)
         retryTemplate.setRetryPolicy(retryPolicy)
-        
+
         return retryTemplate
     }
 }

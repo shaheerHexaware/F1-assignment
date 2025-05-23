@@ -1,29 +1,28 @@
 package com.full.stack.assignment.f1.data.remote.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.full.stack.assignment.f1.model.Constructor
 import com.full.stack.assignment.f1.model.Driver
 
 data class DriverStandingResponseDTO(
     @JsonProperty("MRData")
-    val driverStandingsData: DriverStandingDataDTO
+    val driverStandingsData: DriverStandingDataDTO,
 )
 
 data class DriverStandingDataDTO(
     @JsonProperty("StandingsTable")
-    val standingsTable: StandingsTableDTO
+    val standingsTable: StandingsTableDTO,
 )
 
 data class StandingsTableDTO(
     @JsonProperty("StandingsLists")
-    val standingsList: List<SeasonRoundDTO>
+    val standingsList: List<SeasonRoundDTO>,
 )
 
 data class SeasonRoundDTO(
     @JsonProperty("round")
     val round: Int,
     @JsonProperty("DriverStandings")
-    val driverStandings: List<DriverStandingDTO>
+    val driverStandings: List<DriverStandingDTO>,
 )
 
 data class DriverStandingDTO(
@@ -34,5 +33,5 @@ data class DriverStandingDTO(
     @JsonProperty("wins")
     val wins: Int,
     @JsonProperty("Driver")
-    val driver: Driver
+    val driver: Driver,
 )

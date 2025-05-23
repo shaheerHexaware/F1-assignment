@@ -11,9 +11,12 @@ class RateLimitExceededException(message: String?, cause: Throwable?) : RuntimeE
 @Component
 class ApiClient(
     private val restTemplate: RestTemplate,
-    private val retryTemplate: RetryTemplate
+    private val retryTemplate: RetryTemplate,
 ) {
-    fun <ResponseDTO> callApi(url: String, responseType: Class<ResponseDTO>): ResponseEntity<ResponseDTO> {
+    fun <ResponseDTO> callApi(
+        url: String,
+        responseType: Class<ResponseDTO>,
+    ): ResponseEntity<ResponseDTO> {
         return retryTemplate.execute<ResponseEntity<ResponseDTO>, Exception> {
             try {
                 restTemplate.getForEntity(url, responseType)

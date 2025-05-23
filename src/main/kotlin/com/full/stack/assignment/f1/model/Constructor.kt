@@ -8,5 +8,5 @@ data class Constructor(
     @JsonProperty("name")
     val name: String,
     @JsonProperty("nationality")
-    val nationality: String
+    val nationality: String,
 )

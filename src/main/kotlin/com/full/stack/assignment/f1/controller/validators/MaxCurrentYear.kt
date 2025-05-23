@@ -9,5 +9,5 @@ import kotlin.reflect.KClass
 annotation class MaxCurrentYear(
     val message: String = "Year cannot be greater than current year",
     val groups: Array<KClass<*>> = [],
-    val payload: Array<KClass<*>> = []
+    val payload: Array<KClass<*>> = [],
 )

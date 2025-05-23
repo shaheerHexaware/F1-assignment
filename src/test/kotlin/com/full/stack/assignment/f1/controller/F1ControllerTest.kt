@@ -13,12 +13,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class F1ControllerTest {
-
     private lateinit var f1Service: F1Service
     private lateinit var controller: F1Controller
 
     private val currentYear = Year.now().value
-
 
     @BeforeEach
     fun setup() {
@@ -44,7 +42,7 @@ class F1ControllerTest {
     fun `getSeasonsWithChampions should use currentYear as default to parameter`() {
         val from = 2010
 
-        val expectedSeasons = List(currentYear - from + 1){ createSeason(year = from + it) }
+        val expectedSeasons = List(currentYear - from + 1) { createSeason(year = from + it) }
 
         every { f1Service.getSeasons(from, currentYear) } returns expectedSeasons
 
@@ -59,9 +57,10 @@ class F1ControllerTest {
         val from = 2010
         val to = currentYear + 1
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonsWithChampions(from, to)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonsWithChampions(from, to)
+            }
         assertEquals("To year ($to) cannot be greater than ($currentYear)", exception.message)
     }
 
@@ -70,9 +69,10 @@ class F1ControllerTest {
         val from = 2020
         val to = 2010
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonsWithChampions(from, to)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonsWithChampions(from, to)
+            }
         assertEquals("From year ($from) cannot be greater than to year ($to)", exception.message)
     }
 
@@ -81,9 +81,10 @@ class F1ControllerTest {
         val from = 1940
         val to = 1960
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonsWithChampions(from, to)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonsWithChampions(from, to)
+            }
         assertEquals("Invalid range. Range should start from year that is >= $FIRST_FORMULA1_YEAR", exception.message)
     }
 
@@ -92,9 +93,10 @@ class F1ControllerTest {
         val from = 1940
         val to = 1949
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonsWithChampions(from, to)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonsWithChampions(from, to)
+            }
         assertEquals("Invalid range. Range should start from year that is >= $FIRST_FORMULA1_YEAR", exception.message)
     }
 
@@ -113,9 +115,10 @@ class F1ControllerTest {
     fun `getSeasonRaces should throw exception when year is greater than current year`() {
         val year = currentYear + 1
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonRaces(year)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonRaces(year)
+            }
         assertEquals("Year ($year) cannot be greater than ($currentYear)", exception.message)
     }
 
@@ -123,9 +126,10 @@ class F1ControllerTest {
     fun `getSeasonRaces should throw exception when year is before first Formula 1 year`() {
         val year = 1940
 
-        val exception = assertFailsWith<InvalidDateRangeException> {
-            controller.getSeasonRaces(year)
-        }
+        val exception =
+            assertFailsWith<InvalidDateRangeException> {
+                controller.getSeasonRaces(year)
+            }
         assertEquals("Invalid year. Year should be >= $FIRST_FORMULA1_YEAR", exception.message)
     }
 }

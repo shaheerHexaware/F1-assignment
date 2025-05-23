@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SeasonCacheRepository : JpaRepository<SeasonEntity, Int> {
-    fun findByYearBetweenOrderByYearAsc(startYear: Int, endYear: Int): List<SeasonEntity>
+    fun findByYearBetweenOrderByYearAsc(
+        startYear: Int,
+        endYear: Int,
+    ): List<SeasonEntity>
 }

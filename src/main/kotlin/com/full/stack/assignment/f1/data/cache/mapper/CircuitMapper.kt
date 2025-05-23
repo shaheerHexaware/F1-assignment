@@ -7,15 +7,16 @@ import com.full.stack.assignment.f1.model.CircuitLocation
 import org.springframework.stereotype.Component
 
 @Component
-class CircuitMapper: Mapper<Circuit, CircuitEntity> {
+class CircuitMapper : Mapper<Circuit, CircuitEntity> {
     override fun toDomain(entity: CircuitEntity): Circuit {
         return Circuit(
             id = entity.id,
             name = entity.name,
-            location = CircuitLocation(
-                locality = entity.location.locality,
-                country = entity.location.country,
-            ),
+            location =
+                CircuitLocation(
+                    locality = entity.location.locality,
+                    country = entity.location.country,
+                ),
         )
     }
 
@@ -23,10 +24,11 @@ class CircuitMapper: Mapper<Circuit, CircuitEntity> {
         return CircuitEntity(
             id = domain.id,
             name = domain.name,
-            location = CircuitLocationEntity(
-                locality = domain.location.locality,
-                country = domain.location.country,
-            )
+            location =
+                CircuitLocationEntity(
+                    locality = domain.location.locality,
+                    country = domain.location.country,
+                ),
         )
     }
 }

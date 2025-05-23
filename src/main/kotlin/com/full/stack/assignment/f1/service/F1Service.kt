@@ -6,10 +6,8 @@ import com.full.stack.assignment.f1.model.Season
 interface F1Service {
     fun getSeasons(
         from: Int,
-        to: Int
+        to: Int,
     ): List<Season>
 
-    fun getSeasonRaces(
-        season: Int
-    ): List<Race>
+    fun getSeasonRaces(season: Int): List<Race>
 }

@@ -11,28 +11,27 @@ import jakarta.persistence.Table
 data class DriverEntity(
     @Id
     val id: String,
-
     val code: String?,
-
     @Column(name = "first_name")
     val firstName: String,
-
     @Column(name = "last_name")
     val lastName: String,
-
     @Column(name = "date_of_birth")
     val dateOfBirth: String,
-
     val nationality: String,
-
     @OneToMany(mappedBy = "champion")
     val championshipSeasons: MutableSet<SeasonEntity> = mutableSetOf(),
-
     @OneToMany(mappedBy = "winningDriver")
-    val racesWon: MutableSet<RaceEntity> = mutableSetOf()
+    val racesWon: MutableSet<RaceEntity> = mutableSetOf(),
 ) {
     constructor() : this(
-        "", "", "", "", "", "",
-        mutableSetOf(), mutableSetOf()
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        mutableSetOf(),
+        mutableSetOf(),
     )
 }

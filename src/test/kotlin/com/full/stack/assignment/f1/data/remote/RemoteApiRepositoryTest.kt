@@ -24,7 +24,8 @@ import com.full.stack.assignment.f1.data.remote.model.StandingsTableDTO
 import com.full.stack.assignment.f1.model.Circuit
 import com.full.stack.assignment.f1.model.Constructor
 import com.full.stack.assignment.f1.model.Driver
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
@@ -33,10 +34,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestClientException
 import java.util.Random
 
-
-
 class RemoteApiRepositoryTest {
-
     private val apiClient: ApiClient = mock(ApiClient::class.java)
     private val repository = RemoteRepository(DUMMY_BASE_URL, apiClient)
 
@@ -44,9 +42,10 @@ class RemoteApiRepositoryTest {
     fun `getSeason should return Season when API call is successful`() {
         val year = DUMMY_SEASON
         val driver = createDriver()
-        val responseDTO = createSeasonApiResponse(
-            driverStandingDTO = createDriverStandingDTO(1, driver),
-        )
+        val responseDTO =
+            createSeasonApiResponse(
+                driverStandingDTO = createDriverStandingDTO(1, driver),
+            )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
         `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
@@ -66,9 +65,10 @@ class RemoteApiRepositoryTest {
         `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
             .thenReturn(ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR))
 
-        val exception = assertThrows(RestClientException::class.java) {
-            repository.getSeason(year)
-        }
+        val exception =
+            assertThrows(RestClientException::class.java) {
+                repository.getSeason(year)
+            }
 
         assertEquals("Error retrieving season $year", exception.message)
     }
@@ -76,17 +76,19 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeason should throw IllegalStateException when no winning driver is found`() {
         val year = DUMMY_SEASON
-        val responseDTO = createSeasonApiResponse(
-            driverStandingDTO = createDriverStandingDTO(2),
-        )
+        val responseDTO =
+            createSeasonApiResponse(
+                driverStandingDTO = createDriverStandingDTO(2),
+            )
 
         val url = "${DUMMY_BASE_URL}/$year/$DRIVER_STANDINGS"
         `when`(apiClient.callApi(url, DriverStandingResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
-        val exception = assertThrows(IllegalStateException::class.java) {
-            repository.getSeason(year)
-        }
+        val exception =
+            assertThrows(IllegalStateException::class.java) {
+                repository.getSeason(year)
+            }
 
         assertEquals("Unable to find winning driver for year $year", exception.message)
     }
@@ -119,9 +121,10 @@ class RemoteApiRepositoryTest {
         `when`(apiClient.callApi(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR))
 
-        val exception = assertThrows(RestClientException::class.java) {
-            repository.getSeasonRaces(year)
-        }
+        val exception =
+            assertThrows(RestClientException::class.java) {
+                repository.getSeasonRaces(year)
+            }
 
         assertEquals("Error retrieving races for season $year", exception.message)
     }
@@ -129,19 +132,24 @@ class RemoteApiRepositoryTest {
     @Test
     fun `getSeasonRaces should throw RestClientException when no winning driver is found`() {
         val year = DUMMY_SEASON
-        val responseDTO = createRacesResponse(
-            races = listOf(createRaceDTO(
-                driverPositions = listOf(createDriverPositionDTO(2))
-            ),)
-        )
+        val responseDTO =
+            createRacesResponse(
+                races =
+                    listOf(
+                        createRaceDTO(
+                            driverPositions = listOf(createDriverPositionDTO(2)),
+                        ),
+                    ),
+            )
         val url = "${DUMMY_BASE_URL}/$year/$RESULTS_PATH?$LIMIT_PARAM=$LIMIT&$OFFSET_PARAM=0"
 
         `when`(apiClient.callApi(url, SeasonRacesResponseDTO::class.java))
             .thenReturn(ResponseEntity(responseDTO, HttpStatus.OK))
 
-        val exception = assertThrows(RestClientException::class.java) {
-            repository.getSeasonRaces(year)
-        }
+        val exception =
+            assertThrows(RestClientException::class.java) {
+                repository.getSeasonRaces(year)
+            }
 
         assertEquals("Error retrieving winning driver for race 1", exception.message)
     }
@@ -151,18 +159,20 @@ class RemoteApiRepositoryTest {
         offset: Int = 0,
         total: Int = LIMIT,
         season: Int = DUMMY_SEASON,
-        races: List<RaceDTO> = listOf(createRaceDTO())
-    ): SeasonRacesResponseDTO{
+        races: List<RaceDTO> = listOf(createRaceDTO()),
+    ): SeasonRacesResponseDTO {
         return SeasonRacesResponseDTO(
-            seasonRacesPagedData = SeasonRacesPagedDataDTO(
-                limit = limit,
-                offset = offset,
-                total = total,
-                raceTable = RaceTableDTO(
-                    season = season,
-                    races = races
-                )
-            )
+            seasonRacesPagedData =
+                SeasonRacesPagedDataDTO(
+                    limit = limit,
+                    offset = offset,
+                    total = total,
+                    raceTable =
+                        RaceTableDTO(
+                            season = season,
+                            races = races,
+                        ),
+                ),
         )
     }
 
@@ -170,7 +180,7 @@ class RemoteApiRepositoryTest {
         year: Int = DUMMY_SEASON,
         raceName: String = DUMMY_RACE_NAME,
         circuit: Circuit = createCircuit(),
-        driverPositions: List<DriverPositionDTO> = listOf(createDriverPositionDTO())
+        driverPositions: List<DriverPositionDTO> = listOf(createDriverPositionDTO()),
     ): RaceDTO {
         return RaceDTO(
             season = year,
@@ -178,7 +188,7 @@ class RemoteApiRepositoryTest {
             raceName = raceName,
             circuit = circuit,
             date = "2023-03-05",
-            results = driverPositions
+            results = driverPositions,
         )
     }
 
@@ -195,25 +205,26 @@ class RemoteApiRepositoryTest {
             constructor = constructor,
             grid = 1,
             laps = 58,
-            status = "Finished"
+            status = "Finished",
         )
     }
 
-    private fun createSeasonApiResponse(
-        driverStandingDTO: DriverStandingDTO = createDriverStandingDTO()
-    ): DriverStandingResponseDTO {
-        val seasonRoundDTO = SeasonRoundDTO(
-            round = 1,
-            driverStandings = listOf(driverStandingDTO)
-        )
-        val standingsTableDTO = StandingsTableDTO(
-            standingsList = listOf(seasonRoundDTO)
-        )
-        val driverStandingDataDTO = DriverStandingDataDTO(
-            standingsTable = standingsTableDTO
-        )
+    private fun createSeasonApiResponse(driverStandingDTO: DriverStandingDTO = createDriverStandingDTO()): DriverStandingResponseDTO {
+        val seasonRoundDTO =
+            SeasonRoundDTO(
+                round = 1,
+                driverStandings = listOf(driverStandingDTO),
+            )
+        val standingsTableDTO =
+            StandingsTableDTO(
+                standingsList = listOf(seasonRoundDTO),
+            )
+        val driverStandingDataDTO =
+            DriverStandingDataDTO(
+                standingsTable = standingsTableDTO,
+            )
         return DriverStandingResponseDTO(
-            driverStandingsData = driverStandingDataDTO
+            driverStandingsData = driverStandingDataDTO,
         )
     }
 
@@ -225,9 +236,7 @@ class RemoteApiRepositoryTest {
             position = position,
             points = Random().nextDouble(0.0, 400.0),
             wins = Random().nextInt(7, 12),
-            driver = driver
+            driver = driver,
         )
     }
-
-
 }

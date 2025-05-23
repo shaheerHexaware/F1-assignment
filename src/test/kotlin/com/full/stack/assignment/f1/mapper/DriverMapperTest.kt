@@ -7,19 +7,19 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class DriverMapperTest {
-
     private val mapper = DriverMapper()
 
     @Test
     fun `toDomain should correctly map DriverEntity to Driver`() {
-        val entity = DriverEntity(
-            id = "hamilton",
-            code = "HAM",
-            firstName = "Lewis",
-            lastName = "Hamilton",
-            dateOfBirth = "2023-03-05",
-            nationality = "British"
-        )
+        val entity =
+            DriverEntity(
+                id = "hamilton",
+                code = "HAM",
+                firstName = "Lewis",
+                lastName = "Hamilton",
+                dateOfBirth = "2023-03-05",
+                nationality = "British",
+            )
 
         val domain = mapper.toDomain(entity)
 
@@ -33,14 +33,15 @@ class DriverMapperTest {
 
     @Test
     fun `toEntity should correctly map Driver to DriverEntity`() {
-        val domain = Driver(
-            id = "hamilton",
-            code = "HAM",
-            firstName = "Lewis",
-            lastName = "Hamilton",
-            dateOfBirth = "2023-03-05",
-            nationality = "British"
-        )
+        val domain =
+            Driver(
+                id = "hamilton",
+                code = "HAM",
+                firstName = "Lewis",
+                lastName = "Hamilton",
+                dateOfBirth = "2023-03-05",
+                nationality = "British",
+            )
 
         val entity = mapper.toEntity(domain)
 

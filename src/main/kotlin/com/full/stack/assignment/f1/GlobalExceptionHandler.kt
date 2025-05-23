@@ -13,7 +13,6 @@ class InvalidDateRangeException(message: String) : IllegalArgumentException(mess
 
 @ControllerAdvice
 class GlobalExceptionHandler {
-
     @ExceptionHandler(RestClientException::class)
     fun handleInternalErrorRequest(e: RestClientException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
@@ -37,5 +36,4 @@ class GlobalExceptionHandler {
     }
 
     data class ApiError(val errors: List<String>)
-
 }

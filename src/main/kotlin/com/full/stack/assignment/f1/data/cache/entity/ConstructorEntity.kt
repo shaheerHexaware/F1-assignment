@@ -10,13 +10,10 @@ import jakarta.persistence.Table
 data class ConstructorEntity(
     @Id
     val id: String,
-    
     val name: String,
-    
     val nationality: String,
-    
     @OneToMany(mappedBy = "winningConstructor")
-    val racesWon: MutableSet<RaceEntity> = mutableSetOf()
+    val racesWon: MutableSet<RaceEntity> = mutableSetOf(),
 ) {
     constructor() : this("", "", "", mutableSetOf())
 }

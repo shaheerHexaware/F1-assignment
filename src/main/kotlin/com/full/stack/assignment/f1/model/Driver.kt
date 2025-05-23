@@ -14,5 +14,5 @@ data class Driver(
     @JsonProperty("dateOfBirth")
     val dateOfBirth: String,
     @JsonProperty("nationality")
-    val nationality: String
+    val nationality: String,
 )

@@ -7,5 +7,5 @@ data class Race(
     val circuit: Circuit,
     val date: String,
     val winningDriver: Driver,
-    val winningConstructor: Constructor
+    val winningConstructor: Constructor,
 )

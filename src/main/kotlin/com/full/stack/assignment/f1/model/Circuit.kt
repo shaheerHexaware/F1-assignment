@@ -8,12 +8,12 @@ data class Circuit(
     @JsonProperty("circuitName")
     val name: String,
     @JsonProperty("Location")
-    val location: CircuitLocation
+    val location: CircuitLocation,
 )
 
 data class CircuitLocation(
     @JsonProperty("locality")
     val locality: String,
     @JsonProperty("country")
-    val country: String
+    val country: String,
 )

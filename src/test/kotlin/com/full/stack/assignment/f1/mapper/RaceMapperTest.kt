@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class RaceMapperTest {
-
     private val circuitMapper: CircuitMapper = mockk()
     private val driverMapper: DriverMapper = mockk()
     private val constructorMapper: ConstructorMapper = mockk()
@@ -31,11 +30,12 @@ class RaceMapperTest {
         val circuitEntity = createCircuitEntity()
         val winningDriverEntity = createDriverEntity()
         val winningConstructorEntity = createConstructorEntity()
-        val raceEntity = createRaceEntity(
-            circuitEntity = circuitEntity,
-            driverEntity = winningDriverEntity,
-            constructorEntity = winningConstructorEntity
-        )
+        val raceEntity =
+            createRaceEntity(
+                circuitEntity = circuitEntity,
+                driverEntity = winningDriverEntity,
+                constructorEntity = winningConstructorEntity,
+            )
 
         val circuit = createCircuit()
         val winningDriver = createDriver()
@@ -64,11 +64,12 @@ class RaceMapperTest {
         val circuit = createCircuit()
         val driver = createDriver()
         val constructor = createConstructor()
-        val race = createRace(
-            circuit = circuit,
-            driver = driver,
-            constructor = constructor
-        )
+        val race =
+            createRace(
+                circuit = circuit,
+                driver = driver,
+                constructor = constructor,
+            )
 
         val circuitEntity = createCircuitEntity()
         val driverEntity = createDriverEntity()

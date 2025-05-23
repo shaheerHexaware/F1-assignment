@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class CircuitMapperTest {
-
     private lateinit var circuitMapper: CircuitMapper
 
     @BeforeEach
@@ -22,14 +21,16 @@ class CircuitMapperTest {
 
     @Test
     fun `toEntity should correctly map Circuit to CircuitEntity`() {
-        val circuit = Circuit(
-            id = "monaco",
-            name = "Circuit de Monaco",
-            location = CircuitLocation(
-                locality = "Monte Carlo",
-                country = "Monaco"
+        val circuit =
+            Circuit(
+                id = "monaco",
+                name = "Circuit de Monaco",
+                location =
+                    CircuitLocation(
+                        locality = "Monte Carlo",
+                        country = "Monaco",
+                    ),
             )
-        )
 
         // When
         val result = circuitMapper.toEntity(circuit)
@@ -44,14 +45,16 @@ class CircuitMapperTest {
     @Test
     fun `toDomain should correctly map CircuitEntity to Circuit`() {
         // Given
-        val circuitEntity = CircuitEntity(
-            id = "silverstone",
-            name = "Silverstone Circuit",
-            location = CircuitLocationEntity(
-                locality = "Monte Carlo",
-                country = "Monaco"
+        val circuitEntity =
+            CircuitEntity(
+                id = "silverstone",
+                name = "Silverstone Circuit",
+                location =
+                    CircuitLocationEntity(
+                        locality = "Monte Carlo",
+                        country = "Monaco",
+                    ),
             )
-        )
 
         // When
         val result = circuitMapper.toDomain(circuitEntity)

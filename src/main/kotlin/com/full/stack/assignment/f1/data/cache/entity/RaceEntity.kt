@@ -15,34 +15,26 @@ data class RaceEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     @Column(name = "season_year", insertable = false, updatable = false)
     val seasonYear: Int,
-
     val round: Int,
-
     @Column(name = "race_name")
     val raceName: String,
-
     val date: String,
-
     @ManyToOne
     @JoinColumn(name = "circuit_id")
     val circuit: CircuitEntity,
-
     @ManyToOne
     @JoinColumn(name = "winning_driver_id")
     val winningDriver: DriverEntity,
-
     @ManyToOne
     @JoinColumn(name = "winning_constructor_id")
     val winningConstructor: ConstructorEntity,
-
     @ManyToOne
     @JoinColumn(name = "season_year")
     val season: SeasonEntity,
 ) {
     constructor() : this(
-        null, 0, 0, "", "", CircuitEntity(), DriverEntity(), ConstructorEntity(), SeasonEntity()
+        null, 0, 0, "", "", CircuitEntity(), DriverEntity(), ConstructorEntity(), SeasonEntity(),
     )
 }
