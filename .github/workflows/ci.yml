@@ -39,7 +39,8 @@ jobs:
       - name: Extract version from Gradle
         id: gradle-version
         run: |
-          APP_VERSION=$(./gradlew properties | grep "version:" | awk '{print $2}')
+          RAW_VERSION=$(./gradlew properties | grep "version:" | awk '{print $2}')
+          CLEAN_VERSION=$(echo "$RAW_VERSION" | tr -d '\n\r')
           echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
           echo "version=$APP_VERSION" >> $GITHUB_OUTPUT
 
