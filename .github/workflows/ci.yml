@@ -2,9 +2,10 @@ name: F1 Assignment CI/CD
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ feature/pipeline ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -27,28 +28,46 @@ jobs:
       - name: Install dependencies
         run: ./gradlew dependencies
 
-#      - name: Run ktlint
-#        run: ./gradlew ktlintCheck
-#
-#      - name: Run tests
-#        run: ./gradlew test
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run tests
+        run: ./gradlew test
 
       - name: Build with Gradle
         run: ./gradlew build -x test
 
-      - name: Extract version from Gradle
+      - name: Extract version from gradle.properties
         id: gradle-version
         run: |
-          RAW_VERSION=$(./gradlew properties | grep "version:" | awk '{print $2}')
-          CLEAN_VERSION=$(echo "$RAW_VERSION" | tr -d '\n\r')
-          echo "APP_VERSION=$CLEAN_VERSION" >> $GITHUB_ENV
-          echo "version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
-          echo "Extracted version: $CLEAN_VERSION"
-          echo "Extracted version: $GITHUB_ENV
-
-
+          VERSION=$(grep "version=" gradle.properties | cut -d'=' -f2)
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+      
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: build/libs/f1-${{ env.APP_VERSION }}.jar
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.APP_VERSION }}
+          release_name: Release v${{ env.APP_VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/f1-${{ env.APP_VERSION }}.jar
+          asset_name: f1-${{ env.APP_VERSION }}.jar
+          asset_content_type: application/java-archive
