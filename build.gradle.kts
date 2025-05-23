@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.full.stack.assignment"
-version = System.getenv("BUILD_VERSION") ?: "0.0.1-SNAPSHOT"
+version = project.version
 
 java {
     toolchain {

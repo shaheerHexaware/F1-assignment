@@ -34,14 +34,17 @@ jobs:
         run: ./gradlew test
 
       - name: Build with Gradle
-        env:
-          BUILD_VERSION: ${{ secrets.BUILD_VERSION }}
         run: ./gradlew build -x test
+
+      - name: Extract version from Gradle
+        id: gradle-version
+        run: |
+          APP_VERSION=$(./gradlew properties | grep "version:" | awk '{print $2}')
+          echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
+          echo "version=$APP_VERSION" >> $GITHUB_OUTPUT
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: package
-          path: build/libs/*.jar
-
-
+          name: app-jar
+          path: build/libs/f1-${{ env.APP_VERSION }}.jar
