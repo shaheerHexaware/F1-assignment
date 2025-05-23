@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 import java.time.Year
 
 class MaxCurrentYearValidatorTest {
-
     private lateinit var validator: MaxCurrentYearValidator
     private lateinit var context: ConstraintValidatorContext
 

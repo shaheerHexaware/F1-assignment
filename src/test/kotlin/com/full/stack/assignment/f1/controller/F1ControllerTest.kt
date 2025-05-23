@@ -2,7 +2,6 @@ package com.full.stack.assignment.f1.controller
 
 import com.full.stack.assignment.f1.Dummies.createRace
 import com.full.stack.assignment.f1.Dummies.createSeason
-import com.full.stack.assignment.f1.InvalidDateRangeException
 import com.full.stack.assignment.f1.service.F1Service
 import io.mockk.every
 import io.mockk.mockk
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.Year
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
 class F1ControllerTest {
     private lateinit var f1Service: F1Service
