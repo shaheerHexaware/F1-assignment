@@ -12,7 +12,6 @@ class F1ServiceImpl(
     private val remoteRepository: RemoteRepository,
     private val cacheRepository: CacheRepository,
 ) : F1Service {
-    @Transactional
     override fun getSeasons(
         from: Int,
         to: Int,
@@ -31,7 +30,6 @@ class F1ServiceImpl(
         return (cachedSeasons + newSeasons).sortedBy { it.year }
     }
 
-    @Transactional
     override fun getSeasonRaces(season: Int): List<Race> {
         if (!cacheRepository.hasSeason(season)) {
             getAndCacheSeason(season)

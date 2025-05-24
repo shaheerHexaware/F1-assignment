@@ -9,6 +9,7 @@ import com.full.stack.assignment.f1.data.cache.repository.RaceCacheRepository
 import com.full.stack.assignment.f1.data.cache.repository.SeasonCacheRepository
 import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -33,7 +34,7 @@ class CacheRepository(
     fun hasSeason(year: Int): Boolean {
         return seasonCacheRepository.existsById(year)
     }
-
+    @Transactional
     fun saveSeason(season: Season) {
         val seasonEntity = seasonMapper.toEntity(season)
         driverCacheRepository.save(seasonEntity.champion)
@@ -44,7 +45,7 @@ class CacheRepository(
         return raceCacheRepository.findBySeasonYearOrderByRoundAsc(season)
             .map { raceMapper.toDomain(it) }
     }
-
+    @Transactional
     fun saveRace(race: Race) {
         val raceEntity = raceMapper.toEntity(race)
         circuitCacheRepository.save(raceEntity.circuit)
