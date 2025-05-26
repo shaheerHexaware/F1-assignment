@@ -38,7 +38,7 @@ class RacesScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final race = state.races[index];
                   final isChampionWinner =
-                      race.winner?.driverId == state.seasonChampion.driverId;
+                      race.winner.driverId == state.seasonChampion.driverId;
 
                   return ListTile(
                     title: Text(race.name),
