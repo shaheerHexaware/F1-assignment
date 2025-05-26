@@ -12,7 +12,8 @@ part of 'constructor.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$Constructor {
@@ -20,7 +21,9 @@ mixin _$Constructor {
   String get name => throw _privateConstructorUsedError;
   String get nationality => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Constructor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConstructorCopyWith<Constructor> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -28,8 +31,9 @@ mixin _$Constructor {
 /// @nodoc
 abstract class $ConstructorCopyWith<$Res> {
   factory $ConstructorCopyWith(
-          Constructor value, $Res Function(Constructor) then) =
-      _$ConstructorCopyWithImpl<$Res, Constructor>;
+    Constructor value,
+    $Res Function(Constructor) then,
+  ) = _$ConstructorCopyWithImpl<$Res, Constructor>;
   @useResult
   $Res call({String constructorId, String name, String nationality});
 }
@@ -44,6 +48,8 @@ class _$ConstructorCopyWithImpl<$Res, $Val extends Constructor>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Constructor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -51,20 +57,23 @@ class _$ConstructorCopyWithImpl<$Res, $Val extends Constructor>
     Object? name = null,
     Object? nationality = null,
   }) {
-    return _then(_value.copyWith(
-      constructorId: null == constructorId
-          ? _value.constructorId
-          : constructorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      nationality: null == nationality
-          ? _value.nationality
-          : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            constructorId: null == constructorId
+                ? _value.constructorId
+                : constructorId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            nationality: null == nationality
+                ? _value.nationality
+                : nationality // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -72,8 +81,9 @@ class _$ConstructorCopyWithImpl<$Res, $Val extends Constructor>
 abstract class _$$ConstructorImplCopyWith<$Res>
     implements $ConstructorCopyWith<$Res> {
   factory _$$ConstructorImplCopyWith(
-          _$ConstructorImpl value, $Res Function(_$ConstructorImpl) then) =
-      __$$ConstructorImplCopyWithImpl<$Res>;
+    _$ConstructorImpl value,
+    $Res Function(_$ConstructorImpl) then,
+  ) = __$$ConstructorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String constructorId, String name, String nationality});
@@ -84,9 +94,12 @@ class __$$ConstructorImplCopyWithImpl<$Res>
     extends _$ConstructorCopyWithImpl<$Res, _$ConstructorImpl>
     implements _$$ConstructorImplCopyWith<$Res> {
   __$$ConstructorImplCopyWithImpl(
-      _$ConstructorImpl _value, $Res Function(_$ConstructorImpl) _then)
-      : super(_value, _then);
+    _$ConstructorImpl _value,
+    $Res Function(_$ConstructorImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Constructor
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -94,30 +107,33 @@ class __$$ConstructorImplCopyWithImpl<$Res>
     Object? name = null,
     Object? nationality = null,
   }) {
-    return _then(_$ConstructorImpl(
-      constructorId: null == constructorId
-          ? _value.constructorId
-          : constructorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      nationality: null == nationality
-          ? _value.nationality
-          : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$ConstructorImpl(
+        constructorId: null == constructorId
+            ? _value.constructorId
+            : constructorId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        nationality: null == nationality
+            ? _value.nationality
+            : nationality // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$ConstructorImpl implements _Constructor {
-  const _$ConstructorImpl(
-      {required this.constructorId,
-      required this.name,
-      required this.nationality});
+  const _$ConstructorImpl({
+    required this.constructorId,
+    required this.name,
+    required this.nationality,
+  });
 
   @override
   final String constructorId;
@@ -147,7 +163,9 @@ class _$ConstructorImpl implements _Constructor {
   int get hashCode =>
       Object.hash(runtimeType, constructorId, name, nationality);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Constructor
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConstructorImplCopyWith<_$ConstructorImpl> get copyWith =>
@@ -155,10 +173,11 @@ class _$ConstructorImpl implements _Constructor {
 }
 
 abstract class _Constructor implements Constructor {
-  const factory _Constructor(
-      {required final String constructorId,
-      required final String name,
-      required final String nationality}) = _$ConstructorImpl;
+  const factory _Constructor({
+    required final String constructorId,
+    required final String name,
+    required final String nationality,
+  }) = _$ConstructorImpl;
 
   @override
   String get constructorId;
@@ -166,8 +185,11 @@ abstract class _Constructor implements Constructor {
   String get name;
   @override
   String get nationality;
+
+  /// Create a copy of Constructor
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConstructorImplCopyWith<_$ConstructorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

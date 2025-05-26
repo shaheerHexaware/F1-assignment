@@ -12,7 +12,8 @@ part of 'race.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$Race {
@@ -21,7 +22,9 @@ mixin _$Race {
   Circuit get circuit => throw _privateConstructorUsedError;
   Constructor get constructor => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RaceCopyWith<Race> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -30,8 +33,12 @@ abstract class $RaceCopyWith<$Res> {
   factory $RaceCopyWith(Race value, $Res Function(Race) then) =
       _$RaceCopyWithImpl<$Res, Race>;
   @useResult
-  $Res call(
-      {String name, Driver winner, Circuit circuit, Constructor constructor});
+  $Res call({
+    String name,
+    Driver winner,
+    Circuit circuit,
+    Constructor constructor,
+  });
 
   $DriverCopyWith<$Res> get winner;
   $CircuitCopyWith<$Res> get circuit;
@@ -48,6 +55,8 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -56,26 +65,31 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
     Object? circuit = null,
     Object? constructor = null,
   }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      winner: null == winner
-          ? _value.winner
-          : winner // ignore: cast_nullable_to_non_nullable
-              as Driver,
-      circuit: null == circuit
-          ? _value.circuit
-          : circuit // ignore: cast_nullable_to_non_nullable
-              as Circuit,
-      constructor: null == constructor
-          ? _value.constructor
-          : constructor // ignore: cast_nullable_to_non_nullable
-              as Constructor,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            winner: null == winner
+                ? _value.winner
+                : winner // ignore: cast_nullable_to_non_nullable
+                      as Driver,
+            circuit: null == circuit
+                ? _value.circuit
+                : circuit // ignore: cast_nullable_to_non_nullable
+                      as Circuit,
+            constructor: null == constructor
+                ? _value.constructor
+                : constructor // ignore: cast_nullable_to_non_nullable
+                      as Constructor,
+          )
+          as $Val,
+    );
   }
 
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DriverCopyWith<$Res> get winner {
@@ -84,6 +98,8 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
     });
   }
 
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CircuitCopyWith<$Res> get circuit {
@@ -92,6 +108,8 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
     });
   }
 
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ConstructorCopyWith<$Res> get constructor {
@@ -104,12 +122,17 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
 /// @nodoc
 abstract class _$$RaceImplCopyWith<$Res> implements $RaceCopyWith<$Res> {
   factory _$$RaceImplCopyWith(
-          _$RaceImpl value, $Res Function(_$RaceImpl) then) =
-      __$$RaceImplCopyWithImpl<$Res>;
+    _$RaceImpl value,
+    $Res Function(_$RaceImpl) then,
+  ) = __$$RaceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String name, Driver winner, Circuit circuit, Constructor constructor});
+  $Res call({
+    String name,
+    Driver winner,
+    Circuit circuit,
+    Constructor constructor,
+  });
 
   @override
   $DriverCopyWith<$Res> get winner;
@@ -124,8 +147,10 @@ class __$$RaceImplCopyWithImpl<$Res>
     extends _$RaceCopyWithImpl<$Res, _$RaceImpl>
     implements _$$RaceImplCopyWith<$Res> {
   __$$RaceImplCopyWithImpl(_$RaceImpl _value, $Res Function(_$RaceImpl) _then)
-      : super(_value, _then);
+    : super(_value, _then);
 
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -134,35 +159,38 @@ class __$$RaceImplCopyWithImpl<$Res>
     Object? circuit = null,
     Object? constructor = null,
   }) {
-    return _then(_$RaceImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      winner: null == winner
-          ? _value.winner
-          : winner // ignore: cast_nullable_to_non_nullable
-              as Driver,
-      circuit: null == circuit
-          ? _value.circuit
-          : circuit // ignore: cast_nullable_to_non_nullable
-              as Circuit,
-      constructor: null == constructor
-          ? _value.constructor
-          : constructor // ignore: cast_nullable_to_non_nullable
-              as Constructor,
-    ));
+    return _then(
+      _$RaceImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        winner: null == winner
+            ? _value.winner
+            : winner // ignore: cast_nullable_to_non_nullable
+                  as Driver,
+        circuit: null == circuit
+            ? _value.circuit
+            : circuit // ignore: cast_nullable_to_non_nullable
+                  as Circuit,
+        constructor: null == constructor
+            ? _value.constructor
+            : constructor // ignore: cast_nullable_to_non_nullable
+                  as Constructor,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$RaceImpl implements _Race {
-  const _$RaceImpl(
-      {required this.name,
-      required this.winner,
-      required this.circuit,
-      required this.constructor});
+  const _$RaceImpl({
+    required this.name,
+    required this.winner,
+    required this.circuit,
+    required this.constructor,
+  });
 
   @override
   final String name;
@@ -194,7 +222,9 @@ class _$RaceImpl implements _Race {
   int get hashCode =>
       Object.hash(runtimeType, name, winner, circuit, constructor);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RaceImplCopyWith<_$RaceImpl> get copyWith =>
@@ -202,11 +232,12 @@ class _$RaceImpl implements _Race {
 }
 
 abstract class _Race implements Race {
-  const factory _Race(
-      {required final String name,
-      required final Driver winner,
-      required final Circuit circuit,
-      required final Constructor constructor}) = _$RaceImpl;
+  const factory _Race({
+    required final String name,
+    required final Driver winner,
+    required final Circuit circuit,
+    required final Constructor constructor,
+  }) = _$RaceImpl;
 
   @override
   String get name;
@@ -216,8 +247,11 @@ abstract class _Race implements Race {
   Circuit get circuit;
   @override
   Constructor get constructor;
+
+  /// Create a copy of Race
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RaceImplCopyWith<_$RaceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

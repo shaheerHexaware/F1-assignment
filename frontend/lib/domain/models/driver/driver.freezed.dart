@@ -12,7 +12,8 @@ part of 'driver.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$Driver {
@@ -23,7 +24,9 @@ mixin _$Driver {
   String get dateOfBirth => throw _privateConstructorUsedError;
   String get nationality => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Driver
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DriverCopyWith<Driver> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -32,13 +35,14 @@ abstract class $DriverCopyWith<$Res> {
   factory $DriverCopyWith(Driver value, $Res Function(Driver) then) =
       _$DriverCopyWithImpl<$Res, Driver>;
   @useResult
-  $Res call(
-      {String driverId,
-      String? code,
-      String givenName,
-      String familyName,
-      String dateOfBirth,
-      String nationality});
+  $Res call({
+    String driverId,
+    String? code,
+    String givenName,
+    String familyName,
+    String dateOfBirth,
+    String nationality,
+  });
 }
 
 /// @nodoc
@@ -51,6 +55,8 @@ class _$DriverCopyWithImpl<$Res, $Val extends Driver>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Driver
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -61,49 +67,54 @@ class _$DriverCopyWithImpl<$Res, $Val extends Driver>
     Object? dateOfBirth = null,
     Object? nationality = null,
   }) {
-    return _then(_value.copyWith(
-      driverId: null == driverId
-          ? _value.driverId
-          : driverId // ignore: cast_nullable_to_non_nullable
-              as String,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      givenName: null == givenName
-          ? _value.givenName
-          : givenName // ignore: cast_nullable_to_non_nullable
-              as String,
-      familyName: null == familyName
-          ? _value.familyName
-          : familyName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String,
-      nationality: null == nationality
-          ? _value.nationality
-          : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            driverId: null == driverId
+                ? _value.driverId
+                : driverId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            code: freezed == code
+                ? _value.code
+                : code // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            givenName: null == givenName
+                ? _value.givenName
+                : givenName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            familyName: null == familyName
+                ? _value.familyName
+                : familyName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            dateOfBirth: null == dateOfBirth
+                ? _value.dateOfBirth
+                : dateOfBirth // ignore: cast_nullable_to_non_nullable
+                      as String,
+            nationality: null == nationality
+                ? _value.nationality
+                : nationality // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$DriverImplCopyWith<$Res> implements $DriverCopyWith<$Res> {
   factory _$$DriverImplCopyWith(
-          _$DriverImpl value, $Res Function(_$DriverImpl) then) =
-      __$$DriverImplCopyWithImpl<$Res>;
+    _$DriverImpl value,
+    $Res Function(_$DriverImpl) then,
+  ) = __$$DriverImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String driverId,
-      String? code,
-      String givenName,
-      String familyName,
-      String dateOfBirth,
-      String nationality});
+  $Res call({
+    String driverId,
+    String? code,
+    String givenName,
+    String familyName,
+    String dateOfBirth,
+    String nationality,
+  });
 }
 
 /// @nodoc
@@ -111,9 +122,12 @@ class __$$DriverImplCopyWithImpl<$Res>
     extends _$DriverCopyWithImpl<$Res, _$DriverImpl>
     implements _$$DriverImplCopyWith<$Res> {
   __$$DriverImplCopyWithImpl(
-      _$DriverImpl _value, $Res Function(_$DriverImpl) _then)
-      : super(_value, _then);
+    _$DriverImpl _value,
+    $Res Function(_$DriverImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Driver
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,45 +138,48 @@ class __$$DriverImplCopyWithImpl<$Res>
     Object? dateOfBirth = null,
     Object? nationality = null,
   }) {
-    return _then(_$DriverImpl(
-      driverId: null == driverId
-          ? _value.driverId
-          : driverId // ignore: cast_nullable_to_non_nullable
-              as String,
-      code: freezed == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String?,
-      givenName: null == givenName
-          ? _value.givenName
-          : givenName // ignore: cast_nullable_to_non_nullable
-              as String,
-      familyName: null == familyName
-          ? _value.familyName
-          : familyName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String,
-      nationality: null == nationality
-          ? _value.nationality
-          : nationality // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$DriverImpl(
+        driverId: null == driverId
+            ? _value.driverId
+            : driverId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        code: freezed == code
+            ? _value.code
+            : code // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        givenName: null == givenName
+            ? _value.givenName
+            : givenName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        familyName: null == familyName
+            ? _value.familyName
+            : familyName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        dateOfBirth: null == dateOfBirth
+            ? _value.dateOfBirth
+            : dateOfBirth // ignore: cast_nullable_to_non_nullable
+                  as String,
+        nationality: null == nationality
+            ? _value.nationality
+            : nationality // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
-class _$DriverImpl implements _Driver {
-  const _$DriverImpl(
-      {required this.driverId,
-      required this.code,
-      required this.givenName,
-      required this.familyName,
-      required this.dateOfBirth,
-      required this.nationality});
+class _$DriverImpl extends _Driver {
+  const _$DriverImpl({
+    required this.driverId,
+    required this.code,
+    required this.givenName,
+    required this.familyName,
+    required this.dateOfBirth,
+    required this.nationality,
+  }) : super._();
 
   @override
   final String driverId;
@@ -201,24 +218,35 @@ class _$DriverImpl implements _Driver {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, driverId, code, givenName,
-      familyName, dateOfBirth, nationality);
+  int get hashCode => Object.hash(
+    runtimeType,
+    driverId,
+    code,
+    givenName,
+    familyName,
+    dateOfBirth,
+    nationality,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Driver
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DriverImplCopyWith<_$DriverImpl> get copyWith =>
       __$$DriverImplCopyWithImpl<_$DriverImpl>(this, _$identity);
 }
 
-abstract class _Driver implements Driver {
-  const factory _Driver(
-      {required final String driverId,
-      required final String? code,
-      required final String givenName,
-      required final String familyName,
-      required final String dateOfBirth,
-      required final String nationality}) = _$DriverImpl;
+abstract class _Driver extends Driver {
+  const factory _Driver({
+    required final String driverId,
+    required final String? code,
+    required final String givenName,
+    required final String familyName,
+    required final String dateOfBirth,
+    required final String nationality,
+  }) = _$DriverImpl;
+  const _Driver._() : super._();
 
   @override
   String get driverId;
@@ -232,8 +260,11 @@ abstract class _Driver implements Driver {
   String get dateOfBirth;
   @override
   String get nationality;
+
+  /// Create a copy of Driver
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DriverImplCopyWith<_$DriverImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

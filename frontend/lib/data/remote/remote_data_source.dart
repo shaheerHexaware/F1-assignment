@@ -7,16 +7,12 @@ import 'mappers/driver_mapper.dart';
 import 'mappers/circuit_mapper.dart';
 import 'mappers/constructor_mapper.dart';
 
-/// A remote data source for fetching F1 data from the API
-class F1RemoteDataSource {
+class RemoteDataSource {
   final F1ControllerApi _api;
   final SeasonMapper _seasonMapper;
   final RaceMapper _raceMapper;
 
-  /// Creates a new [F1RemoteDataSource] instance
-  ///
-  /// The [baseUrl] parameter specifies the base URL of the API server
-  factory F1RemoteDataSource({String baseUrl = 'http://localhost:8080'}) {
+  factory RemoteDataSource({String baseUrl = 'http://10.0.2.2:8080'}) {
     final apiClient = ApiClient(basePath: baseUrl);
     final api = F1ControllerApi(apiClient);
     final driverMapper = DriverMapper();
@@ -28,15 +24,11 @@ class F1RemoteDataSource {
       circuitMapper,
       constructorMapper,
     );
-    return F1RemoteDataSource._(api, seasonMapper, raceMapper);
+    return RemoteDataSource._(api, seasonMapper, raceMapper);
   }
 
-  F1RemoteDataSource._(this._api, this._seasonMapper, this._raceMapper);
+  RemoteDataSource._(this._api, this._seasonMapper, this._raceMapper);
 
-  /// Fetches seasons with their respective champions
-  ///
-  /// [from] Optional parameter to specify the start year (default: 2005)
-  /// [to] Optional parameter to specify the end year
   Future<List<Season>> getSeasonsWithChampions({int? from, int? to}) async {
     try {
       final seasons = await _api.getSeasonsWithChampions(from: from, to: to);
@@ -48,9 +40,6 @@ class F1RemoteDataSource {
     }
   }
 
-  /// Fetches races for a specific season
-  ///
-  /// [year] The year of the season to fetch races for
   Future<List<Race>> getSeasonRaces(int year) async {
     try {
       final races = await _api.getSeasonRaces(year);
@@ -62,7 +51,6 @@ class F1RemoteDataSource {
     }
   }
 
-  /// Handles API errors and converts them to more meaningful exceptions
   Exception _handleError(dynamic error) {
     if (error == null) {
       return Exception('Failed to fetch seasons data');

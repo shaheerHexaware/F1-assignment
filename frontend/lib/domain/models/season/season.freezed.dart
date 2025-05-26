@@ -12,14 +12,17 @@ part of 'season.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$Season {
   int get year => throw _privateConstructorUsedError;
   Driver get champion => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SeasonCopyWith<Season> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -43,24 +46,28 @@ class _$SeasonCopyWithImpl<$Res, $Val extends Season>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? year = null,
-    Object? champion = null,
-  }) {
-    return _then(_value.copyWith(
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
-      champion: null == champion
-          ? _value.champion
-          : champion // ignore: cast_nullable_to_non_nullable
-              as Driver,
-    ) as $Val);
+  $Res call({Object? year = null, Object? champion = null}) {
+    return _then(
+      _value.copyWith(
+            year: null == year
+                ? _value.year
+                : year // ignore: cast_nullable_to_non_nullable
+                      as int,
+            champion: null == champion
+                ? _value.champion
+                : champion // ignore: cast_nullable_to_non_nullable
+                      as Driver,
+          )
+          as $Val,
+    );
   }
 
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DriverCopyWith<$Res> get champion {
@@ -73,8 +80,9 @@ class _$SeasonCopyWithImpl<$Res, $Val extends Season>
 /// @nodoc
 abstract class _$$SeasonImplCopyWith<$Res> implements $SeasonCopyWith<$Res> {
   factory _$$SeasonImplCopyWith(
-          _$SeasonImpl value, $Res Function(_$SeasonImpl) then) =
-      __$$SeasonImplCopyWithImpl<$Res>;
+    _$SeasonImpl value,
+    $Res Function(_$SeasonImpl) then,
+  ) = __$$SeasonImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int year, Driver champion});
@@ -88,25 +96,27 @@ class __$$SeasonImplCopyWithImpl<$Res>
     extends _$SeasonCopyWithImpl<$Res, _$SeasonImpl>
     implements _$$SeasonImplCopyWith<$Res> {
   __$$SeasonImplCopyWithImpl(
-      _$SeasonImpl _value, $Res Function(_$SeasonImpl) _then)
-      : super(_value, _then);
+    _$SeasonImpl _value,
+    $Res Function(_$SeasonImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? year = null,
-    Object? champion = null,
-  }) {
-    return _then(_$SeasonImpl(
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
-      champion: null == champion
-          ? _value.champion
-          : champion // ignore: cast_nullable_to_non_nullable
-              as Driver,
-    ));
+  $Res call({Object? year = null, Object? champion = null}) {
+    return _then(
+      _$SeasonImpl(
+        year: null == year
+            ? _value.year
+            : year // ignore: cast_nullable_to_non_nullable
+                  as int,
+        champion: null == champion
+            ? _value.champion
+            : champion // ignore: cast_nullable_to_non_nullable
+                  as Driver,
+      ),
+    );
   }
 }
 
@@ -138,7 +148,9 @@ class _$SeasonImpl implements _Season {
   @override
   int get hashCode => Object.hash(runtimeType, year, champion);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SeasonImplCopyWith<_$SeasonImpl> get copyWith =>
@@ -146,15 +158,20 @@ class _$SeasonImpl implements _Season {
 }
 
 abstract class _Season implements Season {
-  const factory _Season(
-      {required final int year, required final Driver champion}) = _$SeasonImpl;
+  const factory _Season({
+    required final int year,
+    required final Driver champion,
+  }) = _$SeasonImpl;
 
   @override
   int get year;
   @override
   Driver get champion;
+
+  /// Create a copy of Season
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SeasonImplCopyWith<_$SeasonImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
