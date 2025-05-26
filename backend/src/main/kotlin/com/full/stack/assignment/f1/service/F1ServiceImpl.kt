@@ -4,7 +4,6 @@ import com.full.stack.assignment.f1.data.cache.CacheRepository
 import com.full.stack.assignment.f1.data.remote.RemoteRepository
 import com.full.stack.assignment.f1.model.Race
 import com.full.stack.assignment.f1.model.Season
-import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service

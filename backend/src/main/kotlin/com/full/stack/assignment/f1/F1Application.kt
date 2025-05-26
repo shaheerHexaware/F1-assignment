@@ -24,7 +24,6 @@ class F1Application {
             f1Controller.getSeasonsWithChampions(startYear, endYear)
         }
     }
-
 }
 
 fun main(args: Array<String>) {

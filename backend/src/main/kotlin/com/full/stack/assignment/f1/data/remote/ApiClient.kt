@@ -33,10 +33,9 @@ class ApiClient(
     fun <ResponseDTO> getDataFallback(
         url: String,
         responseType: Class<ResponseDTO>,
-        throwable: Throwable
+        throwable: Throwable,
     ): ResponseEntity<ResponseDTO> {
         println("Fallback triggered for URL: $url. Exception: ${throwable.message}")
         return ResponseEntity.notFound().build<ResponseDTO>()
     }
-
 }

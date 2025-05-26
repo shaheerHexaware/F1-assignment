@@ -34,6 +34,7 @@ class CacheRepository(
     fun hasSeason(year: Int): Boolean {
         return seasonCacheRepository.existsById(year)
     }
+
     @Transactional
     fun saveSeason(season: Season) {
         val seasonEntity = seasonMapper.toEntity(season)
@@ -45,6 +46,7 @@ class CacheRepository(
         return raceCacheRepository.findBySeasonYearOrderByRoundAsc(season)
             .map { raceMapper.toDomain(it) }
     }
+
     @Transactional
     fun saveRace(race: Race) {
         val raceEntity = raceMapper.toEntity(race)
