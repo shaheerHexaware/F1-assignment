@@ -15,10 +15,17 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
+Season _$SeasonFromJson(Map<String, dynamic> json) {
+  return _Season.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Season {
   int get year => throw _privateConstructorUsedError;
   Driver get champion => throw _privateConstructorUsedError;
+
+  /// Serializes this Season to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Season
   /// with the given fields replaced by the non-null parameter values.
@@ -121,9 +128,12 @@ class __$$SeasonImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$SeasonImpl implements _Season {
   const _$SeasonImpl({required this.year, required this.champion});
+
+  factory _$SeasonImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SeasonImplFromJson(json);
 
   @override
   final int year;
@@ -145,6 +155,7 @@ class _$SeasonImpl implements _Season {
                 other.champion == champion));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, year, champion);
 
@@ -155,6 +166,11 @@ class _$SeasonImpl implements _Season {
   @pragma('vm:prefer-inline')
   _$$SeasonImplCopyWith<_$SeasonImpl> get copyWith =>
       __$$SeasonImplCopyWithImpl<_$SeasonImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SeasonImplToJson(this);
+  }
 }
 
 abstract class _Season implements Season {
@@ -162,6 +178,8 @@ abstract class _Season implements Season {
     required final int year,
     required final Driver champion,
   }) = _$SeasonImpl;
+
+  factory _Season.fromJson(Map<String, dynamic> json) = _$SeasonImpl.fromJson;
 
   @override
   int get year;

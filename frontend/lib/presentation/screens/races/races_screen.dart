@@ -47,7 +47,7 @@ class RacesScreen extends StatelessWidget {
                       children: [
                         Text('Circuit: ${race.circuit.circuitName}'),
                         Text(
-                          'Location: ${race.circuit.location.locality}, ${race.circuit.location.country}',
+                          'Location: ${race.circuit.locality}, ${race.circuit.country}',
                         ),
                         Text('Winner: ${race.winner.fullName}'),
                         Text('Team: ${race.constructor.name}'),

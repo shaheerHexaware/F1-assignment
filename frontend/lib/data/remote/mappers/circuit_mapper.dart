@@ -13,18 +13,16 @@ class CircuitMapper extends Mapper<CircuitDTO, Circuit> {
       circuitName:
           param.circuitName.getNotNullParameter('Circuit name is missing')
               as String,
-      location: CircuitLocation(
-        locality:
-            param.location.locality.getNotNullParameter(
-                  'Circuit locality is missing',
-                )
-                as String,
-        country:
-            param.location.country.getNotNullParameter(
-                  'Circuit country is missing',
-                )
-                as String,
-      ),
+      locality:
+          param.location.locality.getNotNullParameter(
+                'Circuit locality is missing',
+              )
+              as String,
+      country:
+          param.location.country.getNotNullParameter(
+                'Circuit country is missing',
+              )
+              as String,
     );
   }
 }

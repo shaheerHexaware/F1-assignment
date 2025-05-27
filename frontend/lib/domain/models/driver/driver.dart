@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'driver.freezed.dart';
+part 'driver.g.dart';
 
 @freezed
 abstract class Driver with _$Driver {
@@ -14,6 +15,8 @@ abstract class Driver with _$Driver {
     required String dateOfBirth,
     required String nationality,
   }) = _Driver;
+
+  factory Driver.fromJson(Map<String, dynamic> json) => _$DriverFromJson(json);
 
   String get fullName => '$givenName $familyName';
 }

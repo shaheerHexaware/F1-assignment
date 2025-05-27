@@ -49,6 +49,9 @@ dependencies:
   f1_api_client:
     path: packages/f1_api_client
 
+  sqflite: ^2.3.2
+  path: ^1.8.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

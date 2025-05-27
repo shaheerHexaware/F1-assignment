@@ -15,11 +15,18 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
+Constructor _$ConstructorFromJson(Map<String, dynamic> json) {
+  return _Constructor.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Constructor {
   String get constructorId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get nationality => throw _privateConstructorUsedError;
+
+  /// Serializes this Constructor to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Constructor
   /// with the given fields replaced by the non-null parameter values.
@@ -127,13 +134,16 @@ class __$$ConstructorImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$ConstructorImpl implements _Constructor {
   const _$ConstructorImpl({
     required this.constructorId,
     required this.name,
     required this.nationality,
   });
+
+  factory _$ConstructorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ConstructorImplFromJson(json);
 
   @override
   final String constructorId;
@@ -159,6 +169,7 @@ class _$ConstructorImpl implements _Constructor {
                 other.nationality == nationality));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, constructorId, name, nationality);
@@ -170,6 +181,11 @@ class _$ConstructorImpl implements _Constructor {
   @pragma('vm:prefer-inline')
   _$$ConstructorImplCopyWith<_$ConstructorImpl> get copyWith =>
       __$$ConstructorImplCopyWithImpl<_$ConstructorImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ConstructorImplToJson(this);
+  }
 }
 
 abstract class _Constructor implements Constructor {
@@ -178,6 +194,9 @@ abstract class _Constructor implements Constructor {
     required final String name,
     required final String nationality,
   }) = _$ConstructorImpl;
+
+  factory _Constructor.fromJson(Map<String, dynamic> json) =
+      _$ConstructorImpl.fromJson;
 
   @override
   String get constructorId;

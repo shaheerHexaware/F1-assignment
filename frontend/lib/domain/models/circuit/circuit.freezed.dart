@@ -15,11 +15,19 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
+Circuit _$CircuitFromJson(Map<String, dynamic> json) {
+  return _Circuit.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Circuit {
   String get circuitId => throw _privateConstructorUsedError;
   String get circuitName => throw _privateConstructorUsedError;
-  CircuitLocation get location => throw _privateConstructorUsedError;
+  String get locality => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
+
+  /// Serializes this Circuit to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Circuit
   /// with the given fields replaced by the non-null parameter values.
@@ -32,9 +40,12 @@ abstract class $CircuitCopyWith<$Res> {
   factory $CircuitCopyWith(Circuit value, $Res Function(Circuit) then) =
       _$CircuitCopyWithImpl<$Res, Circuit>;
   @useResult
-  $Res call({String circuitId, String circuitName, CircuitLocation location});
-
-  $CircuitLocationCopyWith<$Res> get location;
+  $Res call({
+    String circuitId,
+    String circuitName,
+    String locality,
+    String country,
+  });
 }
 
 /// @nodoc
@@ -54,7 +65,8 @@ class _$CircuitCopyWithImpl<$Res, $Val extends Circuit>
   $Res call({
     Object? circuitId = null,
     Object? circuitName = null,
-    Object? location = null,
+    Object? locality = null,
+    Object? country = null,
   }) {
     return _then(
       _value.copyWith(
@@ -66,23 +78,17 @@ class _$CircuitCopyWithImpl<$Res, $Val extends Circuit>
                 ? _value.circuitName
                 : circuitName // ignore: cast_nullable_to_non_nullable
                       as String,
-            location: null == location
-                ? _value.location
-                : location // ignore: cast_nullable_to_non_nullable
-                      as CircuitLocation,
+            locality: null == locality
+                ? _value.locality
+                : locality // ignore: cast_nullable_to_non_nullable
+                      as String,
+            country: null == country
+                ? _value.country
+                : country // ignore: cast_nullable_to_non_nullable
+                      as String,
           )
           as $Val,
     );
-  }
-
-  /// Create a copy of Circuit
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CircuitLocationCopyWith<$Res> get location {
-    return $CircuitLocationCopyWith<$Res>(_value.location, (value) {
-      return _then(_value.copyWith(location: value) as $Val);
-    });
   }
 }
 
@@ -94,10 +100,12 @@ abstract class _$$CircuitImplCopyWith<$Res> implements $CircuitCopyWith<$Res> {
   ) = __$$CircuitImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String circuitId, String circuitName, CircuitLocation location});
-
-  @override
-  $CircuitLocationCopyWith<$Res> get location;
+  $Res call({
+    String circuitId,
+    String circuitName,
+    String locality,
+    String country,
+  });
 }
 
 /// @nodoc
@@ -116,7 +124,8 @@ class __$$CircuitImplCopyWithImpl<$Res>
   $Res call({
     Object? circuitId = null,
     Object? circuitName = null,
-    Object? location = null,
+    Object? locality = null,
+    Object? country = null,
   }) {
     return _then(
       _$CircuitImpl(
@@ -128,165 +137,6 @@ class __$$CircuitImplCopyWithImpl<$Res>
             ? _value.circuitName
             : circuitName // ignore: cast_nullable_to_non_nullable
                   as String,
-        location: null == location
-            ? _value.location
-            : location // ignore: cast_nullable_to_non_nullable
-                  as CircuitLocation,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$CircuitImpl implements _Circuit {
-  const _$CircuitImpl({
-    required this.circuitId,
-    required this.circuitName,
-    required this.location,
-  });
-
-  @override
-  final String circuitId;
-  @override
-  final String circuitName;
-  @override
-  final CircuitLocation location;
-
-  @override
-  String toString() {
-    return 'Circuit(circuitId: $circuitId, circuitName: $circuitName, location: $location)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CircuitImpl &&
-            (identical(other.circuitId, circuitId) ||
-                other.circuitId == circuitId) &&
-            (identical(other.circuitName, circuitName) ||
-                other.circuitName == circuitName) &&
-            (identical(other.location, location) ||
-                other.location == location));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, circuitId, circuitName, location);
-
-  /// Create a copy of Circuit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CircuitImplCopyWith<_$CircuitImpl> get copyWith =>
-      __$$CircuitImplCopyWithImpl<_$CircuitImpl>(this, _$identity);
-}
-
-abstract class _Circuit implements Circuit {
-  const factory _Circuit({
-    required final String circuitId,
-    required final String circuitName,
-    required final CircuitLocation location,
-  }) = _$CircuitImpl;
-
-  @override
-  String get circuitId;
-  @override
-  String get circuitName;
-  @override
-  CircuitLocation get location;
-
-  /// Create a copy of Circuit
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CircuitImplCopyWith<_$CircuitImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$CircuitLocation {
-  String get locality => throw _privateConstructorUsedError;
-  String get country => throw _privateConstructorUsedError;
-
-  /// Create a copy of CircuitLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CircuitLocationCopyWith<CircuitLocation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CircuitLocationCopyWith<$Res> {
-  factory $CircuitLocationCopyWith(
-    CircuitLocation value,
-    $Res Function(CircuitLocation) then,
-  ) = _$CircuitLocationCopyWithImpl<$Res, CircuitLocation>;
-  @useResult
-  $Res call({String locality, String country});
-}
-
-/// @nodoc
-class _$CircuitLocationCopyWithImpl<$Res, $Val extends CircuitLocation>
-    implements $CircuitLocationCopyWith<$Res> {
-  _$CircuitLocationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CircuitLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? locality = null, Object? country = null}) {
-    return _then(
-      _value.copyWith(
-            locality: null == locality
-                ? _value.locality
-                : locality // ignore: cast_nullable_to_non_nullable
-                      as String,
-            country: null == country
-                ? _value.country
-                : country // ignore: cast_nullable_to_non_nullable
-                      as String,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$CircuitLocationImplCopyWith<$Res>
-    implements $CircuitLocationCopyWith<$Res> {
-  factory _$$CircuitLocationImplCopyWith(
-    _$CircuitLocationImpl value,
-    $Res Function(_$CircuitLocationImpl) then,
-  ) = __$$CircuitLocationImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String locality, String country});
-}
-
-/// @nodoc
-class __$$CircuitLocationImplCopyWithImpl<$Res>
-    extends _$CircuitLocationCopyWithImpl<$Res, _$CircuitLocationImpl>
-    implements _$$CircuitLocationImplCopyWith<$Res> {
-  __$$CircuitLocationImplCopyWithImpl(
-    _$CircuitLocationImpl _value,
-    $Res Function(_$CircuitLocationImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of CircuitLocation
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? locality = null, Object? country = null}) {
-    return _then(
-      _$CircuitLocationImpl(
         locality: null == locality
             ? _value.locality
             : locality // ignore: cast_nullable_to_non_nullable
@@ -301,10 +151,22 @@ class __$$CircuitLocationImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$CircuitImpl implements _Circuit {
+  const _$CircuitImpl({
+    required this.circuitId,
+    required this.circuitName,
+    required this.locality,
+    required this.country,
+  });
 
-class _$CircuitLocationImpl implements _CircuitLocation {
-  const _$CircuitLocationImpl({required this.locality, required this.country});
+  factory _$CircuitImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CircuitImplFromJson(json);
 
+  @override
+  final String circuitId;
+  @override
+  final String circuitName;
   @override
   final String locality;
   @override
@@ -312,49 +174,65 @@ class _$CircuitLocationImpl implements _CircuitLocation {
 
   @override
   String toString() {
-    return 'CircuitLocation(locality: $locality, country: $country)';
+    return 'Circuit(circuitId: $circuitId, circuitName: $circuitName, locality: $locality, country: $country)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CircuitLocationImpl &&
+            other is _$CircuitImpl &&
+            (identical(other.circuitId, circuitId) ||
+                other.circuitId == circuitId) &&
+            (identical(other.circuitName, circuitName) ||
+                other.circuitName == circuitName) &&
             (identical(other.locality, locality) ||
                 other.locality == locality) &&
             (identical(other.country, country) || other.country == country));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, locality, country);
+  int get hashCode =>
+      Object.hash(runtimeType, circuitId, circuitName, locality, country);
 
-  /// Create a copy of CircuitLocation
+  /// Create a copy of Circuit
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CircuitLocationImplCopyWith<_$CircuitLocationImpl> get copyWith =>
-      __$$CircuitLocationImplCopyWithImpl<_$CircuitLocationImpl>(
-        this,
-        _$identity,
-      );
+  _$$CircuitImplCopyWith<_$CircuitImpl> get copyWith =>
+      __$$CircuitImplCopyWithImpl<_$CircuitImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CircuitImplToJson(this);
+  }
 }
 
-abstract class _CircuitLocation implements CircuitLocation {
-  const factory _CircuitLocation({
+abstract class _Circuit implements Circuit {
+  const factory _Circuit({
+    required final String circuitId,
+    required final String circuitName,
     required final String locality,
     required final String country,
-  }) = _$CircuitLocationImpl;
+  }) = _$CircuitImpl;
 
+  factory _Circuit.fromJson(Map<String, dynamic> json) = _$CircuitImpl.fromJson;
+
+  @override
+  String get circuitId;
+  @override
+  String get circuitName;
   @override
   String get locality;
   @override
   String get country;
 
-  /// Create a copy of CircuitLocation
+  /// Create a copy of Circuit
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CircuitLocationImplCopyWith<_$CircuitLocationImpl> get copyWith =>
+  _$$CircuitImplCopyWith<_$CircuitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
