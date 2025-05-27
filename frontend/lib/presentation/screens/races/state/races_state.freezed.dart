@@ -20,19 +20,19 @@ mixin _$RacesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<RaceUi> races) loaded,
     required TResult Function(String message) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<RaceUi> races)? loaded,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<RaceUi> races)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -123,7 +123,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<RaceUi> races) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -133,7 +133,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<RaceUi> races)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -143,7 +143,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<RaceUi> races)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -199,9 +199,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
     $Res Function(_$LoadedImpl) then,
   ) = __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Race> races, Driver seasonChampion});
-
-  $DriverCopyWith<$Res> get seasonChampion;
+  $Res call({List<RaceUi> races});
 }
 
 /// @nodoc
@@ -217,54 +215,34 @@ class __$$LoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? races = null, Object? seasonChampion = null}) {
+  $Res call({Object? races = null}) {
     return _then(
       _$LoadedImpl(
         races: null == races
             ? _value._races
             : races // ignore: cast_nullable_to_non_nullable
-                  as List<Race>,
-        seasonChampion: null == seasonChampion
-            ? _value.seasonChampion
-            : seasonChampion // ignore: cast_nullable_to_non_nullable
-                  as Driver,
+                  as List<RaceUi>,
       ),
     );
-  }
-
-  /// Create a copy of RacesState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DriverCopyWith<$Res> get seasonChampion {
-    return $DriverCopyWith<$Res>(_value.seasonChampion, (value) {
-      return _then(_value.copyWith(seasonChampion: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({
-    required final List<Race> races,
-    required this.seasonChampion,
-  }) : _races = races;
+  const _$LoadedImpl({required final List<RaceUi> races}) : _races = races;
 
-  final List<Race> _races;
+  final List<RaceUi> _races;
   @override
-  List<Race> get races {
+  List<RaceUi> get races {
     if (_races is EqualUnmodifiableListView) return _races;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_races);
   }
 
   @override
-  final Driver seasonChampion;
-
-  @override
   String toString() {
-    return 'RacesState.loaded(races: $races, seasonChampion: $seasonChampion)';
+    return 'RacesState.loaded(races: $races)';
   }
 
   @override
@@ -272,17 +250,12 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(other._races, _races) &&
-            (identical(other.seasonChampion, seasonChampion) ||
-                other.seasonChampion == seasonChampion));
+            const DeepCollectionEquality().equals(other._races, _races));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_races),
-    seasonChampion,
-  );
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_races));
 
   /// Create a copy of RacesState
   /// with the given fields replaced by the non-null parameter values.
@@ -296,32 +269,32 @@ class _$LoadedImpl implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<RaceUi> races) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(races, seasonChampion);
+    return loaded(races);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<RaceUi> races)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(races, seasonChampion);
+    return loaded?.call(races);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<RaceUi> races)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(races, seasonChampion);
+      return loaded(races);
     }
     return orElse();
   }
@@ -362,13 +335,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements RacesState {
-  const factory _Loaded({
-    required final List<Race> races,
-    required final Driver seasonChampion,
-  }) = _$LoadedImpl;
+  const factory _Loaded({required final List<RaceUi> races}) = _$LoadedImpl;
 
-  List<Race> get races;
-  Driver get seasonChampion;
+  List<RaceUi> get races;
 
   /// Create a copy of RacesState
   /// with the given fields replaced by the non-null parameter values.
@@ -448,7 +417,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<RaceUi> races) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -458,7 +427,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<RaceUi> races)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -468,7 +437,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<RaceUi> races)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

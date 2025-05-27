@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../helpers/app_messages.dart';
-import '../screens/races/races_screen.dart';
+import '../screens/races/ui/races_screen.dart';
 import '../screens/seasons/ui/seasons_screen.dart';
 
 class RouteNavigator {

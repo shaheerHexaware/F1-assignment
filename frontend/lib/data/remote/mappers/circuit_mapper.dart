@@ -1,11 +1,11 @@
 import 'package:f1_api_client/api.dart';
 import '../../../domain/models/circuit/circuit.dart';
 import '../../../helpers/null_safety_helper.dart';
-import 'mapper.dart';
+import '../../../helpers/mapper/mapper.dart';
 
-class CircuitMapper extends Mapper<CircuitDTO, Circuit> {
+class CircuitMapper extends Mapper<CircuitDTO, Circuit, void> {
   @override
-  Circuit map(CircuitDTO param) {
+  Circuit map(CircuitDTO param, {void metadata}) {
     return Circuit(
       circuitId:
           param.circuitId.getNotNullParameter('Circuit ID is missing')

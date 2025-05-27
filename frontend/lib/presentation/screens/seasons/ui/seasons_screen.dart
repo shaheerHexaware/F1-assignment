@@ -7,7 +7,7 @@ import '../../../components/loading_component.dart';
 import '../seasons_bloc.dart';
 import '../event/seasons_event.dart';
 import '../state/seasons_state.dart';
-import '../../races/races_screen.dart';
+import '../../races/ui/races_screen.dart';
 
 class SeasonsScreen extends StatelessWidget {
   static const routeName = "seasons";

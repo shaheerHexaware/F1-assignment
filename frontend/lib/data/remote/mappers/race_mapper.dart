@@ -1,12 +1,12 @@
 import 'package:f1_api_client/api.dart';
 import '../../../domain/models/race/race.dart';
-import 'mapper.dart';
+import '../../../helpers/mapper/mapper.dart';
 import '../../../helpers/null_safety_helper.dart';
 import 'driver_mapper.dart';
 import 'circuit_mapper.dart';
 import 'constructor_mapper.dart';
 
-class RaceMapper extends Mapper<RaceDTO, Race> {
+class RaceMapper extends Mapper<RaceDTO, Race, void> {
   final DriverMapper _driverMapper;
   final CircuitMapper _circuitMapper;
   final ConstructorMapper _constructorMapper;
@@ -14,8 +14,7 @@ class RaceMapper extends Mapper<RaceDTO, Race> {
   RaceMapper(this._driverMapper, this._circuitMapper, this._constructorMapper);
 
   @override
-  Race map(RaceDTO param) {
-    print(param.date);
+  Race map(RaceDTO param, {void metadata}) {
     final winningDriver =
         param.winningDriver.getNotNullParameter('Winning driver is missing')
             as DriverDTO;

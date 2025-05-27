@@ -61,7 +61,6 @@ class RemoteDataSource {
     try {
       final races = await _api.getSeasonRaces(year);
       if (races == null) throw Exception('Failed to fetch seasons data');
-      // Convert API response to domain models using RaceMapper
       return races.map(_raceMapper.map).toList();
     } on ApiException catch (e) {
       throw Exception('API Error: ${e.message}');

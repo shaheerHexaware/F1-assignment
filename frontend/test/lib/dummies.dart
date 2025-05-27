@@ -3,6 +3,7 @@ import 'package:f1_app/domain/models/constructor/constructor.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/season/season.dart';
+import 'package:f1_app/presentation/screens/races/models/race_ui.dart';
 
 class Dummies {
   static const String dummyBaseUrl = "https://races.com/f1/api";
@@ -36,25 +37,6 @@ class Dummies {
     );
   }
 
-  static Race createRace({
-    int seasonYear = dummySeason,
-    int round = dummyRound,
-    String raceName = dummyRaceName,
-    Circuit? circuit,
-    Driver? driver,
-    Constructor? constructor,
-  }) {
-    return Race(
-      year: seasonYear,
-      round: round,
-      name: raceName,
-      date: dummyDate,
-      circuit: circuit ?? createCircuit(),
-      winner: driver ?? createDriver(),
-      constructor: constructor ?? createConstructor(),
-    );
-  }
-
   static Season createSeason({int year = dummySeason, Driver? champion}) {
     return Season(
       year: year,
@@ -80,6 +62,46 @@ class Dummies {
       familyName: dummyDriverFamilyName,
       dateOfBirth: dummyDate,
       nationality: dummyNationality,
+    );
+  }
+
+  static Race createRace({
+    int seasonYear = dummySeason,
+    int round = dummyRound,
+    String raceName = dummyRaceName,
+    Circuit? circuit,
+    Driver? driver,
+    Constructor? constructor,
+  }) {
+    return Race(
+      year: seasonYear,
+      round: round,
+      name: raceName,
+      date: dummyDate,
+      circuit: circuit ?? createCircuit(),
+      winner: driver ?? createDriver(),
+      constructor: constructor ?? createConstructor(),
+    );
+  }
+
+  static RaceUi createRaceUi({
+    int seasonYear = dummySeason,
+    int round = dummyRound,
+    String raceName = dummyRaceName,
+    String driverName = "$dummyDriverGivenName $dummyDriverFamilyName",
+    bool isWinnerChampion = false,
+    String circuitName = "$dummyCircuitName, $dummyCircuitCountry",
+    String constructorName = dummyConstructorName,
+  }) {
+    return RaceUi(
+      year: seasonYear,
+      round: round,
+      name: raceName,
+      date: dummyDate,
+      driverName: driverName,
+      isWinnerChampion: isWinnerChampion,
+      circuitName: circuitName,
+      constructorName: constructorName,
     );
   }
 }

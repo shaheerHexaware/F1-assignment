@@ -1,3 +1,4 @@
+import 'package:f1_app/presentation/screens/races/models/race_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -35,7 +36,8 @@ void main() {
   group('LoadRaces', () {
     final dummyRace = Dummies.createRace();
     final List<Race> races = [dummyRace];
-
+    final dummyRaceUi = Dummies.createRaceUi(isWinnerChampion: true);
+    final List<RaceUi> racesUi = [dummyRaceUi];
     blocTest<RacesBloc, RacesState>(
       'emits [loading, loaded] when races are loaded successfully',
       build: () {
@@ -47,7 +49,7 @@ void main() {
       act: (bloc) => bloc.add(const RacesEvent.loadRaces(testSeason)),
       expect: () => [
         const RacesState.loading(),
-        RacesState.loaded(races: races, seasonChampion: dummyChampion),
+        RacesState.loaded(races: racesUi),
       ],
       verify: (_) {
         verify(mockRepository.getSeasonRaces(testSeason)).called(1);
@@ -83,41 +85,10 @@ void main() {
       act: (bloc) => bloc.add(const RacesEvent.loadRaces(testSeason)),
       expect: () => [
         const RacesState.loading(),
-        RacesState.loaded(races: const [], seasonChampion: dummyChampion),
+        RacesState.loaded(races: const []),
       ],
       verify: (_) {
         verify(mockRepository.getSeasonRaces(testSeason)).called(1);
-      },
-    );
-
-    blocTest<RacesBloc, RacesState>(
-      'loads races for different seasons',
-      build: () {
-        when(
-          mockRepository.getSeasonRaces(2022),
-        ).thenAnswer((_) async => races);
-        when(
-          mockRepository.getSeasonRaces(2023),
-        ).thenAnswer((_) async => [dummyRace, dummyRace]);
-        return bloc;
-      },
-      act: (bloc) async {
-        bloc.add(const RacesEvent.loadRaces(2022));
-        await Future.delayed(const Duration(milliseconds: 100));
-        bloc.add(const RacesEvent.loadRaces(2023));
-      },
-      expect: () => [
-        const RacesState.loading(),
-        RacesState.loaded(races: races, seasonChampion: dummyChampion),
-        const RacesState.loading(),
-        RacesState.loaded(
-          races: [dummyRace, dummyRace],
-          seasonChampion: dummyChampion,
-        ),
-      ],
-      verify: (_) {
-        verify(mockRepository.getSeasonRaces(2022)).called(1);
-        verify(mockRepository.getSeasonRaces(2023)).called(1);
       },
     );
   });

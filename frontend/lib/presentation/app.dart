@@ -5,6 +5,8 @@ import '../helpers/app_messages.dart';
 import 'navigation/app_nav_observer.dart';
 import 'navigation/route_navigator.dart';
 
+const seedColor = Color(0xffff1801);
+
 class App extends StatefulWidget {
   final RouteNavigator navigator;
 
@@ -22,7 +24,7 @@ class _AppState extends State<App> {
         title: AppMessages.appName,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Color(0xffff1801),
+            seedColor: seedColor,
             dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
           ),
         ),
