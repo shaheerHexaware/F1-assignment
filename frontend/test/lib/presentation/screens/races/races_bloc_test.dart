@@ -6,8 +6,8 @@ import 'package:f1_app/data/data_repository.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/presentation/screens/races/races_bloc.dart';
-import 'package:f1_app/presentation/screens/races/races_event.dart';
-import 'package:f1_app/presentation/screens/races/races_state.dart';
+import 'package:f1_app/presentation/screens/races/event/races_event.dart';
+import 'package:f1_app/presentation/screens/races/state/races_state.dart';
 import '../../../dummies.dart';
 import 'races_bloc_test.mocks.dart';
 
@@ -28,8 +28,8 @@ void main() {
     bloc.close();
   });
 
-  test('initial state is RacesState.initial', () {
-    expect(bloc.state, const RacesState.initial());
+  test('initial state is RacesState.loading', () {
+    expect(bloc.state, const RacesState.loading());
   });
 
   group('LoadRaces', () {

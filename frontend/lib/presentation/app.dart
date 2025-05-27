@@ -1,6 +1,5 @@
-import 'package:f1_app/data/data_repository.dart';
+import 'package:f1_app/presentation/data_repository_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../helpers/app_messages.dart';
 import 'navigation/app_nav_observer.dart';
@@ -18,12 +17,14 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return Provider<DataRepository>(
-      create: (context) => DataRepository(),
+    return DataRepositoryProvider(
       child: MaterialApp(
         title: AppMessages.appName,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Color(0xffff1801),
+            dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
+          ),
         ),
         navigatorKey: widget.navigator.navigationKey,
         initialRoute: widget.navigator.initialRoute,

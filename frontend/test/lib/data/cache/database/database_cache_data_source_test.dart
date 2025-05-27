@@ -9,7 +9,7 @@ import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/circuit/circuit.dart';
 import 'package:f1_app/domain/models/constructor/constructor.dart';
-import '../../../dummies.dart' as Dummies;
+import '../../../dummies.dart';
 import 'database_cache_data_source_test.mocks.dart';
 
 @GenerateMocks([DatabaseHelper, Database, Transaction])

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install openapi-generator if not present
 if ! command -v openapi-generator &> /dev/null; then
     brew install openapi-generator
 fi

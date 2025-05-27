@@ -117,7 +117,6 @@ class DatabaseCacheDataSource implements CacheDataSource {
     await database.transaction((txn) async {
       final timestamp = DateTime.now().millisecondsSinceEpoch;
 
-      // Cache all unique drivers first
       final Set<String> processedDrivers = {};
       for (final season in seasons) {
         final driver = season.champion;
@@ -139,7 +138,6 @@ class DatabaseCacheDataSource implements CacheDataSource {
         }
       }
 
-      // Cache seasons
       for (final season in seasons) {
         await txn.insert(
           DatabaseHelper.seasonsTable,
@@ -160,7 +158,6 @@ class DatabaseCacheDataSource implements CacheDataSource {
     await database.transaction((txn) async {
       final timestamp = DateTime.now().millisecondsSinceEpoch;
 
-      // Cache all unique drivers
       final Set<String> processedDrivers = {};
       for (final race in races) {
         final driver = race.winner;
@@ -182,7 +179,6 @@ class DatabaseCacheDataSource implements CacheDataSource {
         }
       }
 
-      // Cache all unique circuits
       final Set<String> processedCircuits = {};
       for (final race in races) {
         final circuit = race.circuit;
@@ -202,7 +198,6 @@ class DatabaseCacheDataSource implements CacheDataSource {
         }
       }
 
-      // Cache all unique constructors
       final Set<String> processedConstructors = {};
       for (final race in races) {
         final constructor = race.constructor;
@@ -221,14 +216,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
         }
       }
 
-      // Delete existing races for this year
       await txn.delete(
         DatabaseHelper.racesTable,
         where: '${DatabaseHelper.columnSeasonYear} = ?',
         whereArgs: [year],
       );
 
-      // Cache races
       for (final race in races) {
         await txn.insert(DatabaseHelper.racesTable, {
           DatabaseHelper.columnSeasonYear: year,

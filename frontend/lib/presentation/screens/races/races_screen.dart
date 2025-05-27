@@ -1,10 +1,12 @@
+import 'package:f1_app/presentation/components/error_component.dart';
+import 'package:f1_app/presentation/components/loading_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/data_repository.dart';
 import '../../../domain/models/driver/driver.dart';
 import 'races_bloc.dart';
-import 'races_event.dart';
-import 'races_state.dart';
+import 'event/races_event.dart';
+import 'state/races_state.dart';
 
 class RacesScreenAttributes {
   final int season;
@@ -31,8 +33,7 @@ class RacesScreen extends StatelessWidget {
         body: BlocBuilder<RacesBloc, RacesState>(
           builder: (context, state) {
             return state.map(
-              initial: (_) => const SizedBox(),
-              loading: (_) => const Center(child: CircularProgressIndicator()),
+              loading: (_) => const LoadingComponent(),
               loaded: (state) => ListView.builder(
                 itemCount: state.races.length,
                 itemBuilder: (context, index) {
@@ -64,25 +65,12 @@ class RacesScreen extends StatelessWidget {
                   );
                 },
               ),
-              error: (state) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Error: ${state.message}',
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<RacesBloc>().add(
-                          RacesEvent.loadRaces(attributes.season),
-                        );
-                      },
-                      child: const Text('Retry'),
-                    ),
-                  ],
-                ),
+              error: (state) => ErrorComponent(
+                onRetryTap: () {
+                  context.read<RacesBloc>().add(
+                    RacesEvent.loadRaces(attributes.season),
+                  );
+                },
               ),
             );
           },

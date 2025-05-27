@@ -5,18 +5,15 @@ class DatabaseHelper {
   static const _databaseName = "f1_cache.db";
   static const _databaseVersion = 1;
 
-  // Table names
   static const String driversTable = 'drivers';
   static const String constructorsTable = 'constructors';
   static const String circuitsTable = 'circuits';
   static const String seasonsTable = 'seasons';
   static const String racesTable = 'races';
 
-  // Common columns
   static const String columnId = 'id';
   static const String columnTimestamp = 'timestamp';
 
-  // Driver columns
   static const String columnDriverId = 'driver_id';
   static const String columnDriverCode = 'code';
   static const String columnGivenName = 'given_name';
@@ -24,21 +21,17 @@ class DatabaseHelper {
   static const String columnDateOfBirth = 'date_of_birth';
   static const String columnNationality = 'nationality';
 
-  // Constructor columns
   static const String columnConstructorId = 'constructor_id';
   static const String columnName = 'name';
 
-  // Circuit columns
   static const String columnCircuitId = 'circuit_id';
   static const String columnCircuitName = 'circuit_name';
   static const String columnLocality = 'locality';
   static const String columnCountry = 'country';
 
-  // Season columns
   static const String columnYear = 'year';
   static const String columnChampionId = 'champion_id';
 
-  // Race columns
   static const String columnSeasonYear = 'season_year';
   static const String columnRound = 'round';
   static const String columnRaceName = 'race_name';
@@ -47,11 +40,9 @@ class DatabaseHelper {
   static const String columnCircuitRefId = 'circuit_id';
   static const String columnWinningConstructorId = 'constructor_id';
 
-  // Make this a singleton class
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
-  // Only allow a single open connection to the database
   static Database? _database;
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -59,7 +50,6 @@ class DatabaseHelper {
     return _database!;
   }
 
-  // Initialize the database
   Future<Database> _initDatabase() async {
     final String path = join(await getDatabasesPath(), _databaseName);
     return await openDatabase(
@@ -69,11 +59,9 @@ class DatabaseHelper {
     );
   }
 
-  // Create the database tables
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('PRAGMA foreign_keys = ON');
 
-    // Drivers table
     await db.execute('''
       CREATE TABLE $driversTable (
         $columnDriverId TEXT PRIMARY KEY,
@@ -86,7 +74,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // Constructors table
     await db.execute('''
       CREATE TABLE $constructorsTable (
         $columnConstructorId TEXT PRIMARY KEY,
@@ -96,7 +83,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // Circuits table
     await db.execute('''
       CREATE TABLE $circuitsTable (
         $columnCircuitId TEXT PRIMARY KEY,
@@ -107,7 +93,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // Seasons table
     await db.execute('''
       CREATE TABLE $seasonsTable (
         $columnYear INTEGER PRIMARY KEY,
@@ -117,7 +102,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // Races table
     await db.execute('''
       CREATE TABLE $racesTable (
         $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -136,7 +120,6 @@ class DatabaseHelper {
       )
     ''');
 
-    // Create indices for faster queries
     await db.execute(
       'CREATE INDEX idx_seasons_year ON $seasonsTable ($columnYear)',
     );
@@ -157,7 +140,6 @@ class DatabaseHelper {
   Future<void> clearAllTables() async {
     final db = await database;
     await db.transaction((txn) async {
-      // Delete in reverse order of dependencies
       await txn.delete(racesTable);
       await txn.delete(seasonsTable);
       await txn.delete(circuitsTable);

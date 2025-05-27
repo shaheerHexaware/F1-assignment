@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/data_repository.dart';
 import '../../../domain/models/driver/driver.dart';
-import 'races_event.dart';
-import 'races_state.dart';
+import 'event/races_event.dart';
+import 'state/races_state.dart';
 
 class RacesBloc extends Bloc<RacesEvent, RacesState> {
   final DataRepository _repository;
@@ -13,7 +13,7 @@ class RacesBloc extends Bloc<RacesEvent, RacesState> {
     required Driver seasonChampion,
   }) : _repository = repository,
        _seasonChampion = seasonChampion,
-       super(const RacesState.initial()) {
+       super(const RacesState.loading()) {
     on<RacesEvent>((event, emit) async {
       await event.map(
         loadRaces: (event) async {

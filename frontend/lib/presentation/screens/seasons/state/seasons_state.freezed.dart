@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'races_state.dart';
+part of 'seasons_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,46 +16,40 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$RacesState {
+mixin _$SeasonsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<Season> seasons) loaded,
     required TResult Function(String message) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<Season> seasons)? loaded,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<Season> seasons)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -64,144 +58,25 @@ mixin _$RacesState {
 }
 
 /// @nodoc
-abstract class $RacesStateCopyWith<$Res> {
-  factory $RacesStateCopyWith(
-    RacesState value,
-    $Res Function(RacesState) then,
-  ) = _$RacesStateCopyWithImpl<$Res, RacesState>;
+abstract class $SeasonsStateCopyWith<$Res> {
+  factory $SeasonsStateCopyWith(
+    SeasonsState value,
+    $Res Function(SeasonsState) then,
+  ) = _$SeasonsStateCopyWithImpl<$Res, SeasonsState>;
 }
 
 /// @nodoc
-class _$RacesStateCopyWithImpl<$Res, $Val extends RacesState>
-    implements $RacesStateCopyWith<$Res> {
-  _$RacesStateCopyWithImpl(this._value, this._then);
+class _$SeasonsStateCopyWithImpl<$Res, $Val extends SeasonsState>
+    implements $SeasonsStateCopyWith<$Res> {
+  _$SeasonsStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-    _$InitialImpl value,
-    $Res Function(_$InitialImpl) then,
-  ) = __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$RacesStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-    _$InitialImpl _value,
-    $Res Function(_$InitialImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of RacesState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'RacesState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
-    required TResult Function(String message) error,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Error value) error,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Error value)? error,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements RacesState {
-  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
@@ -214,14 +89,14 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$RacesStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$SeasonsStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
     _$LoadingImpl _value,
     $Res Function(_$LoadingImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -232,7 +107,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'RacesState.loading()';
+    return 'SeasonsState.loading()';
   }
 
   @override
@@ -247,9 +122,8 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<Season> seasons) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -258,9 +132,8 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<Season> seasons)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -269,9 +142,8 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<Season> seasons)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -284,7 +156,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -295,7 +166,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -306,7 +176,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -319,7 +188,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements RacesState {
+abstract class _Loading implements SeasonsState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -330,72 +199,50 @@ abstract class _$$LoadedImplCopyWith<$Res> {
     $Res Function(_$LoadedImpl) then,
   ) = __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Race> races, Driver seasonChampion});
-
-  $DriverCopyWith<$Res> get seasonChampion;
+  $Res call({List<Season> seasons});
 }
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$RacesStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$SeasonsStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
     _$LoadedImpl _value,
     $Res Function(_$LoadedImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? races = null, Object? seasonChampion = null}) {
+  $Res call({Object? seasons = null}) {
     return _then(
       _$LoadedImpl(
-        races: null == races
-            ? _value._races
-            : races // ignore: cast_nullable_to_non_nullable
-                  as List<Race>,
-        seasonChampion: null == seasonChampion
-            ? _value.seasonChampion
-            : seasonChampion // ignore: cast_nullable_to_non_nullable
-                  as Driver,
+        null == seasons
+            ? _value._seasons
+            : seasons // ignore: cast_nullable_to_non_nullable
+                  as List<Season>,
       ),
     );
-  }
-
-  /// Create a copy of RacesState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DriverCopyWith<$Res> get seasonChampion {
-    return $DriverCopyWith<$Res>(_value.seasonChampion, (value) {
-      return _then(_value.copyWith(seasonChampion: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({
-    required final List<Race> races,
-    required this.seasonChampion,
-  }) : _races = races;
+  const _$LoadedImpl(final List<Season> seasons) : _seasons = seasons;
 
-  final List<Race> _races;
+  final List<Season> _seasons;
   @override
-  List<Race> get races {
-    if (_races is EqualUnmodifiableListView) return _races;
+  List<Season> get seasons {
+    if (_seasons is EqualUnmodifiableListView) return _seasons;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_races);
+    return EqualUnmodifiableListView(_seasons);
   }
 
   @override
-  final Driver seasonChampion;
-
-  @override
   String toString() {
-    return 'RacesState.loaded(races: $races, seasonChampion: $seasonChampion)';
+    return 'SeasonsState.loaded(seasons: $seasons)';
   }
 
   @override
@@ -403,19 +250,14 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            const DeepCollectionEquality().equals(other._races, _races) &&
-            (identical(other.seasonChampion, seasonChampion) ||
-                other.seasonChampion == seasonChampion));
+            const DeepCollectionEquality().equals(other._seasons, _seasons));
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    const DeepCollectionEquality().hash(_races),
-    seasonChampion,
-  );
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_seasons));
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -426,36 +268,33 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<Season> seasons) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(races, seasonChampion);
+    return loaded(seasons);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<Season> seasons)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(races, seasonChampion);
+    return loaded?.call(seasons);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<Season> seasons)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(races, seasonChampion);
+      return loaded(seasons);
     }
     return orElse();
   }
@@ -463,7 +302,6 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -474,7 +312,6 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -485,7 +322,6 @@ class _$LoadedImpl implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -498,16 +334,12 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements RacesState {
-  const factory _Loaded({
-    required final List<Race> races,
-    required final Driver seasonChampion,
-  }) = _$LoadedImpl;
+abstract class _Loaded implements SeasonsState {
+  const factory _Loaded(final List<Season> seasons) = _$LoadedImpl;
 
-  List<Race> get races;
-  Driver get seasonChampion;
+  List<Season> get seasons;
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
@@ -526,14 +358,14 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$RacesStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$SeasonsStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
     _$ErrorImpl _value,
     $Res Function(_$ErrorImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -559,7 +391,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'RacesState.error(message: $message)';
+    return 'SeasonsState.error(message: $message)';
   }
 
   @override
@@ -573,7 +405,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -584,9 +416,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Race> races, Driver seasonChampion) loaded,
+    required TResult Function(List<Season> seasons) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -595,9 +426,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult? Function(List<Season> seasons)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -606,9 +436,8 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Race> races, Driver seasonChampion)? loaded,
+    TResult Function(List<Season> seasons)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -621,7 +450,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
@@ -632,7 +460,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
@@ -643,7 +470,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
@@ -656,12 +482,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements RacesState {
+abstract class _Error implements SeasonsState {
   const factory _Error(final String message) = _$ErrorImpl;
 
   String get message;
 
-  /// Create a copy of RacesState
+  /// Create a copy of SeasonsState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>

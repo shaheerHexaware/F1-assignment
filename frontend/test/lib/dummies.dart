@@ -4,29 +4,29 @@ import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/season/season.dart';
 
-const String dummyBaseUrl = "https://races.com/f1/api";
-
-const dummyDriverId = "max_verstappen";
-const dummyDriverCode = "VER";
-const dummyDriverGivenName = "Max";
-const dummyDriverFamilyName = "Verstappen";
-const dummyDate = "1997-09-30";
-const dummyNationality = "Dutch";
-
-const dummyCircuitId = "bahrain";
-const dummyCircuitName = "Bahrain International Circuit";
-const dummyCircuitLocality = "Sakhir";
-const dummyCircuitCountry = "Bahrain";
-
-const dummyConstructorId = "red_bull";
-const dummyConstructorName = "Red Bull Racing";
-const dummyConstructorNationality = "Austrian";
-
-const dummySeason = 2023;
-const dummyRound = 1;
-const dummyRaceName = "Bahrain Grand Prix";
-
 class Dummies {
+  static const String dummyBaseUrl = "https://races.com/f1/api";
+
+  static const dummyDriverId = "max_verstappen";
+  static const dummyDriverCode = "VER";
+  static const dummyDriverGivenName = "Max";
+  static const dummyDriverFamilyName = "Verstappen";
+  static const dummyDate = "1997-09-30";
+  static const dummyNationality = "Dutch";
+
+  static const dummyCircuitId = "bahrain";
+  static const dummyCircuitName = "Bahrain International Circuit";
+  static const dummyCircuitLocality = "Sakhir";
+  static const dummyCircuitCountry = "Bahrain";
+
+  static const dummyConstructorId = "red_bull";
+  static const dummyConstructorName = "Red Bull Racing";
+  static const dummyConstructorNationality = "Austrian";
+
+  static const dummySeason = 2023;
+  static const dummyRound = 1;
+  static const dummyRaceName = "Bahrain Grand Prix";
+
   static Circuit createCircuit({String circuitId = dummyCircuitId}) {
     return Circuit(
       circuitId: circuitId,

@@ -10,7 +10,7 @@ import 'package:f1_app/data/remote/mappers/race_mapper.dart';
 import 'package:f1_app/data/remote/mappers/driver_mapper.dart';
 import 'package:f1_app/data/remote/mappers/circuit_mapper.dart';
 import 'package:f1_app/data/remote/mappers/constructor_mapper.dart';
-import '../../dummies.dart' as Dummies;
+import '../../dummies.dart';
 import 'remote_data_source_test.mocks.dart';
 
 @GenerateMocks([F1ControllerApi])

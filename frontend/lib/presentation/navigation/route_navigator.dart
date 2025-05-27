@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/app_messages.dart';
 import '../screens/races/races_screen.dart';
-import '../screens/seasons/seasons_screen.dart';
+import '../screens/seasons/ui/seasons_screen.dart';
 
 class RouteNavigator {
   static const String tag = "RouteNavigator";
@@ -39,7 +39,6 @@ class RouteNavigator {
         }
         return _errorRoute();
       default:
-        // If there is no such named route in the switch statement, e.g. /third
         debugPrint("$tag -- Invalid route: ${settings.name}");
         return _errorRoute();
     }

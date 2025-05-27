@@ -156,22 +156,22 @@ void main() {
 
     test('returns races from remote and caches them', () async {
       when(
-        mockRemoteDataSource.getSeasonRaces(dummySeason),
+        mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
       ).thenAnswer((_) async => races);
       when(
-        mockCacheDataSource.cacheSeasonRaces(dummySeason, races),
+        mockCacheDataSource.cacheSeasonRaces(Dummies.dummySeason, races),
       ).thenAnswer((_) async => {});
       when(
-        mockCacheDataSource.getSeasonRaces(dummySeason),
+        mockCacheDataSource.getSeasonRaces(Dummies.dummySeason),
       ).thenAnswer((_) async => races);
 
-      final result = await repository.getSeasonRaces(dummySeason);
+      final result = await repository.getSeasonRaces(Dummies.dummySeason);
 
       expect(result, equals(races));
       verifyInOrder([
-        mockRemoteDataSource.getSeasonRaces(dummySeason),
-        mockCacheDataSource.cacheSeasonRaces(dummySeason, races),
-        mockCacheDataSource.getSeasonRaces(dummySeason),
+        mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
+        mockCacheDataSource.cacheSeasonRaces(Dummies.dummySeason, races),
+        mockCacheDataSource.getSeasonRaces(Dummies.dummySeason),
       ]);
     });
 
@@ -179,36 +179,42 @@ void main() {
       'returns cached races when remote fails and cache is not empty',
       () async {
         when(
-          mockRemoteDataSource.getSeasonRaces(dummySeason),
+          mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
         ).thenThrow(Exception('API error'));
         when(
-          mockCacheDataSource.getSeasonRaces(dummySeason),
+          mockCacheDataSource.getSeasonRaces(Dummies.dummySeason),
         ).thenAnswer((_) async => races);
 
-        final result = await repository.getSeasonRaces(dummySeason);
+        final result = await repository.getSeasonRaces(Dummies.dummySeason);
 
         expect(result, equals(races));
-        verify(mockRemoteDataSource.getSeasonRaces(dummySeason)).called(1);
-        verify(mockCacheDataSource.getSeasonRaces(dummySeason)).called(1);
+        verify(
+          mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
+        ).called(1);
+        verify(
+          mockCacheDataSource.getSeasonRaces(Dummies.dummySeason),
+        ).called(1);
         verifyNever(mockCacheDataSource.cacheSeasonRaces(any, any));
       },
     );
 
     test('throws error when remote fails and cache is empty', () async {
       when(
-        mockRemoteDataSource.getSeasonRaces(dummySeason),
+        mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
       ).thenThrow(Exception('API error'));
       when(
-        mockCacheDataSource.getSeasonRaces(dummySeason),
+        mockCacheDataSource.getSeasonRaces(Dummies.dummySeason),
       ).thenAnswer((_) async => <Race>[]);
 
       expect(
-        () => repository.getSeasonRaces(dummySeason),
+        () => repository.getSeasonRaces(Dummies.dummySeason),
         throwsA(isA<Exception>()),
       );
 
-      verify(mockRemoteDataSource.getSeasonRaces(dummySeason)).called(1);
-      verify(mockCacheDataSource.getSeasonRaces(dummySeason)).called(1);
+      verify(
+        mockRemoteDataSource.getSeasonRaces(Dummies.dummySeason),
+      ).called(1);
+      verify(mockCacheDataSource.getSeasonRaces(Dummies.dummySeason)).called(1);
       verifyNever(mockCacheDataSource.cacheSeasonRaces(any, any));
     });
   });
