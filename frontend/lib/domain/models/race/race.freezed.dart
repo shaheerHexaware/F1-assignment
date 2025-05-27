@@ -21,7 +21,10 @@ Race _$RaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Race {
+  int get year => throw _privateConstructorUsedError;
+  int get round => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get date => throw _privateConstructorUsedError;
   Driver get winner => throw _privateConstructorUsedError;
   Circuit get circuit => throw _privateConstructorUsedError;
   Constructor get constructor => throw _privateConstructorUsedError;
@@ -41,7 +44,10 @@ abstract class $RaceCopyWith<$Res> {
       _$RaceCopyWithImpl<$Res, Race>;
   @useResult
   $Res call({
+    int year,
+    int round,
     String name,
+    String date,
     Driver winner,
     Circuit circuit,
     Constructor constructor,
@@ -67,16 +73,31 @@ class _$RaceCopyWithImpl<$Res, $Val extends Race>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? year = null,
+    Object? round = null,
     Object? name = null,
+    Object? date = null,
     Object? winner = null,
     Object? circuit = null,
     Object? constructor = null,
   }) {
     return _then(
       _value.copyWith(
+            year: null == year
+                ? _value.year
+                : year // ignore: cast_nullable_to_non_nullable
+                      as int,
+            round: null == round
+                ? _value.round
+                : round // ignore: cast_nullable_to_non_nullable
+                      as int,
             name: null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            date: null == date
+                ? _value.date
+                : date // ignore: cast_nullable_to_non_nullable
                       as String,
             winner: null == winner
                 ? _value.winner
@@ -135,7 +156,10 @@ abstract class _$$RaceImplCopyWith<$Res> implements $RaceCopyWith<$Res> {
   @override
   @useResult
   $Res call({
+    int year,
+    int round,
     String name,
+    String date,
     Driver winner,
     Circuit circuit,
     Constructor constructor,
@@ -161,16 +185,31 @@ class __$$RaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? year = null,
+    Object? round = null,
     Object? name = null,
+    Object? date = null,
     Object? winner = null,
     Object? circuit = null,
     Object? constructor = null,
   }) {
     return _then(
       _$RaceImpl(
+        year: null == year
+            ? _value.year
+            : year // ignore: cast_nullable_to_non_nullable
+                  as int,
+        round: null == round
+            ? _value.round
+            : round // ignore: cast_nullable_to_non_nullable
+                  as int,
         name: null == name
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        date: null == date
+            ? _value.date
+            : date // ignore: cast_nullable_to_non_nullable
                   as String,
         winner: null == winner
             ? _value.winner
@@ -193,7 +232,10 @@ class __$$RaceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RaceImpl implements _Race {
   const _$RaceImpl({
+    required this.year,
+    required this.round,
     required this.name,
+    required this.date,
     required this.winner,
     required this.circuit,
     required this.constructor,
@@ -203,7 +245,13 @@ class _$RaceImpl implements _Race {
       _$$RaceImplFromJson(json);
 
   @override
+  final int year;
+  @override
+  final int round;
+  @override
   final String name;
+  @override
+  final String date;
   @override
   final Driver winner;
   @override
@@ -213,7 +261,7 @@ class _$RaceImpl implements _Race {
 
   @override
   String toString() {
-    return 'Race(name: $name, winner: $winner, circuit: $circuit, constructor: $constructor)';
+    return 'Race(year: $year, round: $round, name: $name, date: $date, winner: $winner, circuit: $circuit, constructor: $constructor)';
   }
 
   @override
@@ -221,7 +269,10 @@ class _$RaceImpl implements _Race {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RaceImpl &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.round, round) || other.round == round) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.winner, winner) || other.winner == winner) &&
             (identical(other.circuit, circuit) || other.circuit == circuit) &&
             (identical(other.constructor, constructor) ||
@@ -230,8 +281,16 @@ class _$RaceImpl implements _Race {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, winner, circuit, constructor);
+  int get hashCode => Object.hash(
+    runtimeType,
+    year,
+    round,
+    name,
+    date,
+    winner,
+    circuit,
+    constructor,
+  );
 
   /// Create a copy of Race
   /// with the given fields replaced by the non-null parameter values.
@@ -249,7 +308,10 @@ class _$RaceImpl implements _Race {
 
 abstract class _Race implements Race {
   const factory _Race({
+    required final int year,
+    required final int round,
     required final String name,
+    required final String date,
     required final Driver winner,
     required final Circuit circuit,
     required final Constructor constructor,
@@ -258,7 +320,13 @@ abstract class _Race implements Race {
   factory _Race.fromJson(Map<String, dynamic> json) = _$RaceImpl.fromJson;
 
   @override
+  int get year;
+  @override
+  int get round;
+  @override
   String get name;
+  @override
+  String get date;
   @override
   Driver get winner;
   @override

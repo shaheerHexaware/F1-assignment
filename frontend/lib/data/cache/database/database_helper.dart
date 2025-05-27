@@ -39,8 +39,10 @@ class DatabaseHelper {
   static const String columnChampionId = 'champion_id';
 
   // Race columns
-  static const String columnRaceName = 'race_name';
   static const String columnSeasonYear = 'season_year';
+  static const String columnRound = 'round';
+  static const String columnRaceName = 'race_name';
+  static const String columnDate = 'date';
   static const String columnWinnerId = 'winner_id';
   static const String columnCircuitRefId = 'circuit_id';
   static const String columnWinningConstructorId = 'constructor_id';
@@ -119,8 +121,10 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE $racesTable (
         $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-        $columnRaceName TEXT NOT NULL,
         $columnSeasonYear INTEGER NOT NULL,
+        $columnRound INTEGER NOT NULL,
+        $columnRaceName TEXT NOT NULL,
+        $columnDate TEXT NOT NULL,
         $columnWinnerId TEXT NOT NULL,
         $columnCircuitRefId TEXT NOT NULL,
         $columnWinningConstructorId TEXT NOT NULL,

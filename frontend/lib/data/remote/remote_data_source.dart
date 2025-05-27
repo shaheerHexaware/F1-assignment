@@ -12,19 +12,32 @@ class RemoteDataSource {
   final SeasonMapper _seasonMapper;
   final RaceMapper _raceMapper;
 
-  factory RemoteDataSource({String baseUrl = 'http://10.0.2.2:8080'}) {
+  factory RemoteDataSource({
+    String baseUrl = 'http://10.0.2.2:8080',
+    F1ControllerApi? api,
+    SeasonMapper? seasonMapper,
+    RaceMapper? raceMapper,
+  }) {
+    if (api != null && seasonMapper != null && raceMapper != null) {
+      return RemoteDataSource._(api, seasonMapper, raceMapper);
+    }
+
     final apiClient = ApiClient(basePath: baseUrl);
-    final api = F1ControllerApi(apiClient);
+    final defaultApi = F1ControllerApi(apiClient);
     final driverMapper = DriverMapper();
     final circuitMapper = CircuitMapper();
     final constructorMapper = ConstructorMapper();
-    final seasonMapper = SeasonMapper(driverMapper);
-    final raceMapper = RaceMapper(
+    final defaultSeasonMapper = SeasonMapper(driverMapper);
+    final defaultRaceMapper = RaceMapper(
       driverMapper,
       circuitMapper,
       constructorMapper,
     );
-    return RemoteDataSource._(api, seasonMapper, raceMapper);
+    return RemoteDataSource._(
+      defaultApi,
+      defaultSeasonMapper,
+      defaultRaceMapper,
+    );
   }
 
   RemoteDataSource._(this._api, this._seasonMapper, this._raceMapper);
@@ -32,32 +45,31 @@ class RemoteDataSource {
   Future<List<Season>> getSeasonsWithChampions({int? from, int? to}) async {
     try {
       final seasons = await _api.getSeasonsWithChampions(from: from, to: to);
-      if (seasons == null) throw _handleError(null);
-      // Convert API response to domain models using SeasonMapper
+      if (seasons == null) throw Exception('Failed to fetch seasons data');
       return seasons.map(_seasonMapper.map).toList();
+    } on ApiException catch (e) {
+      throw Exception('API Error: ${e.message}');
     } catch (e) {
-      throw _handleError(e);
+      if (e is Exception) {
+        rethrow;
+      }
+      throw Exception('An unexpected error occurred: $e');
     }
   }
 
   Future<List<Race>> getSeasonRaces(int year) async {
     try {
       final races = await _api.getSeasonRaces(year);
-      if (races == null) throw _handleError(null);
+      if (races == null) throw Exception('Failed to fetch seasons data');
       // Convert API response to domain models using RaceMapper
       return races.map(_raceMapper.map).toList();
+    } on ApiException catch (e) {
+      throw Exception('API Error: ${e.message}');
     } catch (e) {
-      throw _handleError(e);
+      if (e is Exception) {
+        rethrow;
+      }
+      throw Exception('An unexpected error occurred: $e');
     }
-  }
-
-  Exception _handleError(dynamic error) {
-    if (error == null) {
-      return Exception('Failed to fetch seasons data');
-    }
-    if (error is ApiException) {
-      return Exception('API Error: ${error.message}');
-    }
-    return Exception('An unexpected error occurred: $error');
   }
 }

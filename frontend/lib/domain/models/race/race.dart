@@ -10,7 +10,10 @@ part 'race.g.dart';
 @freezed
 abstract class Race with _$Race {
   const factory Race({
+    required int year,
+    required int round,
     required String name,
+    required String date,
     required Driver winner,
     required Circuit circuit,
     required Constructor constructor,

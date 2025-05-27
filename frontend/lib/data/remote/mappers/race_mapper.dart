@@ -15,6 +15,7 @@ class RaceMapper extends Mapper<RaceDTO, Race> {
 
   @override
   Race map(RaceDTO param) {
+    print(param.date);
     final winningDriver =
         param.winningDriver.getNotNullParameter('Winning driver is missing')
             as DriverDTO;
@@ -25,8 +26,11 @@ class RaceMapper extends Mapper<RaceDTO, Race> {
             as ConstructorDTO;
 
     return Race(
+      year: param.seasonYear,
+      round: param.round,
       name:
           param.raceName.getNotNullParameter('Race name is missing') as String,
+      date: param.date,
       winner: _driverMapper.map(winningDriver),
       circuit: _circuitMapper.map(circuit),
       constructor: _constructorMapper.map(constructor),

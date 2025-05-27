@@ -96,7 +96,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
       );
 
       return Race(
+        year: map[DatabaseHelper.columnSeasonYear],
+        round: map[DatabaseHelper.columnRound],
         name: map[DatabaseHelper.columnRaceName],
+        date: map[DatabaseHelper.columnDate],
         winner: driver,
         circuit: circuit,
         constructor: constructor,
@@ -228,8 +231,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
       // Cache races
       for (final race in races) {
         await txn.insert(DatabaseHelper.racesTable, {
-          DatabaseHelper.columnRaceName: race.name,
           DatabaseHelper.columnSeasonYear: year,
+          DatabaseHelper.columnRound: race.round,
+          DatabaseHelper.columnRaceName: race.name,
+          DatabaseHelper.columnDate: race.date,
           DatabaseHelper.columnWinnerId: race.winner.driverId,
           DatabaseHelper.columnCircuitRefId: race.circuit.circuitId,
           DatabaseHelper.columnWinningConstructorId:
