@@ -16,18 +16,19 @@ class DatabaseHelper {
 
   static const String columnDriverId = 'driver_id';
   static const String columnDriverCode = 'code';
-  static const String columnGivenName = 'given_name';
-  static const String columnFamilyName = 'family_name';
-  static const String columnDateOfBirth = 'date_of_birth';
-  static const String columnNationality = 'nationality';
+  static const String columnDriverGivenName = 'given_name';
+  static const String columnDriverFamilyName = 'family_name';
+  static const String columnDriverDateOfBirth = 'date_of_birth';
+  static const String columnDriverNationality = 'driver_nationality';
 
   static const String columnConstructorId = 'constructor_id';
-  static const String columnName = 'name';
+  static const String columnConstructorName = 'constructor_name';
+  static const String columnConstructorNationality = 'constructor_nationality';
 
   static const String columnCircuitId = 'circuit_id';
   static const String columnCircuitName = 'circuit_name';
-  static const String columnLocality = 'locality';
-  static const String columnCountry = 'country';
+  static const String columnCircuitLocality = 'circuit_locality';
+  static const String columnCircuitCountry = 'circuit_country';
 
   static const String columnYear = 'year';
   static const String columnChampionId = 'champion_id';
@@ -37,7 +38,7 @@ class DatabaseHelper {
   static const String columnRaceName = 'race_name';
   static const String columnDate = 'date';
   static const String columnWinnerId = 'winner_id';
-  static const String columnCircuitRefId = 'circuit_id';
+  //static const String columnCircuitId = 'circuit_id';
   static const String columnWinningConstructorId = 'constructor_id';
 
   DatabaseHelper._privateConstructor();
@@ -66,10 +67,10 @@ class DatabaseHelper {
       CREATE TABLE $driversTable (
         $columnDriverId TEXT PRIMARY KEY,
         $columnDriverCode TEXT,
-        $columnGivenName TEXT NOT NULL,
-        $columnFamilyName TEXT NOT NULL,
-        $columnDateOfBirth TEXT NOT NULL,
-        $columnNationality TEXT NOT NULL,
+        $columnDriverGivenName TEXT NOT NULL,
+        $columnDriverFamilyName TEXT NOT NULL,
+        $columnDriverDateOfBirth TEXT NOT NULL,
+        $columnDriverNationality TEXT NOT NULL,
         $columnTimestamp INTEGER NOT NULL
       )
     ''');
@@ -77,8 +78,8 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE $constructorsTable (
         $columnConstructorId TEXT PRIMARY KEY,
-        $columnName TEXT NOT NULL,
-        $columnNationality TEXT NOT NULL,
+        $columnConstructorName TEXT NOT NULL,
+        $columnConstructorNationality TEXT NOT NULL,
         $columnTimestamp INTEGER NOT NULL
       )
     ''');
@@ -87,8 +88,8 @@ class DatabaseHelper {
       CREATE TABLE $circuitsTable (
         $columnCircuitId TEXT PRIMARY KEY,
         $columnCircuitName TEXT NOT NULL,
-        $columnLocality TEXT NOT NULL,
-        $columnCountry TEXT NOT NULL,
+        $columnCircuitLocality TEXT NOT NULL,
+        $columnCircuitCountry TEXT NOT NULL,
         $columnTimestamp INTEGER NOT NULL
       )
     ''');
@@ -110,12 +111,12 @@ class DatabaseHelper {
         $columnRaceName TEXT NOT NULL,
         $columnDate TEXT NOT NULL,
         $columnWinnerId TEXT NOT NULL,
-        $columnCircuitRefId TEXT NOT NULL,
+        $columnCircuitId TEXT NOT NULL,
         $columnWinningConstructorId TEXT NOT NULL,
         $columnTimestamp INTEGER NOT NULL,
         FOREIGN KEY ($columnSeasonYear) REFERENCES $seasonsTable ($columnYear),
         FOREIGN KEY ($columnWinnerId) REFERENCES $driversTable ($columnDriverId),
-        FOREIGN KEY ($columnCircuitRefId) REFERENCES $circuitsTable ($columnCircuitId),
+        FOREIGN KEY ($columnCircuitId) REFERENCES $circuitsTable ($columnCircuitId),
         FOREIGN KEY ($columnWinningConstructorId) REFERENCES $constructorsTable ($columnConstructorId)
       )
     ''');
@@ -130,7 +131,7 @@ class DatabaseHelper {
       'CREATE INDEX idx_races_winner ON $racesTable ($columnWinnerId)',
     );
     await db.execute(
-      'CREATE INDEX idx_races_circuit ON $racesTable ($columnCircuitRefId)',
+      'CREATE INDEX idx_races_circuit ON $racesTable ($columnCircuitId)',
     );
     await db.execute(
       'CREATE INDEX idx_races_constructor ON $racesTable ($columnWinningConstructorId)',

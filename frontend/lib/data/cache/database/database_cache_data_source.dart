@@ -20,8 +20,8 @@ class DatabaseCacheDataSource implements CacheDataSource {
       '''
       SELECT s.*, 
              d.${DatabaseHelper.columnDriverId}, d.${DatabaseHelper.columnDriverCode}, 
-             d.${DatabaseHelper.columnGivenName}, d.${DatabaseHelper.columnFamilyName}, 
-             d.${DatabaseHelper.columnDateOfBirth}, d.${DatabaseHelper.columnNationality}
+             d.${DatabaseHelper.columnDriverGivenName}, d.${DatabaseHelper.columnDriverFamilyName}, 
+             d.${DatabaseHelper.columnDriverDateOfBirth}, d.${DatabaseHelper.columnDriverNationality}
       FROM ${DatabaseHelper.seasonsTable} s
       INNER JOIN ${DatabaseHelper.driversTable} d 
         ON s.${DatabaseHelper.columnChampionId} = d.${DatabaseHelper.columnDriverId}
@@ -36,10 +36,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
       final driver = Driver(
         driverId: map[DatabaseHelper.columnDriverId],
         code: map[DatabaseHelper.columnDriverCode],
-        givenName: map[DatabaseHelper.columnGivenName],
-        familyName: map[DatabaseHelper.columnFamilyName],
-        dateOfBirth: map[DatabaseHelper.columnDateOfBirth],
-        nationality: map[DatabaseHelper.columnNationality],
+        givenName: map[DatabaseHelper.columnDriverGivenName],
+        familyName: map[DatabaseHelper.columnDriverFamilyName],
+        dateOfBirth: map[DatabaseHelper.columnDriverDateOfBirth],
+        nationality: map[DatabaseHelper.columnDriverNationality],
       );
 
       return Season(year: map[DatabaseHelper.columnYear], champion: driver);
@@ -53,17 +53,17 @@ class DatabaseCacheDataSource implements CacheDataSource {
       '''
       SELECT r.*,
              d.${DatabaseHelper.columnDriverId}, d.${DatabaseHelper.columnDriverCode}, 
-             d.${DatabaseHelper.columnGivenName}, d.${DatabaseHelper.columnFamilyName}, 
-             d.${DatabaseHelper.columnDateOfBirth}, d.${DatabaseHelper.columnNationality},
+             d.${DatabaseHelper.columnDriverGivenName}, d.${DatabaseHelper.columnDriverFamilyName}, 
+             d.${DatabaseHelper.columnDriverDateOfBirth}, d.${DatabaseHelper.columnDriverNationality},
              c.${DatabaseHelper.columnCircuitId}, c.${DatabaseHelper.columnCircuitName}, 
-             c.${DatabaseHelper.columnLocality}, c.${DatabaseHelper.columnCountry},
-             co.${DatabaseHelper.columnConstructorId}, co.${DatabaseHelper.columnName} as constructor_name, 
-             co.${DatabaseHelper.columnNationality} as constructor_nationality
+             c.${DatabaseHelper.columnCircuitLocality}, c.${DatabaseHelper.columnCircuitCountry},
+             co.${DatabaseHelper.columnConstructorId}, co.${DatabaseHelper.columnConstructorName}, 
+             co.${DatabaseHelper.columnConstructorNationality}
       FROM ${DatabaseHelper.racesTable} r
       INNER JOIN ${DatabaseHelper.driversTable} d 
         ON r.${DatabaseHelper.columnWinnerId} = d.${DatabaseHelper.columnDriverId}
       INNER JOIN ${DatabaseHelper.circuitsTable} c 
-        ON r.${DatabaseHelper.columnCircuitRefId} = c.${DatabaseHelper.columnCircuitId}
+        ON r.${DatabaseHelper.columnCircuitId} = c.${DatabaseHelper.columnCircuitId}
       INNER JOIN ${DatabaseHelper.constructorsTable} co 
         ON r.${DatabaseHelper.columnWinningConstructorId} = co.${DatabaseHelper.columnConstructorId}
       WHERE r.${DatabaseHelper.columnSeasonYear} = ?
@@ -76,17 +76,17 @@ class DatabaseCacheDataSource implements CacheDataSource {
       final driver = Driver(
         driverId: map[DatabaseHelper.columnDriverId],
         code: map[DatabaseHelper.columnDriverCode],
-        givenName: map[DatabaseHelper.columnGivenName],
-        familyName: map[DatabaseHelper.columnFamilyName],
-        dateOfBirth: map[DatabaseHelper.columnDateOfBirth],
-        nationality: map[DatabaseHelper.columnNationality],
+        givenName: map[DatabaseHelper.columnDriverGivenName],
+        familyName: map[DatabaseHelper.columnDriverFamilyName],
+        dateOfBirth: map[DatabaseHelper.columnDriverDateOfBirth],
+        nationality: map[DatabaseHelper.columnDriverNationality],
       );
 
       final circuit = Circuit(
         circuitId: map[DatabaseHelper.columnCircuitId],
         circuitName: map[DatabaseHelper.columnCircuitName],
-        locality: map[DatabaseHelper.columnLocality],
-        country: map[DatabaseHelper.columnCountry],
+        locality: map[DatabaseHelper.columnCircuitLocality],
+        country: map[DatabaseHelper.columnCircuitCountry],
       );
 
       final constructor = Constructor(
@@ -126,10 +126,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
             {
               DatabaseHelper.columnDriverId: driver.driverId,
               DatabaseHelper.columnDriverCode: driver.code,
-              DatabaseHelper.columnGivenName: driver.givenName,
-              DatabaseHelper.columnFamilyName: driver.familyName,
-              DatabaseHelper.columnDateOfBirth: driver.dateOfBirth,
-              DatabaseHelper.columnNationality: driver.nationality,
+              DatabaseHelper.columnDriverGivenName: driver.givenName,
+              DatabaseHelper.columnDriverFamilyName: driver.familyName,
+              DatabaseHelper.columnDriverDateOfBirth: driver.dateOfBirth,
+              DatabaseHelper.columnDriverNationality: driver.nationality,
               DatabaseHelper.columnTimestamp: timestamp,
             },
             conflictAlgorithm: ConflictAlgorithm.replace,
@@ -167,10 +167,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
             {
               DatabaseHelper.columnDriverId: driver.driverId,
               DatabaseHelper.columnDriverCode: driver.code,
-              DatabaseHelper.columnGivenName: driver.givenName,
-              DatabaseHelper.columnFamilyName: driver.familyName,
-              DatabaseHelper.columnDateOfBirth: driver.dateOfBirth,
-              DatabaseHelper.columnNationality: driver.nationality,
+              DatabaseHelper.columnDriverGivenName: driver.givenName,
+              DatabaseHelper.columnDriverFamilyName: driver.familyName,
+              DatabaseHelper.columnDriverDateOfBirth: driver.dateOfBirth,
+              DatabaseHelper.columnDriverNationality: driver.nationality,
               DatabaseHelper.columnTimestamp: timestamp,
             },
             conflictAlgorithm: ConflictAlgorithm.replace,
@@ -188,8 +188,8 @@ class DatabaseCacheDataSource implements CacheDataSource {
             {
               DatabaseHelper.columnCircuitId: circuit.circuitId,
               DatabaseHelper.columnCircuitName: circuit.circuitName,
-              DatabaseHelper.columnLocality: circuit.locality,
-              DatabaseHelper.columnCountry: circuit.country,
+              DatabaseHelper.columnCircuitLocality: circuit.locality,
+              DatabaseHelper.columnCircuitCountry: circuit.country,
               DatabaseHelper.columnTimestamp: timestamp,
             },
             conflictAlgorithm: ConflictAlgorithm.replace,
@@ -206,8 +206,9 @@ class DatabaseCacheDataSource implements CacheDataSource {
             DatabaseHelper.constructorsTable,
             {
               DatabaseHelper.columnConstructorId: constructor.constructorId,
-              DatabaseHelper.columnName: constructor.name,
-              DatabaseHelper.columnNationality: constructor.nationality,
+              DatabaseHelper.columnConstructorName: constructor.name,
+              DatabaseHelper.columnConstructorNationality:
+                  constructor.nationality,
               DatabaseHelper.columnTimestamp: timestamp,
             },
             conflictAlgorithm: ConflictAlgorithm.replace,
@@ -229,7 +230,7 @@ class DatabaseCacheDataSource implements CacheDataSource {
           DatabaseHelper.columnRaceName: race.name,
           DatabaseHelper.columnDate: race.date,
           DatabaseHelper.columnWinnerId: race.winner.driverId,
-          DatabaseHelper.columnCircuitRefId: race.circuit.circuitId,
+          DatabaseHelper.columnCircuitId: race.circuit.circuitId,
           DatabaseHelper.columnWinningConstructorId:
               race.constructor.constructorId,
           DatabaseHelper.columnTimestamp: timestamp,

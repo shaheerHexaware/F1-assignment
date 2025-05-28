@@ -4,6 +4,7 @@ import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/season/season.dart';
 import 'package:f1_app/presentation/screens/races/models/race_ui.dart';
+import 'package:f1_api_client/api.dart';
 
 class Dummies {
   static const String dummyBaseUrl = "https://races.com/f1/api";
@@ -54,10 +55,13 @@ class Dummies {
     );
   }
 
-  static Driver createDriver({String driverId = dummyDriverId}) {
+  static Driver createDriver({
+    String driverId = dummyDriverId,
+    String? code = dummyDriverCode,
+  }) {
     return Driver(
       driverId: driverId,
-      code: driverId.toUpperCase().substring(0, 3),
+      code: code,
       givenName: dummyDriverGivenName,
       familyName: dummyDriverFamilyName,
       dateOfBirth: dummyDate,
@@ -102,6 +106,86 @@ class Dummies {
       isWinnerChampion: isWinnerChampion,
       circuitName: circuitName,
       constructorName: constructorName,
+    );
+  }
+
+  // DTO Factory Methods
+  static DriverDTO createDriverDTO({
+    String? driverId,
+    String? code = dummyDriverCode,
+    String? givenName,
+    String? familyName,
+    String? dateOfBirth,
+    String? nationality,
+  }) {
+    return DriverDTO(
+      driverId: driverId ?? dummyDriverId,
+      code: code,
+      givenName: givenName ?? dummyDriverGivenName,
+      familyName: familyName ?? dummyDriverFamilyName,
+      dateOfBirth: dateOfBirth ?? dummyDate,
+      nationality: nationality ?? dummyNationality,
+    );
+  }
+
+  static CircuitLocationDTO createLocationDTO({
+    String? locality,
+    String? country,
+  }) {
+    return CircuitLocationDTO(
+      locality: locality ?? dummyCircuitLocality,
+      country: country ?? dummyCircuitCountry,
+    );
+  }
+
+  static CircuitDTO createCircuitDTO({
+    String? circuitId,
+    String? circuitName,
+    CircuitLocationDTO? location,
+  }) {
+    return CircuitDTO(
+      circuitId: circuitId ?? dummyCircuitId,
+      circuitName: circuitName ?? dummyCircuitName,
+      location: location ?? createLocationDTO(),
+    );
+  }
+
+  static ConstructorDTO createConstructorDTO({
+    String? constructorId,
+    String? name,
+    String? nationality,
+  }) {
+    return ConstructorDTO(
+      constructorId: constructorId ?? dummyConstructorId,
+      name: name ?? dummyConstructorName,
+      nationality: nationality ?? dummyConstructorNationality,
+    );
+  }
+
+  static RaceDTO createRaceDTO({
+    int? seasonYear,
+    int? round,
+    String? raceName,
+    String? date,
+    DriverDTO? winningDriver,
+    CircuitDTO? circuit,
+    ConstructorDTO? winningConstructor,
+  }) {
+    return RaceDTO(
+      seasonYear: seasonYear ?? dummySeason,
+      round: round ?? dummyRound,
+      raceName: raceName ?? dummyRaceName,
+      date: date ?? dummyDate,
+      winningDriver: winningDriver ?? createDriverDTO(),
+      circuit: circuit ?? createCircuitDTO(),
+      winningConstructor: winningConstructor ?? createConstructorDTO(),
+    );
+  }
+
+  static SeasonDTO createSeasonDTO({int? year, DriverDTO? champion}) {
+    return SeasonDTO(
+      year: year ?? dummySeason,
+      champion: champion ?? createDriverDTO(),
     );
   }
 }

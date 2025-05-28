@@ -36,10 +36,10 @@ void main() {
       DatabaseHelper.columnYear: Dummies.dummySeason,
       DatabaseHelper.columnDriverId: Dummies.dummyDriverId,
       DatabaseHelper.columnDriverCode: Dummies.dummyDriverCode,
-      DatabaseHelper.columnGivenName: Dummies.dummyDriverGivenName,
-      DatabaseHelper.columnFamilyName: Dummies.dummyDriverFamilyName,
-      DatabaseHelper.columnDateOfBirth: Dummies.dummyDate,
-      DatabaseHelper.columnNationality: Dummies.dummyNationality,
+      DatabaseHelper.columnDriverGivenName: Dummies.dummyDriverGivenName,
+      DatabaseHelper.columnDriverFamilyName: Dummies.dummyDriverFamilyName,
+      DatabaseHelper.columnDriverDateOfBirth: Dummies.dummyDate,
+      DatabaseHelper.columnDriverNationality: Dummies.dummyNationality,
     };
 
     test('returns list of seasons from database', () async {
@@ -98,17 +98,18 @@ void main() {
       DatabaseHelper.columnDate: Dummies.dummyDate,
       DatabaseHelper.columnDriverId: Dummies.dummyDriverId,
       DatabaseHelper.columnDriverCode: Dummies.dummyDriverCode,
-      DatabaseHelper.columnGivenName: Dummies.dummyDriverGivenName,
-      DatabaseHelper.columnFamilyName: Dummies.dummyDriverFamilyName,
-      DatabaseHelper.columnDateOfBirth: Dummies.dummyDate,
-      DatabaseHelper.columnNationality: Dummies.dummyNationality,
+      DatabaseHelper.columnDriverGivenName: Dummies.dummyDriverGivenName,
+      DatabaseHelper.columnDriverFamilyName: Dummies.dummyDriverFamilyName,
+      DatabaseHelper.columnDriverDateOfBirth: Dummies.dummyDate,
+      DatabaseHelper.columnDriverNationality: Dummies.dummyNationality,
       DatabaseHelper.columnCircuitId: Dummies.dummyCircuitId,
       DatabaseHelper.columnCircuitName: Dummies.dummyCircuitName,
-      DatabaseHelper.columnLocality: Dummies.dummyCircuitLocality,
-      DatabaseHelper.columnCountry: Dummies.dummyCircuitCountry,
+      DatabaseHelper.columnCircuitLocality: Dummies.dummyCircuitLocality,
+      DatabaseHelper.columnCircuitCountry: Dummies.dummyCircuitCountry,
       DatabaseHelper.columnConstructorId: Dummies.dummyConstructorId,
-      'constructor_name': Dummies.dummyConstructorName,
-      'constructor_nationality': Dummies.dummyConstructorNationality,
+      DatabaseHelper.columnConstructorName: Dummies.dummyConstructorName,
+      DatabaseHelper.columnConstructorNationality:
+          Dummies.dummyConstructorNationality,
     };
 
     test('returns list of races from database', () async {
