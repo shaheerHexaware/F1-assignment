@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:f1_app/data/cache/database/database_helper.dart';
-import 'package:f1_app/data/cache/database/mappers/driver_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/driver_domain_mapper.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
 import '../../../../dummies.dart';
 
 void main() {
-  late DriverMapper driverMapper;
+  late DriverDomainMapper driverMapper;
 
   setUp(() {
-    driverMapper = DriverMapper();
+    driverMapper = DriverDomainMapper();
   });
 
   test('createDriverEntity maps data correctly', () {

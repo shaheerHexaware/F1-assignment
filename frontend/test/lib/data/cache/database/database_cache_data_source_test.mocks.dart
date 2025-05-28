@@ -6,8 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:f1_app/data/cache/database/database_helper.dart' as _i6;
-import 'package:f1_app/data/cache/database/mappers/race_mapper.dart' as _i9;
-import 'package:f1_app/data/cache/database/mappers/season_mapper.dart' as _i8;
+import 'package:f1_app/data/cache/database/mappers/race_domain_mapper.dart'
+    as _i9;
+import 'package:f1_app/data/cache/database/mappers/season_domain_mapper.dart'
+    as _i8;
 import 'package:f1_app/domain/models/race/race.dart' as _i5;
 import 'package:f1_app/domain/models/season/season.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -700,7 +702,7 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
 /// A class which mocks [SeasonMapper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSeasonMapper extends _i1.Mock implements _i8.SeasonMapper {
+class MockSeasonMapper extends _i1.Mock implements _i8.SeasonDomainMapper {
   MockSeasonMapper() {
     _i1.throwOnMissingStub(this);
   }
@@ -720,7 +722,7 @@ class MockSeasonMapper extends _i1.Mock implements _i8.SeasonMapper {
 /// A class which mocks [RaceMapper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRaceMapper extends _i1.Mock implements _i9.RaceMapper {
+class MockRaceMapper extends _i1.Mock implements _i9.RaceDomainMapper {
   MockRaceMapper() {
     _i1.throwOnMissingStub(this);
   }

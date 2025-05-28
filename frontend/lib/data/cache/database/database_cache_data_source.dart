@@ -1,9 +1,9 @@
 import 'package:f1_app/data/cache/cache_data_source.dart';
-import 'package:f1_app/data/cache/database/mappers/circuit_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/constructor_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/driver_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/race_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/season_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/circuit_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/constructor_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/driver_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/race_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/season_domain_mapper.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/season/season.dart';
 import 'database_helper.dart';
@@ -11,24 +11,24 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseCacheDataSource implements CacheDataSource {
   final DatabaseHelper _db;
-  final SeasonMapper _seasonMapper;
-  final RaceMapper _raceMapper;
+  final SeasonDomainMapper _seasonMapper;
+  final RaceDomainMapper _raceMapper;
 
   factory DatabaseCacheDataSource({
     DatabaseHelper? db,
-    SeasonMapper? seasonMapper,
-    RaceMapper? raceMapper,
+    SeasonDomainMapper? seasonMapper,
+    RaceDomainMapper? raceMapper,
   }) {
     if (db != null && seasonMapper != null && raceMapper != null) {
       return DatabaseCacheDataSource._(db, seasonMapper, raceMapper);
     }
 
     final defaultDb = DatabaseHelper.instance;
-    final driverMapper = DriverMapper();
-    final circuitMapper = CircuitMapper();
-    final constructorMapper = ConstructorMapper();
-    final defaultSeasonMapper = SeasonMapper(driverMapper);
-    final defaultRaceMapper = RaceMapper(
+    final driverMapper = DriverDomainMapper();
+    final circuitMapper = CircuitDomainMapper();
+    final constructorMapper = ConstructorDomainMapper();
+    final defaultSeasonMapper = SeasonDomainMapper(driverMapper);
+    final defaultRaceMapper = RaceDomainMapper(
       driverMapper,
       circuitMapper,
       constructorMapper,

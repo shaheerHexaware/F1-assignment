@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:f1_app/data/cache/database/mappers/circuit_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/circuit_domain_mapper.dart';
 import 'package:f1_app/domain/models/circuit/circuit.dart';
 import '../../../../dummies.dart';
 
 void main() {
-  late CircuitMapper circuitMapper;
+  late CircuitDomainMapper circuitMapper;
 
   setUp(() {
-    circuitMapper = CircuitMapper();
+    circuitMapper = CircuitDomainMapper();
   });
 
   test('createCircuitEntity maps data correctly', () {

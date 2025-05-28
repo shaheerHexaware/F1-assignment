@@ -1,19 +1,23 @@
 import 'package:f1_app/data/cache/database/database_helper.dart';
-import 'package:f1_app/data/cache/database/mappers/circuit_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/constructor_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/driver_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/circuit_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/constructor_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/driver_domain_mapper.dart';
 import 'package:f1_app/domain/models/circuit/circuit.dart';
 import 'package:f1_app/domain/models/constructor/constructor.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/helpers/mapper/mapper.dart';
 
-class RaceMapper extends Mapper<Map<String, dynamic>, Race, void> {
-  final DriverMapper _driverMapper;
-  final CircuitMapper _circuitMapper;
-  final ConstructorMapper _constructorMapper;
+class RaceDomainMapper extends Mapper<Map<String, dynamic>, Race, void> {
+  final DriverDomainMapper _driverMapper;
+  final CircuitDomainMapper _circuitMapper;
+  final ConstructorDomainMapper _constructorMapper;
 
-  RaceMapper(this._driverMapper, this._circuitMapper, this._constructorMapper);
+  RaceDomainMapper(
+    this._driverMapper,
+    this._circuitMapper,
+    this._constructorMapper,
+  );
 
   @override
   Race map(Map<String, dynamic> param, {void metadata}) {

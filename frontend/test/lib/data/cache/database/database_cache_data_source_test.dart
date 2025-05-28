@@ -1,5 +1,5 @@
-import 'package:f1_app/data/cache/database/mappers/race_mapper.dart';
-import 'package:f1_app/data/cache/database/mappers/season_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/race_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/season_domain_mapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -18,8 +18,8 @@ import 'database_cache_data_source_test.mocks.dart';
   DatabaseHelper,
   Database,
   Transaction,
-  SeasonMapper,
-  RaceMapper,
+  SeasonDomainMapper,
+  RaceDomainMapper,
 ])
 void main() {
   late DatabaseCacheDataSource cacheDataSource;
