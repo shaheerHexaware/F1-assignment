@@ -1,0 +1,4 @@
+{
+    "API_URL": "your base api url",
+    "SEASON_START_YEAR": "year you want to get the seasons from, e.g. 2010"
+}

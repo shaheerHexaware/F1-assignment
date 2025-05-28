@@ -1,5 +1,3 @@
-import 'package:f1_app/helpers/env/enum_environment.dart';
-import 'package:f1_app/helpers/env/env_variables.dart';
 import 'package:f1_app/presentation/screens/seasons/event/seasons_event.dart';
 import 'package:f1_app/presentation/screens/seasons/state/seasons_state.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,17 +10,15 @@ import 'package:f1_app/presentation/screens/seasons/seasons_bloc.dart';
 import '../../../dummies.dart';
 import 'seasons_bloc_test.mocks.dart';
 
-@GenerateMocks([DataRepository, EnvironmentVariables])
+@GenerateMocks([DataRepository])
 void main() {
   late SeasonsBloc bloc;
   late MockDataRepository mockRepository;
-  late MockEnvironmentVariables mockEnvironmentVariables;
   setUp(() {
     mockRepository = MockDataRepository();
-    mockEnvironmentVariables = MockEnvironmentVariables();
     bloc = SeasonsBloc(
       repository: mockRepository,
-      environmentVariables: mockEnvironmentVariables,
+      startYear: Dummies.dummySeason.toString(),
     );
   });
 
@@ -44,11 +40,6 @@ void main() {
         when(
           mockRepository.getSeasonsWithChampions(from: Dummies.dummySeason),
         ).thenAnswer((_) async => seasons);
-        when(
-          mockEnvironmentVariables.getValue(
-            path: EnvironmentKeys.seasionStartYear,
-          ),
-        ).thenAnswer((_) async => Dummies.dummySeason.toString());
         return bloc;
       },
       act: (bloc) => bloc.add(const SeasonsEvent.loadSeasons()),
@@ -66,11 +57,6 @@ void main() {
     blocTest<SeasonsBloc, SeasonsState>(
       'emits [loading, error] when loading seasons fails',
       build: () {
-        when(
-          mockEnvironmentVariables.getValue(
-            path: EnvironmentKeys.seasionStartYear,
-          ),
-        ).thenAnswer((_) async => Dummies.dummySeason.toString());
         when(
           mockRepository.getSeasonsWithChampions(from: Dummies.dummySeason),
         ).thenThrow(Exception('Failed to load seasons'));
@@ -92,11 +78,6 @@ void main() {
       'emits [loading, loaded] with empty list when no seasons are found',
       build: () {
         when(
-          mockEnvironmentVariables.getValue(
-            path: EnvironmentKeys.seasionStartYear,
-          ),
-        ).thenAnswer((_) async => Dummies.dummySeason.toString());
-        when(
           mockRepository.getSeasonsWithChampions(from: Dummies.dummySeason),
         ).thenAnswer((_) async => <Season>[]);
         return bloc;
@@ -116,11 +97,6 @@ void main() {
     blocTest<SeasonsBloc, SeasonsState>(
       'emits [loading, loaded] with multiple seasons',
       build: () {
-        when(
-          mockEnvironmentVariables.getValue(
-            path: EnvironmentKeys.seasionStartYear,
-          ),
-        ).thenAnswer((_) async => Dummies.dummySeason.toString());
         final multipleSeasons = [
           Dummies.createSeason(year: Dummies.dummySeason),
           Dummies.createSeason(year: Dummies.dummySeason + 1),

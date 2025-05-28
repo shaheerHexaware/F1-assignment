@@ -8,10 +8,7 @@ import 'dart:async' as _i3;
 import 'package:f1_app/data/data_repository.dart' as _i2;
 import 'package:f1_app/domain/models/race/race.dart' as _i5;
 import 'package:f1_app/domain/models/season/season.dart' as _i4;
-import 'package:f1_app/helpers/env/enum_environment.dart' as _i7;
-import 'package:f1_app/helpers/env/env_variables.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -53,27 +50,4 @@ class MockDataRepository extends _i1.Mock implements _i2.DataRepository {
             returnValue: _i3.Future<List<_i5.Race>>.value(<_i5.Race>[]),
           )
           as _i3.Future<List<_i5.Race>>);
-}
-
-/// A class which mocks [EnvironmentVariables].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockEnvironmentVariables extends _i1.Mock
-    implements _i6.EnvironmentVariables {
-  MockEnvironmentVariables() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.Future<String> getValue({required _i7.EnvironmentKeys? path}) =>
-      (super.noSuchMethod(
-            Invocation.method(#getValue, [], {#path: path}),
-            returnValue: _i3.Future<String>.value(
-              _i8.dummyValue<String>(
-                this,
-                Invocation.method(#getValue, [], {#path: path}),
-              ),
-            ),
-          )
-          as _i3.Future<String>);
 }
