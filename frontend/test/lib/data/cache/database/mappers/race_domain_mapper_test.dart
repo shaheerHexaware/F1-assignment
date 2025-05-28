@@ -23,7 +23,7 @@ void main() {
     );
   });
 
-  test('createRaceEntity maps data correctly', () {
+  test('RaceDomainMapper maps data correctly', () {
     final Map<String, dynamic> data = Dummies.createRaceEntity();
 
     final Race result = raceMapper.map(data);

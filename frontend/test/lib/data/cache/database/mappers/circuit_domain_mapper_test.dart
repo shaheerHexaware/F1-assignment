@@ -10,7 +10,7 @@ void main() {
     circuitMapper = CircuitDomainMapper();
   });
 
-  test('createCircuitEntity maps data correctly', () {
+  test('CircuitDomainMapper maps data correctly', () {
     final Map<String, dynamic> data = Dummies.createCircuitEntity();
 
     final Circuit result = circuitMapper.map(data);

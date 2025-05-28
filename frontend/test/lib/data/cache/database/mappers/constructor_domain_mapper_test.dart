@@ -10,7 +10,7 @@ void main() {
     constructorMapper = ConstructorDomainMapper();
   });
 
-  test('createConstructorEntity maps data correctly', () {
+  test('ConstructorDomainMapper maps data correctly', () {
     final Map<String, dynamic> data = Dummies.createConstructorEntity();
 
     final Constructor result = constructorMapper.map(data);

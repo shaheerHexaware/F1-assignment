@@ -4,6 +4,11 @@ import 'package:f1_app/data/cache/database/mappers/constructor_domain_mapper.dar
 import 'package:f1_app/data/cache/database/mappers/driver_domain_mapper.dart';
 import 'package:f1_app/data/cache/database/mappers/race_domain_mapper.dart';
 import 'package:f1_app/data/cache/database/mappers/season_domain_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/circuit_database_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/constructor_database_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/driver_database_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/race_database_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/season_database_mapper.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/season/season.dart';
 import 'database_helper.dart';
@@ -11,36 +16,82 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseCacheDataSource implements CacheDataSource {
   final DatabaseHelper _db;
-  final SeasonDomainMapper _seasonMapper;
-  final RaceDomainMapper _raceMapper;
+  final SeasonDomainMapper _seasonDomainMapper;
+  final RaceDomainMapper _raceDomainMapper;
+  final DriverDatabaseMapper _driverDatabaseMapper;
+  final CircuitDatabaseMapper _circuitDatabaseMapper;
+  final ConstructorDatabaseMapper _constructorDatabaseMapper;
+  final RaceDatabaseMapper _raceDatabaseMapper;
+  final SeasonDatabaseMapper _seasonDatabaseMapper;
 
   factory DatabaseCacheDataSource({
     DatabaseHelper? db,
-    SeasonDomainMapper? seasonMapper,
-    RaceDomainMapper? raceMapper,
+    SeasonDomainMapper? seasonDomainMapper,
+    RaceDomainMapper? raceDomainMapper,
+    DriverDatabaseMapper? driverDatabaseMapper,
+    CircuitDatabaseMapper? circuitDatabaseMapper,
+    ConstructorDatabaseMapper? constructorDatabaseMapper,
+    RaceDatabaseMapper? raceDatabaseMapper,
+    SeasonDatabaseMapper? seasonDatabaseMapper,
   }) {
-    if (db != null && seasonMapper != null && raceMapper != null) {
-      return DatabaseCacheDataSource._(db, seasonMapper, raceMapper);
+    if (db != null &&
+        seasonDomainMapper != null &&
+        raceDomainMapper != null &&
+        driverDatabaseMapper != null &&
+        circuitDatabaseMapper != null &&
+        constructorDatabaseMapper != null &&
+        raceDatabaseMapper != null &&
+        seasonDatabaseMapper != null) {
+      return DatabaseCacheDataSource._(
+        db,
+        seasonDomainMapper,
+        raceDomainMapper,
+        driverDatabaseMapper,
+        circuitDatabaseMapper,
+        constructorDatabaseMapper,
+        raceDatabaseMapper,
+        seasonDatabaseMapper,
+      );
     }
 
     final defaultDb = DatabaseHelper.instance;
-    final driverMapper = DriverDomainMapper();
-    final circuitMapper = CircuitDomainMapper();
-    final constructorMapper = ConstructorDomainMapper();
-    final defaultSeasonMapper = SeasonDomainMapper(driverMapper);
-    final defaultRaceMapper = RaceDomainMapper(
-      driverMapper,
-      circuitMapper,
-      constructorMapper,
+    final driverDomainMapper = DriverDomainMapper();
+    final circuitDomainMapper = CircuitDomainMapper();
+    final constructorDomainMapper = ConstructorDomainMapper();
+    final defaultSeasonDomainMapper = SeasonDomainMapper(driverDomainMapper);
+    final defaultRaceDomainMapper = RaceDomainMapper(
+      driverDomainMapper,
+      circuitDomainMapper,
+      constructorDomainMapper,
     );
+    final defaultDriverDatabaseMapper = DriverDatabaseMapper();
+    final defaultCircuitDatabaseMapper = CircuitDatabaseMapper();
+    final defaultConstructorDatabaseMapper = ConstructorDatabaseMapper();
+    final defaultRaceDatabaseMapper = RaceDatabaseMapper();
+    final defaultSeasonDatabaseMapper = SeasonDatabaseMapper();
+
     return DatabaseCacheDataSource._(
       defaultDb,
-      defaultSeasonMapper,
-      defaultRaceMapper,
+      defaultSeasonDomainMapper,
+      defaultRaceDomainMapper,
+      defaultDriverDatabaseMapper,
+      defaultCircuitDatabaseMapper,
+      defaultConstructorDatabaseMapper,
+      defaultRaceDatabaseMapper,
+      defaultSeasonDatabaseMapper,
     );
   }
 
-  DatabaseCacheDataSource._(this._db, this._seasonMapper, this._raceMapper);
+  DatabaseCacheDataSource._(
+    this._db,
+    this._seasonDomainMapper,
+    this._raceDomainMapper,
+    this._driverDatabaseMapper,
+    this._circuitDatabaseMapper,
+    this._constructorDatabaseMapper,
+    this._raceDatabaseMapper,
+    this._seasonDatabaseMapper,
+  );
 
   @override
   Future<List<Season>> getSeasonsWithChampions({int? from, int? to}) async {
@@ -62,7 +113,7 @@ class DatabaseCacheDataSource implements CacheDataSource {
     );
 
     return seasonMaps.map((map) {
-      return _seasonMapper.map(map);
+      return _seasonDomainMapper.map(map);
     }).toList();
   }
 
@@ -93,7 +144,7 @@ class DatabaseCacheDataSource implements CacheDataSource {
     );
 
     return raceMaps.map((map) {
-      return _raceMapper.map(map);
+      return _raceDomainMapper.map(map);
     }).toList();
   }
 
@@ -111,17 +162,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
       for (final season in seasons) {
         final driver = season.champion;
         if (!processedDrivers.contains(driver.driverId)) {
+          final driverMap = _driverDatabaseMapper.map(driver);
+          driverMap[DatabaseHelper.columnTimestamp] = timestamp;
+
           await txn.insert(
             DatabaseHelper.driversTable,
-            {
-              DatabaseHelper.columnDriverId: driver.driverId,
-              DatabaseHelper.columnDriverCode: driver.code,
-              DatabaseHelper.columnDriverGivenName: driver.givenName,
-              DatabaseHelper.columnDriverFamilyName: driver.familyName,
-              DatabaseHelper.columnDriverDateOfBirth: driver.dateOfBirth,
-              DatabaseHelper.columnDriverNationality: driver.nationality,
-              DatabaseHelper.columnTimestamp: timestamp,
-            },
+            driverMap,
             conflictAlgorithm: ConflictAlgorithm.replace,
           );
           processedDrivers.add(driver.driverId);
@@ -129,13 +175,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
       }
 
       for (final season in seasons) {
+        final seasonMap = _seasonDatabaseMapper.map(season);
+        seasonMap[DatabaseHelper.columnTimestamp] = timestamp;
+
         await txn.insert(
           DatabaseHelper.seasonsTable,
-          {
-            DatabaseHelper.columnYear: season.year,
-            DatabaseHelper.columnChampionId: season.champion.driverId,
-            DatabaseHelper.columnTimestamp: timestamp,
-          },
+          seasonMap,
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
@@ -152,17 +197,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
       for (final race in races) {
         final driver = race.winner;
         if (!processedDrivers.contains(driver.driverId)) {
+          final driverMap = _driverDatabaseMapper.map(driver);
+          driverMap[DatabaseHelper.columnTimestamp] = timestamp;
+
           await txn.insert(
             DatabaseHelper.driversTable,
-            {
-              DatabaseHelper.columnDriverId: driver.driverId,
-              DatabaseHelper.columnDriverCode: driver.code,
-              DatabaseHelper.columnDriverGivenName: driver.givenName,
-              DatabaseHelper.columnDriverFamilyName: driver.familyName,
-              DatabaseHelper.columnDriverDateOfBirth: driver.dateOfBirth,
-              DatabaseHelper.columnDriverNationality: driver.nationality,
-              DatabaseHelper.columnTimestamp: timestamp,
-            },
+            driverMap,
             conflictAlgorithm: ConflictAlgorithm.replace,
           );
           processedDrivers.add(driver.driverId);
@@ -173,15 +213,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
       for (final race in races) {
         final circuit = race.circuit;
         if (!processedCircuits.contains(circuit.circuitId)) {
+          final circuitMap = _circuitDatabaseMapper.map(circuit);
+          circuitMap[DatabaseHelper.columnTimestamp] = timestamp;
+
           await txn.insert(
             DatabaseHelper.circuitsTable,
-            {
-              DatabaseHelper.columnCircuitId: circuit.circuitId,
-              DatabaseHelper.columnCircuitName: circuit.circuitName,
-              DatabaseHelper.columnCircuitLocality: circuit.locality,
-              DatabaseHelper.columnCircuitCountry: circuit.country,
-              DatabaseHelper.columnTimestamp: timestamp,
-            },
+            circuitMap,
             conflictAlgorithm: ConflictAlgorithm.replace,
           );
           processedCircuits.add(circuit.circuitId);
@@ -192,15 +229,12 @@ class DatabaseCacheDataSource implements CacheDataSource {
       for (final race in races) {
         final constructor = race.constructor;
         if (!processedConstructors.contains(constructor.constructorId)) {
+          final constructorMap = _constructorDatabaseMapper.map(constructor);
+          constructorMap[DatabaseHelper.columnTimestamp] = timestamp;
+
           await txn.insert(
             DatabaseHelper.constructorsTable,
-            {
-              DatabaseHelper.columnConstructorId: constructor.constructorId,
-              DatabaseHelper.columnConstructorName: constructor.name,
-              DatabaseHelper.columnConstructorNationality:
-                  constructor.nationality,
-              DatabaseHelper.columnTimestamp: timestamp,
-            },
+            constructorMap,
             conflictAlgorithm: ConflictAlgorithm.replace,
           );
           processedConstructors.add(constructor.constructorId);
@@ -214,17 +248,10 @@ class DatabaseCacheDataSource implements CacheDataSource {
       );
 
       for (final race in races) {
-        await txn.insert(DatabaseHelper.racesTable, {
-          DatabaseHelper.columnSeasonYear: year,
-          DatabaseHelper.columnRound: race.round,
-          DatabaseHelper.columnRaceName: race.name,
-          DatabaseHelper.columnDate: race.date,
-          DatabaseHelper.columnWinnerId: race.winner.driverId,
-          DatabaseHelper.columnCircuitId: race.circuit.circuitId,
-          DatabaseHelper.columnWinningConstructorId:
-              race.constructor.constructorId,
-          DatabaseHelper.columnTimestamp: timestamp,
-        });
+        final raceMap = _raceDatabaseMapper.map(race);
+        raceMap[DatabaseHelper.columnTimestamp] = timestamp;
+
+        await txn.insert(DatabaseHelper.racesTable, raceMap);
       }
     });
   }

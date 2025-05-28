@@ -6,10 +6,23 @@
 import 'dart:async' as _i3;
 
 import 'package:f1_app/data/cache/database/database_helper.dart' as _i6;
+import 'package:f1_app/data/cache/database/mappers/circuit_database_mapper.dart'
+    as _i12;
+import 'package:f1_app/data/cache/database/mappers/constructor_database_mapper.dart'
+    as _i14;
+import 'package:f1_app/data/cache/database/mappers/driver_database_mapper.dart'
+    as _i10;
+import 'package:f1_app/data/cache/database/mappers/race_database_mapper.dart'
+    as _i16;
 import 'package:f1_app/data/cache/database/mappers/race_domain_mapper.dart'
     as _i9;
+import 'package:f1_app/data/cache/database/mappers/season_database_mapper.dart'
+    as _i17;
 import 'package:f1_app/data/cache/database/mappers/season_domain_mapper.dart'
     as _i8;
+import 'package:f1_app/domain/models/circuit/circuit.dart' as _i13;
+import 'package:f1_app/domain/models/constructor/constructor.dart' as _i15;
+import 'package:f1_app/domain/models/driver/driver.dart' as _i11;
 import 'package:f1_app/domain/models/race/race.dart' as _i5;
 import 'package:f1_app/domain/models/season/season.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
@@ -699,11 +712,12 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
           as _i2.Batch);
 }
 
-/// A class which mocks [SeasonMapper].
+/// A class which mocks [SeasonDomainMapper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSeasonMapper extends _i1.Mock implements _i8.SeasonDomainMapper {
-  MockSeasonMapper() {
+class MockSeasonDomainMapper extends _i1.Mock
+    implements _i8.SeasonDomainMapper {
+  MockSeasonDomainMapper() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -719,11 +733,11 @@ class MockSeasonMapper extends _i1.Mock implements _i8.SeasonDomainMapper {
           as _i4.Season);
 }
 
-/// A class which mocks [RaceMapper].
+/// A class which mocks [RaceDomainMapper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRaceMapper extends _i1.Mock implements _i9.RaceDomainMapper {
-  MockRaceMapper() {
+class MockRaceDomainMapper extends _i1.Mock implements _i9.RaceDomainMapper {
+  MockRaceDomainMapper() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -737,4 +751,94 @@ class MockRaceMapper extends _i1.Mock implements _i9.RaceDomainMapper {
             ),
           )
           as _i5.Race);
+}
+
+/// A class which mocks [DriverDatabaseMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDriverDatabaseMapper extends _i1.Mock
+    implements _i10.DriverDatabaseMapper {
+  MockDriverDatabaseMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> map(_i11.Driver? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: <String, dynamic>{},
+          )
+          as Map<String, dynamic>);
+}
+
+/// A class which mocks [CircuitDatabaseMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCircuitDatabaseMapper extends _i1.Mock
+    implements _i12.CircuitDatabaseMapper {
+  MockCircuitDatabaseMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> map(_i13.Circuit? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: <String, dynamic>{},
+          )
+          as Map<String, dynamic>);
+}
+
+/// A class which mocks [ConstructorDatabaseMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConstructorDatabaseMapper extends _i1.Mock
+    implements _i14.ConstructorDatabaseMapper {
+  MockConstructorDatabaseMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> map(_i15.Constructor? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: <String, dynamic>{},
+          )
+          as Map<String, dynamic>);
+}
+
+/// A class which mocks [RaceDatabaseMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRaceDatabaseMapper extends _i1.Mock
+    implements _i16.RaceDatabaseMapper {
+  MockRaceDatabaseMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> map(_i5.Race? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: <String, dynamic>{},
+          )
+          as Map<String, dynamic>);
+}
+
+/// A class which mocks [SeasonDatabaseMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSeasonDatabaseMapper extends _i1.Mock
+    implements _i17.SeasonDatabaseMapper {
+  MockSeasonDatabaseMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  Map<String, dynamic> map(_i4.Season? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: <String, dynamic>{},
+          )
+          as Map<String, dynamic>);
 }
