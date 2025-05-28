@@ -1,17 +1,46 @@
-import '../cache_data_source.dart';
-import '../../../domain/models/season/season.dart';
-import '../../../domain/models/race/race.dart';
-import '../../../domain/models/driver/driver.dart';
-import '../../../domain/models/circuit/circuit.dart';
-import '../../../domain/models/constructor/constructor.dart';
+import 'package:f1_app/data/cache/cache_data_source.dart';
+import 'package:f1_app/data/cache/database/mappers/circuit_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/constructor_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/driver_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/race_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/season_mapper.dart';
+import 'package:f1_app/domain/models/race/race.dart';
+import 'package:f1_app/domain/models/season/season.dart';
 import 'database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseCacheDataSource implements CacheDataSource {
   final DatabaseHelper _db;
+  final SeasonMapper _seasonMapper;
+  final RaceMapper _raceMapper;
 
-  DatabaseCacheDataSource({DatabaseHelper? db})
-    : _db = db ?? DatabaseHelper.instance;
+  factory DatabaseCacheDataSource({
+    DatabaseHelper? db,
+    SeasonMapper? seasonMapper,
+    RaceMapper? raceMapper,
+  }) {
+    if (db != null && seasonMapper != null && raceMapper != null) {
+      return DatabaseCacheDataSource._(db, seasonMapper, raceMapper);
+    }
+
+    final defaultDb = DatabaseHelper.instance;
+    final driverMapper = DriverMapper();
+    final circuitMapper = CircuitMapper();
+    final constructorMapper = ConstructorMapper();
+    final defaultSeasonMapper = SeasonMapper(driverMapper);
+    final defaultRaceMapper = RaceMapper(
+      driverMapper,
+      circuitMapper,
+      constructorMapper,
+    );
+    return DatabaseCacheDataSource._(
+      defaultDb,
+      defaultSeasonMapper,
+      defaultRaceMapper,
+    );
+  }
+
+  DatabaseCacheDataSource._(this._db, this._seasonMapper, this._raceMapper);
 
   @override
   Future<List<Season>> getSeasonsWithChampions({int? from, int? to}) async {
@@ -33,16 +62,7 @@ class DatabaseCacheDataSource implements CacheDataSource {
     );
 
     return seasonMaps.map((map) {
-      final driver = Driver(
-        driverId: map[DatabaseHelper.columnDriverId],
-        code: map[DatabaseHelper.columnDriverCode],
-        givenName: map[DatabaseHelper.columnDriverGivenName],
-        familyName: map[DatabaseHelper.columnDriverFamilyName],
-        dateOfBirth: map[DatabaseHelper.columnDriverDateOfBirth],
-        nationality: map[DatabaseHelper.columnDriverNationality],
-      );
-
-      return Season(year: map[DatabaseHelper.columnYear], champion: driver);
+      return _seasonMapper.map(map);
     }).toList();
   }
 
@@ -73,37 +93,7 @@ class DatabaseCacheDataSource implements CacheDataSource {
     );
 
     return raceMaps.map((map) {
-      final driver = Driver(
-        driverId: map[DatabaseHelper.columnDriverId],
-        code: map[DatabaseHelper.columnDriverCode],
-        givenName: map[DatabaseHelper.columnDriverGivenName],
-        familyName: map[DatabaseHelper.columnDriverFamilyName],
-        dateOfBirth: map[DatabaseHelper.columnDriverDateOfBirth],
-        nationality: map[DatabaseHelper.columnDriverNationality],
-      );
-
-      final circuit = Circuit(
-        circuitId: map[DatabaseHelper.columnCircuitId],
-        circuitName: map[DatabaseHelper.columnCircuitName],
-        locality: map[DatabaseHelper.columnCircuitLocality],
-        country: map[DatabaseHelper.columnCircuitCountry],
-      );
-
-      final constructor = Constructor(
-        constructorId: map[DatabaseHelper.columnConstructorId],
-        name: map['constructor_name'],
-        nationality: map['constructor_nationality'],
-      );
-
-      return Race(
-        year: map[DatabaseHelper.columnSeasonYear],
-        round: map[DatabaseHelper.columnRound],
-        name: map[DatabaseHelper.columnRaceName],
-        date: map[DatabaseHelper.columnDate],
-        winner: driver,
-        circuit: circuit,
-        constructor: constructor,
-      );
+      return _raceMapper.map(map);
     }).toList();
   }
 

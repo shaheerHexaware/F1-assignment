@@ -1,3 +1,4 @@
+import 'package:f1_app/data/remote/open_api_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -27,7 +28,7 @@ void main() {
     final constructorMapper = ConstructorMapper();
     seasonMapper = SeasonMapper(driverMapper);
     raceMapper = RaceMapper(driverMapper, circuitMapper, constructorMapper);
-    remoteDataSource = RemoteDataSource(
+    remoteDataSource = OpenApiRemoteDataSource(
       api: mockApi,
       seasonMapper: seasonMapper,
       raceMapper: raceMapper,

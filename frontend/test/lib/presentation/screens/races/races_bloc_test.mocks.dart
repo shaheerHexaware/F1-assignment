@@ -50,13 +50,4 @@ class MockDataRepository extends _i1.Mock implements _i2.DataRepository {
             returnValue: _i3.Future<List<_i5.Race>>.value(<_i5.Race>[]),
           )
           as _i3.Future<List<_i5.Race>>);
-
-  @override
-  _i3.Future<void> clearCache() =>
-      (super.noSuchMethod(
-            Invocation.method(#clearCache, []),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
 }

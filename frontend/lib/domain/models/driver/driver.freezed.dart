@@ -15,10 +15,6 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-Driver _$DriverFromJson(Map<String, dynamic> json) {
-  return _Driver.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Driver {
   String get driverId => throw _privateConstructorUsedError;
@@ -27,9 +23,6 @@ mixin _$Driver {
   String get familyName => throw _privateConstructorUsedError;
   String get dateOfBirth => throw _privateConstructorUsedError;
   String get nationality => throw _privateConstructorUsedError;
-
-  /// Serializes this Driver to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Driver
   /// with the given fields replaced by the non-null parameter values.
@@ -177,7 +170,7 @@ class __$$DriverImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$DriverImpl extends _Driver {
   const _$DriverImpl({
     required this.driverId,
@@ -187,9 +180,6 @@ class _$DriverImpl extends _Driver {
     required this.dateOfBirth,
     required this.nationality,
   }) : super._();
-
-  factory _$DriverImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DriverImplFromJson(json);
 
   @override
   final String driverId;
@@ -227,7 +217,6 @@ class _$DriverImpl extends _Driver {
                 other.nationality == nationality));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
     runtimeType,
@@ -246,11 +235,6 @@ class _$DriverImpl extends _Driver {
   @pragma('vm:prefer-inline')
   _$$DriverImplCopyWith<_$DriverImpl> get copyWith =>
       __$$DriverImplCopyWithImpl<_$DriverImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DriverImplToJson(this);
-  }
 }
 
 abstract class _Driver extends Driver {
@@ -263,8 +247,6 @@ abstract class _Driver extends Driver {
     required final String nationality,
   }) = _$DriverImpl;
   const _Driver._() : super._();
-
-  factory _Driver.fromJson(Map<String, dynamic> json) = _$DriverImpl.fromJson;
 
   @override
   String get driverId;

@@ -1,3 +1,4 @@
+import 'package:f1_app/data/cache/database/database_helper.dart';
 import 'package:f1_app/domain/models/circuit/circuit.dart';
 import 'package:f1_app/domain/models/constructor/constructor.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
@@ -109,83 +110,188 @@ class Dummies {
     );
   }
 
-  // DTO Factory Methods
+  // Dummy DTOs
   static DriverDTO createDriverDTO({
-    String? driverId,
+    String driverId = dummyDriverId,
     String? code = dummyDriverCode,
-    String? givenName,
-    String? familyName,
-    String? dateOfBirth,
-    String? nationality,
+    String givenName = dummyDriverGivenName,
+    String familyName = dummyDriverFamilyName,
+    String dateOfBirth = dummyDate,
+    String nationality = dummyNationality,
   }) {
     return DriverDTO(
-      driverId: driverId ?? dummyDriverId,
+      driverId: driverId,
       code: code,
-      givenName: givenName ?? dummyDriverGivenName,
-      familyName: familyName ?? dummyDriverFamilyName,
-      dateOfBirth: dateOfBirth ?? dummyDate,
-      nationality: nationality ?? dummyNationality,
+      givenName: givenName,
+      familyName: familyName,
+      dateOfBirth: dateOfBirth,
+      nationality: nationality,
     );
   }
 
   static CircuitLocationDTO createLocationDTO({
-    String? locality,
-    String? country,
+    String locality = dummyCircuitLocality,
+    String country = dummyCircuitCountry,
   }) {
-    return CircuitLocationDTO(
-      locality: locality ?? dummyCircuitLocality,
-      country: country ?? dummyCircuitCountry,
-    );
+    return CircuitLocationDTO(locality: locality, country: country);
   }
 
   static CircuitDTO createCircuitDTO({
-    String? circuitId,
-    String? circuitName,
+    String circuitId = dummyCircuitId,
+    String circuitName = dummyCircuitName,
     CircuitLocationDTO? location,
   }) {
     return CircuitDTO(
-      circuitId: circuitId ?? dummyCircuitId,
-      circuitName: circuitName ?? dummyCircuitName,
+      circuitId: circuitId,
+      circuitName: circuitName,
       location: location ?? createLocationDTO(),
     );
   }
 
   static ConstructorDTO createConstructorDTO({
-    String? constructorId,
-    String? name,
-    String? nationality,
+    String constructorId = dummyConstructorId,
+    String name = dummyConstructorName,
+    String nationality = dummyConstructorNationality,
   }) {
     return ConstructorDTO(
-      constructorId: constructorId ?? dummyConstructorId,
-      name: name ?? dummyConstructorName,
-      nationality: nationality ?? dummyConstructorNationality,
+      constructorId: constructorId,
+      name: name,
+      nationality: nationality,
     );
   }
 
   static RaceDTO createRaceDTO({
-    int? seasonYear,
-    int? round,
-    String? raceName,
-    String? date,
+    int seasonYear = dummySeason,
+    int round = dummyRound,
+    String raceName = dummyRaceName,
+    String date = dummyDate,
     DriverDTO? winningDriver,
     CircuitDTO? circuit,
     ConstructorDTO? winningConstructor,
   }) {
     return RaceDTO(
-      seasonYear: seasonYear ?? dummySeason,
-      round: round ?? dummyRound,
-      raceName: raceName ?? dummyRaceName,
-      date: date ?? dummyDate,
+      seasonYear: seasonYear,
+      round: round,
+      raceName: raceName,
+      date: date,
       winningDriver: winningDriver ?? createDriverDTO(),
       circuit: circuit ?? createCircuitDTO(),
       winningConstructor: winningConstructor ?? createConstructorDTO(),
     );
   }
 
-  static SeasonDTO createSeasonDTO({int? year, DriverDTO? champion}) {
-    return SeasonDTO(
-      year: year ?? dummySeason,
-      champion: champion ?? createDriverDTO(),
-    );
+  static SeasonDTO createSeasonDTO({
+    int year = dummySeason,
+    DriverDTO? champion,
+  }) {
+    return SeasonDTO(year: year, champion: champion ?? createDriverDTO());
+  }
+
+  static Map<String, dynamic> createCircuitEntity({
+    String circuitId = dummyCircuitId,
+    String circuitName = dummyCircuitName,
+    String locality = dummyCircuitLocality,
+    String country = dummyCircuitCountry,
+  }) {
+    return {
+      DatabaseHelper.columnCircuitId: circuitId,
+      DatabaseHelper.columnCircuitName: circuitName,
+      DatabaseHelper.columnCircuitLocality: locality,
+      DatabaseHelper.columnCircuitCountry: country,
+    };
+  }
+
+  static Map<String, dynamic> createDriverEntity({
+    String driverId = dummyDriverId,
+    String? code = dummyDriverCode,
+    String givenName = dummyDriverGivenName,
+    String familyName = dummyDriverFamilyName,
+    String dateOfBirth = dummyDate,
+    String nationality = dummyNationality,
+  }) {
+    return {
+      DatabaseHelper.columnDriverId: driverId,
+      DatabaseHelper.columnDriverCode: code,
+      DatabaseHelper.columnDriverGivenName: givenName,
+      DatabaseHelper.columnDriverFamilyName: familyName,
+      DatabaseHelper.columnDriverDateOfBirth: dateOfBirth,
+      DatabaseHelper.columnDriverNationality: nationality,
+    };
+  }
+
+  static Map<String, dynamic> createConstructorEntity({
+    String constructorId = dummyConstructorId,
+    String name = dummyConstructorName,
+    String nationality = dummyConstructorNationality,
+  }) {
+    return {
+      DatabaseHelper.columnConstructorId: constructorId,
+      DatabaseHelper.columnConstructorName: name,
+      DatabaseHelper.columnConstructorNationality: nationality,
+    };
+  }
+
+  static Map<String, dynamic> createRaceEntity({
+    int seasonYear = dummySeason,
+    int round = dummyRound,
+    String raceName = dummyRaceName,
+    String date = dummyDate,
+    Map<String, dynamic>? winningDriverEntity,
+    Map<String, dynamic>? circuitEntity,
+    Map<String, dynamic>? winningConstructorEntity,
+  }) {
+    final driver = winningDriverEntity ?? createDriverEntity();
+    final circuit = circuitEntity ?? createCircuitEntity();
+    final constructor = winningConstructorEntity ?? createConstructorEntity();
+
+    return {
+      DatabaseHelper.columnSeasonYear: seasonYear,
+      DatabaseHelper.columnRound: round,
+      DatabaseHelper.columnRaceName: raceName,
+      DatabaseHelper.columnDate: date,
+      DatabaseHelper.columnDriverId: driver[DatabaseHelper.columnDriverId],
+      DatabaseHelper.columnDriverCode: driver[DatabaseHelper.columnDriverCode],
+      DatabaseHelper.columnDriverGivenName:
+          driver[DatabaseHelper.columnDriverGivenName],
+      DatabaseHelper.columnDriverFamilyName:
+          driver[DatabaseHelper.columnDriverFamilyName],
+      DatabaseHelper.columnDriverDateOfBirth:
+          driver[DatabaseHelper.columnDriverDateOfBirth],
+      DatabaseHelper.columnDriverNationality:
+          driver[DatabaseHelper.columnDriverNationality],
+      DatabaseHelper.columnCircuitId: circuit[DatabaseHelper.columnCircuitId],
+      DatabaseHelper.columnCircuitName:
+          circuit[DatabaseHelper.columnCircuitName],
+      DatabaseHelper.columnCircuitLocality:
+          circuit[DatabaseHelper.columnCircuitLocality],
+      DatabaseHelper.columnCircuitCountry:
+          circuit[DatabaseHelper.columnCircuitCountry],
+      DatabaseHelper.columnConstructorId:
+          constructor[DatabaseHelper.columnConstructorId],
+      DatabaseHelper.columnConstructorName:
+          constructor[DatabaseHelper.columnConstructorName],
+      DatabaseHelper.columnConstructorNationality:
+          constructor[DatabaseHelper.columnConstructorNationality],
+    };
+  }
+
+  static Map<String, dynamic> createSeasonEntity({
+    int year = dummySeason,
+    Map<String, dynamic>? championEntity,
+  }) {
+    final driver = championEntity ?? createDriverEntity();
+    return {
+      DatabaseHelper.columnYear: year,
+      DatabaseHelper.columnDriverId: driver[DatabaseHelper.columnDriverId],
+      DatabaseHelper.columnDriverCode: driver[DatabaseHelper.columnDriverCode],
+      DatabaseHelper.columnDriverGivenName:
+          driver[DatabaseHelper.columnDriverGivenName],
+      DatabaseHelper.columnDriverFamilyName:
+          driver[DatabaseHelper.columnDriverFamilyName],
+      DatabaseHelper.columnDriverDateOfBirth:
+          driver[DatabaseHelper.columnDriverDateOfBirth],
+      DatabaseHelper.columnDriverNationality:
+          driver[DatabaseHelper.columnDriverNationality],
+    };
   }
 }

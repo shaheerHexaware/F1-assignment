@@ -1,3 +1,5 @@
+import 'package:f1_app/data/cache/database/mappers/race_mapper.dart';
+import 'package:f1_app/data/cache/database/mappers/season_mapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -12,52 +14,55 @@ import 'package:f1_app/domain/models/constructor/constructor.dart';
 import '../../../dummies.dart';
 import 'database_cache_data_source_test.mocks.dart';
 
-@GenerateMocks([DatabaseHelper, Database, Transaction])
+@GenerateMocks([
+  DatabaseHelper,
+  Database,
+  Transaction,
+  SeasonMapper,
+  RaceMapper,
+])
 void main() {
   late DatabaseCacheDataSource cacheDataSource;
   late MockDatabaseHelper mockDatabaseHelper;
   late MockDatabase mockDatabase;
   late MockTransaction mockTransaction;
+  late MockSeasonMapper mockSeasonMapper;
+  late MockRaceMapper mockRaceMapper;
 
   setUp(() {
     mockDatabaseHelper = MockDatabaseHelper();
     mockDatabase = MockDatabase();
     mockTransaction = MockTransaction();
+    mockSeasonMapper = MockSeasonMapper();
+    mockRaceMapper = MockRaceMapper();
     when(mockDatabaseHelper.database).thenAnswer((_) async => mockDatabase);
     when(mockDatabase.transaction(any)).thenAnswer((invocation) async {
       final Function txnFunction = invocation.positionalArguments.first;
       await txnFunction(mockTransaction);
     });
-    cacheDataSource = DatabaseCacheDataSource(db: mockDatabaseHelper);
+    cacheDataSource = DatabaseCacheDataSource(
+      db: mockDatabaseHelper,
+      seasonMapper: mockSeasonMapper,
+      raceMapper: mockRaceMapper,
+    );
   });
 
   group('getSeasonsWithChampions', () {
-    final dummySeasonMap = {
-      DatabaseHelper.columnYear: Dummies.dummySeason,
-      DatabaseHelper.columnDriverId: Dummies.dummyDriverId,
-      DatabaseHelper.columnDriverCode: Dummies.dummyDriverCode,
-      DatabaseHelper.columnDriverGivenName: Dummies.dummyDriverGivenName,
-      DatabaseHelper.columnDriverFamilyName: Dummies.dummyDriverFamilyName,
-      DatabaseHelper.columnDriverDateOfBirth: Dummies.dummyDate,
-      DatabaseHelper.columnDriverNationality: Dummies.dummyNationality,
-    };
+    final dummySeasonMap = Dummies.createSeasonEntity();
 
     test('returns list of seasons from database', () async {
       when(
         mockDatabase.rawQuery(any, any),
       ).thenAnswer((_) async => [dummySeasonMap]);
 
+      final dummySeason = Dummies.createSeason();
+      when(mockSeasonMapper.map(any)).thenReturn(dummySeason);
+
       final result = await cacheDataSource.getSeasonsWithChampions();
 
       expect(result, isA<List<Season>>());
       expect(result.length, 1);
-      expect(result.first.year, Dummies.dummySeason);
-      expect(result.first.champion.driverId, Dummies.dummyDriverId);
-      expect(result.first.champion.code, Dummies.dummyDriverCode);
-      expect(result.first.champion.givenName, Dummies.dummyDriverGivenName);
-      expect(result.first.champion.familyName, Dummies.dummyDriverFamilyName);
-      expect(result.first.champion.dateOfBirth, Dummies.dummyDate);
-      expect(result.first.champion.nationality, Dummies.dummyNationality);
+      expect(result.first, dummySeason);
 
       verify(mockDatabase.rawQuery(any, [null, null])).called(1);
     });
@@ -74,9 +79,17 @@ void main() {
     test(
       'returns filtered seasons when from and to parameters provided',
       () async {
-        when(
-          mockDatabase.rawQuery(any, any),
-        ).thenAnswer((_) async => [dummySeasonMap]);
+        when(mockDatabase.rawQuery(any, any)).thenAnswer(
+          (_) async => [
+            dummySeasonMap,
+            dummySeasonMap,
+            dummySeasonMap,
+            dummySeasonMap,
+          ],
+        );
+
+        final dummySeason = Dummies.createSeason();
+        when(mockSeasonMapper.map(any)).thenReturn(dummySeason);
 
         final result = await cacheDataSource.getSeasonsWithChampions(
           from: 2020,
@@ -84,59 +97,28 @@ void main() {
         );
 
         expect(result, isA<List<Season>>());
-        expect(result.length, 1);
+        expect(result.length, 4);
         verify(mockDatabase.rawQuery(any, [2020, 2023])).called(1);
       },
     );
   });
 
   group('getSeasonRaces', () {
-    final dummyRaceMap = {
-      DatabaseHelper.columnSeasonYear: Dummies.dummySeason,
-      DatabaseHelper.columnRound: Dummies.dummyRound,
-      DatabaseHelper.columnRaceName: Dummies.dummyRaceName,
-      DatabaseHelper.columnDate: Dummies.dummyDate,
-      DatabaseHelper.columnDriverId: Dummies.dummyDriverId,
-      DatabaseHelper.columnDriverCode: Dummies.dummyDriverCode,
-      DatabaseHelper.columnDriverGivenName: Dummies.dummyDriverGivenName,
-      DatabaseHelper.columnDriverFamilyName: Dummies.dummyDriverFamilyName,
-      DatabaseHelper.columnDriverDateOfBirth: Dummies.dummyDate,
-      DatabaseHelper.columnDriverNationality: Dummies.dummyNationality,
-      DatabaseHelper.columnCircuitId: Dummies.dummyCircuitId,
-      DatabaseHelper.columnCircuitName: Dummies.dummyCircuitName,
-      DatabaseHelper.columnCircuitLocality: Dummies.dummyCircuitLocality,
-      DatabaseHelper.columnCircuitCountry: Dummies.dummyCircuitCountry,
-      DatabaseHelper.columnConstructorId: Dummies.dummyConstructorId,
-      DatabaseHelper.columnConstructorName: Dummies.dummyConstructorName,
-      DatabaseHelper.columnConstructorNationality:
-          Dummies.dummyConstructorNationality,
-    };
+    final dummyRaceMap = Dummies.createRaceEntity();
 
     test('returns list of races from database', () async {
       when(
         mockDatabase.rawQuery(any, any),
       ).thenAnswer((_) async => [dummyRaceMap]);
 
+      final dummyRace = Dummies.createRace();
+      when(mockRaceMapper.map(any)).thenReturn(dummyRace);
+
       final result = await cacheDataSource.getSeasonRaces(Dummies.dummySeason);
 
       expect(result, isA<List<Race>>());
       expect(result.length, 1);
-      expect(result.first.year, Dummies.dummySeason);
-      expect(result.first.round, Dummies.dummyRound);
-      expect(result.first.name, Dummies.dummyRaceName);
-      expect(result.first.date, Dummies.dummyDate);
-
-      expect(result.first.winner.driverId, Dummies.dummyDriverId);
-      expect(result.first.winner.code, Dummies.dummyDriverCode);
-      expect(result.first.winner.givenName, Dummies.dummyDriverGivenName);
-      expect(result.first.winner.familyName, Dummies.dummyDriverFamilyName);
-      expect(result.first.winner.dateOfBirth, Dummies.dummyDate);
-      expect(result.first.winner.nationality, Dummies.dummyNationality);
-
-      expect(result.first.circuit.circuitId, Dummies.dummyCircuitId);
-      expect(result.first.circuit.circuitName, Dummies.dummyCircuitName);
-      expect(result.first.circuit.locality, Dummies.dummyCircuitLocality);
-      expect(result.first.circuit.country, Dummies.dummyCircuitCountry);
+      expect(result.first, dummyRace);
 
       expect(
         result.first.constructor.constructorId,

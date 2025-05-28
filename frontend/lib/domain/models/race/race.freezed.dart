@@ -15,10 +15,6 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-Race _$RaceFromJson(Map<String, dynamic> json) {
-  return _Race.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Race {
   int get year => throw _privateConstructorUsedError;
@@ -28,9 +24,6 @@ mixin _$Race {
   Driver get winner => throw _privateConstructorUsedError;
   Circuit get circuit => throw _privateConstructorUsedError;
   Constructor get constructor => throw _privateConstructorUsedError;
-
-  /// Serializes this Race to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Race
   /// with the given fields replaced by the non-null parameter values.
@@ -229,7 +222,7 @@ class __$$RaceImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$RaceImpl implements _Race {
   const _$RaceImpl({
     required this.year,
@@ -240,9 +233,6 @@ class _$RaceImpl implements _Race {
     required this.circuit,
     required this.constructor,
   });
-
-  factory _$RaceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RaceImplFromJson(json);
 
   @override
   final int year;
@@ -279,7 +269,6 @@ class _$RaceImpl implements _Race {
                 other.constructor == constructor));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
     runtimeType,
@@ -299,11 +288,6 @@ class _$RaceImpl implements _Race {
   @pragma('vm:prefer-inline')
   _$$RaceImplCopyWith<_$RaceImpl> get copyWith =>
       __$$RaceImplCopyWithImpl<_$RaceImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RaceImplToJson(this);
-  }
 }
 
 abstract class _Race implements Race {
@@ -316,8 +300,6 @@ abstract class _Race implements Race {
     required final Circuit circuit,
     required final Constructor constructor,
   }) = _$RaceImpl;
-
-  factory _Race.fromJson(Map<String, dynamic> json) = _$RaceImpl.fromJson;
 
   @override
   int get year;

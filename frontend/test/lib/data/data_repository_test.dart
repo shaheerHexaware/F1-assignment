@@ -1,3 +1,4 @@
+import 'package:f1_app/data/data_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
@@ -18,7 +19,7 @@ void main() {
   setUp(() {
     mockRemoteDataSource = MockRemoteDataSource();
     mockCacheDataSource = MockCacheDataSource();
-    repository = DataRepository(
+    repository = DataRepositoryImpl(
       remoteDataSource: mockRemoteDataSource,
       cacheDataSource: mockCacheDataSource,
     );
@@ -216,16 +217,6 @@ void main() {
       ).called(1);
       verify(mockCacheDataSource.getSeasonRaces(Dummies.dummySeason)).called(1);
       verifyNever(mockCacheDataSource.cacheSeasonRaces(any, any));
-    });
-  });
-
-  group('clearCache', () {
-    test('delegates to cache data source', () async {
-      when(mockCacheDataSource.clearCache()).thenAnswer((_) async => {});
-
-      await repository.clearCache();
-
-      verify(mockCacheDataSource.clearCache()).called(1);
     });
   });
 }

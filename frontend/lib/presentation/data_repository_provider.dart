@@ -1,10 +1,10 @@
+import 'package:f1_app/data/data_repository.dart';
+import 'package:f1_app/data/data_repository_impl.dart';
+import 'package:f1_app/data/remote/open_api_remote_data_source.dart';
+import 'package:f1_app/helpers/env/enum_environment.dart';
+import 'package:f1_app/helpers/env/env_variables.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-
-import '../data/data_repository.dart';
-import '../data/remote/remote_data_source.dart';
-import '../helpers/env/enum_environment.dart';
-import '../helpers/env/env_variables.dart';
 
 class DataRepositoryProvider extends StatelessWidget {
   const DataRepositoryProvider({required this.child, super.key});
@@ -14,14 +14,14 @@ class DataRepositoryProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureProvider<DataRepository>(
-      create: (context) async => DataRepository(
-        remoteDataSource: RemoteDataSource(
+      create: (context) async => DataRepositoryImpl(
+        remoteDataSource: OpenApiRemoteDataSource(
           baseUrl: await EnvironmentVariables.instance.getValue(
             path: EnvironmentKeys.baseUrl,
           ),
         ),
       ),
-      initialData: DataRepository(),
+      initialData: DataRepositoryImpl(),
       child: child,
     );
   }

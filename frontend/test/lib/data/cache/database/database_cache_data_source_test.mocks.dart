@@ -5,9 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:f1_app/data/cache/database/database_helper.dart' as _i4;
+import 'package:f1_app/data/cache/database/database_helper.dart' as _i6;
+import 'package:f1_app/data/cache/database/mappers/race_mapper.dart' as _i9;
+import 'package:f1_app/data/cache/database/mappers/season_mapper.dart' as _i8;
+import 'package:f1_app/domain/models/race/race.dart' as _i5;
+import 'package:f1_app/domain/models/season/season.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:sqflite/sqflite.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -44,10 +48,20 @@ class _FakeBatch_3 extends _i1.SmartFake implements _i2.Batch {
     : super(parent, parentInvocation);
 }
 
+class _FakeSeason_4 extends _i1.SmartFake implements _i4.Season {
+  _FakeSeason_4(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeRace_5 extends _i1.SmartFake implements _i5.Race {
+  _FakeRace_5(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [DatabaseHelper].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabaseHelper extends _i1.Mock implements _i4.DatabaseHelper {
+class MockDatabaseHelper extends _i1.Mock implements _i6.DatabaseHelper {
   MockDatabaseHelper() {
     _i1.throwOnMissingStub(this);
   }
@@ -84,7 +98,7 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
   String get path =>
       (super.noSuchMethod(
             Invocation.getter(#path),
-            returnValue: _i5.dummyValue<String>(this, Invocation.getter(#path)),
+            returnValue: _i7.dummyValue<String>(this, Invocation.getter(#path)),
           )
           as String);
 
@@ -118,8 +132,8 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       (super.noSuchMethod(
             Invocation.method(#transaction, [action], {#exclusive: exclusive}),
             returnValue:
-                _i5.ifNotNull(
-                  _i5.dummyValueOrNull<T>(
+                _i7.ifNotNull(
+                  _i7.dummyValueOrNull<T>(
                     this,
                     Invocation.method(
                       #transaction,
@@ -147,8 +161,8 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       (super.noSuchMethod(
             Invocation.method(#readTransaction, [action]),
             returnValue:
-                _i5.ifNotNull(
-                  _i5.dummyValueOrNull<T>(
+                _i7.ifNotNull(
+                  _i7.dummyValueOrNull<T>(
                     this,
                     Invocation.method(#readTransaction, [action]),
                   ),
@@ -166,8 +180,8 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       (super.noSuchMethod(
             Invocation.method(#devInvokeMethod, [method, arguments]),
             returnValue:
-                _i5.ifNotNull(
-                  _i5.dummyValueOrNull<T>(
+                _i7.ifNotNull(
+                  _i7.dummyValueOrNull<T>(
                     this,
                     Invocation.method(#devInvokeMethod, [method, arguments]),
                   ),
@@ -189,8 +203,8 @@ class MockDatabase extends _i1.Mock implements _i2.Database {
       (super.noSuchMethod(
             Invocation.method(#devInvokeSqlMethod, [method, sql, arguments]),
             returnValue:
-                _i5.ifNotNull(
-                  _i5.dummyValueOrNull<T>(
+                _i7.ifNotNull(
+                  _i7.dummyValueOrNull<T>(
                     this,
                     Invocation.method(#devInvokeSqlMethod, [
                       method,
@@ -681,4 +695,44 @@ class MockTransaction extends _i1.Mock implements _i2.Transaction {
             returnValue: _FakeBatch_3(this, Invocation.method(#batch, [])),
           )
           as _i2.Batch);
+}
+
+/// A class which mocks [SeasonMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSeasonMapper extends _i1.Mock implements _i8.SeasonMapper {
+  MockSeasonMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Season map(Map<String, dynamic>? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: _FakeSeason_4(
+              this,
+              Invocation.method(#map, [param], {#metadata: metadata}),
+            ),
+          )
+          as _i4.Season);
+}
+
+/// A class which mocks [RaceMapper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRaceMapper extends _i1.Mock implements _i9.RaceMapper {
+  MockRaceMapper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Race map(Map<String, dynamic>? param, {dynamic metadata}) =>
+      (super.noSuchMethod(
+            Invocation.method(#map, [param], {#metadata: metadata}),
+            returnValue: _FakeRace_5(
+              this,
+              Invocation.method(#map, [param], {#metadata: metadata}),
+            ),
+          )
+          as _i5.Race);
 }
