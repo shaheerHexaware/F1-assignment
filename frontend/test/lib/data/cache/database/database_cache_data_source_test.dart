@@ -14,8 +14,6 @@ import 'package:f1_app/data/cache/database/database_cache_data_source.dart';
 import 'package:f1_app/domain/models/season/season.dart';
 import 'package:f1_app/domain/models/race/race.dart';
 import 'package:f1_app/domain/models/driver/driver.dart';
-import 'package:f1_app/domain/models/circuit/circuit.dart';
-import 'package:f1_app/domain/models/constructor/constructor.dart';
 import '../../../dummies.dart';
 import 'database_cache_data_source_test.mocks.dart';
 

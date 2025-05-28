@@ -37,7 +37,7 @@ class RaceListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 24,
+                    width: 36,
                     child: Text(
                       race.round.toString(),
                       style: theme.textTheme.titleLarge,
@@ -51,7 +51,9 @@ class RaceListItem extends StatelessWidget {
                       children: [
                         Text(race.name, style: theme.textTheme.titleMedium),
                         const SizedBox(height: 4),
-                        Text('Winner: ${race.driverName}'),
+                        Text(
+                          'Winner: ${race.driverName}${race.isWinnerChampion ? ' 🏆' : ''}',
+                        ),
                         Text('Team: ${race.constructorName}'),
                         Text('Circuit: ${race.circuitName}'),
                         Text('Date: ${race.date}'),
