@@ -41,8 +41,22 @@ jobs:
       - name: Run tests
         run: flutter test
 
+      - name: Generate env.json for Android
+        run: |
+          echo '{
+            "API_URL": "${{ secrets.ANDROID_BASE_URL }}",
+            "SEASON_START_YEAR": "${{ secrets.APP_SEASON_START_YEAR }}"
+          }' > env.json
+
       - name: Build Android APK
         run: flutter build apk --release
+
+      - name: Generate env.json for IOS
+        run: |
+          echo '{
+            "API_URL": "${{ secrets.IOS_BASE_URL }}",
+            "SEASON_START_YEAR": "${{ secrets.APP_SEASON_START_YEAR }}"
+          }' > env.json
 
       - name: Build iOS
         run: |
