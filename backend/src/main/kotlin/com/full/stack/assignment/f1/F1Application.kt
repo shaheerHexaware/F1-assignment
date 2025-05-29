@@ -1,7 +1,6 @@
 package com.full.stack.assignment.f1
 
-import com.full.stack.assignment.f1.controller.F1Controller
-import org.springframework.beans.factory.annotation.Value
+import com.full.stack.assignment.f1.service.OnStartDataInitializationService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -16,12 +15,10 @@ class F1Application {
 
     @Bean
     fun initializeData(
-        f1Controller: F1Controller,
-        @Value("\${data.initializer.start.year}") startYear: Int,
-        @Value("\${data.initializer.end.year}") endYear: Int? = null,
+        initializationService: OnStartDataInitializationService,
     ): CommandLineRunner {
         return CommandLineRunner {
-            f1Controller.getSeasonsWithChampions(startYear, endYear)
+            initializationService.initializeF1Data()
         }
     }
 }
