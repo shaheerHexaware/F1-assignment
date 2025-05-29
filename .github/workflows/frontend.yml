@@ -5,6 +5,7 @@ on:
     branches: [feature/ci-cd]
     paths:
       - "frontend/**"
+  workflow_dispatch:
 
 jobs:
   flutter_ci:
