@@ -10,7 +10,7 @@ on:
 
 jobs:
   flutter_ci:
-    runs-on: macos-latest # Using macOS runner for both iOS and Android builds
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repository
@@ -20,12 +20,12 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: "zulu"
-          java-version: "17"
+          java-version: "21"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19.0"
+          flutter-version: "3.32.0"
           channel: "stable"
           cache: true
 
