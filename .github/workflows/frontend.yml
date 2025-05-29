@@ -49,13 +49,13 @@ jobs:
           flutter build ios --release --no-codesign
 
       - name: Upload Android Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: android-release
           path: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload iOS Build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ios-release
           path: build/ios/iphoneos
