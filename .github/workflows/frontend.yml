@@ -32,6 +32,12 @@ jobs:
           channel: "stable"
           cache: true
 
+      - name: Get version from pubspec.yaml
+        id: version
+        run: |
+          VERSION=$(grep 'version: ' pubspec.yaml | sed 's/version: //')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -65,14 +71,22 @@ jobs:
           cd ..
           flutter build ios --release --no-codesign --dart-define-from-file=env.json
 
-      - name: Upload Android Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-release
-          path: frontend/build/app/outputs/flutter-apk/app-release.apk
+      - name: Zip iOS Build
+        run: |
+          cd build/ios/iphoneos
+          zip -r ../../../ios-build.zip .
 
-      - name: Upload iOS Build
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: ios-release
-          path: frontend/build/ios/iphoneos
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          files: |
+            frontend/build/app/outputs/flutter-apk/app-release.apk
+            frontend/ios-build.zip
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
