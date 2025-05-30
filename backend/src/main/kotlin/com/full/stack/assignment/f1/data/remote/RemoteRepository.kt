@@ -19,7 +19,7 @@ class RemoteRepository(
     private val logger = LoggerFactory.getLogger(RemoteRepository::class.java)
 
     fun getSeason(year: Int): Season {
-        logger.info("Fetching season data for year: $year from API")
+        logger.debug("Fetching season data for year: $year from API")
         val url =
             UriComponentsBuilder.fromUriString(baseUrl)
                 .pathSegment(year.toString(), DRIVER_STANDINGS)
@@ -39,7 +39,7 @@ class RemoteRepository(
                     logger.warn("No winning driver found for year $year")
                     throw IllegalStateException("Unable to find winning driver for year $year")
                 }
-        logger.info("Successfully retrieved season data for year: $year from API")
+        logger.debug("Successfully retrieved season data for year: $year from API")
         return Season(
             year = year,
             champion = winningDriver.driver,
@@ -47,7 +47,7 @@ class RemoteRepository(
     }
 
     fun getSeasonRaces(year: Int): List<Race> {
-        logger.info("Fetching races for season: $year from API")
+        logger.debug("Fetching races for season: $year from API")
         val allResults = mutableListOf<RaceDTO>()
         var offset = 0
         var total = Int.MAX_VALUE
@@ -75,7 +75,7 @@ class RemoteRepository(
             offset += LIMIT
         }
 
-        logger.info("Successfully retrieved ${allResults.size} races for season: $year from API")
+        logger.debug("Successfully retrieved ${allResults.size} races for season: $year from API")
         return allResults
             .groupBy { it.round }
             .map { (round, groupedData) ->
@@ -98,7 +98,7 @@ class RemoteRepository(
                     winningConstructor = winningPosition.constructor,
                 )
             }.also {
-                logger.info("Successfully retrieved ${it.size} races for season: $year from API")
+                logger.debug("Successfully retrieved ${it.size} races for season: $year from API")
             }
     }
 
