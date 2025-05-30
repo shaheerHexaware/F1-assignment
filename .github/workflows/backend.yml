@@ -58,20 +58,12 @@ jobs:
           name: app-jar
           path: backend/build/libs/f1-${{ env.APP_VERSION }}.jar
 
-#      - name: Create Release and Upload Asset
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          tag_name: v${{ env.APP_VERSION }}
-#          name: Release v${{ env.APP_VERSION }}
-#          files: ./backend/build/libs/f1-${{ env.APP_VERSION }}.jar
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          draft: false
-#          prerelease: false
-  release:
-    needs: build
-    uses: ./.github/workflows/release.yml
-    with:
-      version: ${{ needs.build.outputs.version }}
-      component: "Backend"
-      artifact_paths: ./backend/build/libs/f1-${{ needs.build.outputs.version }}.jar
-      release_tag_prefix: "be-v"
+      - name: Create Release and Upload Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.APP_VERSION }}
+          name: Release v${{ env.APP_VERSION }}
+          files: ./backend/build/libs/f1-${{ env.APP_VERSION }}.jar
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false

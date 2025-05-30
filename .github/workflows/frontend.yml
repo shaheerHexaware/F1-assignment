@@ -95,28 +95,18 @@ jobs:
           path: ios-build.zip
 
 
-  #      - name: Create Release
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          tag_name: v${{ env.VERSION }}
-#          name: Release v${{ env.VERSION }}
-#          files: |
-#            frontend/build/app/outputs/flutter-apk/app-release.apk
-#            frontend/ios-build.zip
-#          draft: false
-#          prerelease: false
-#          fail_on_unmatched_files: true
-#          generate_release_notes: true
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  release:
-    needs: build
-    uses: ./.github/workflows/release.yml
-    with:
-      version: ${{ needs.build.outputs.version }}
-      component: "Frontend"
-      artifact_names: |
-        android-apk
-        ios-build
-      release_tag_prefix: "fe-v"
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          files: |
+            frontend/build/app/outputs/flutter-apk/app-release.apk
+            frontend/ios-build.zip
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
