@@ -1,0 +1,40 @@
+name: Reusable Release Workflow
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+      component:
+        required: true
+        type: string
+      artifact_paths:
+        required: true
+        type: string
+      release_tag_prefix:
+        required: false
+        type: string
+        default: "v"
+      is_prerelease:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ inputs.release_tag_prefix }}${{ inputs.version }}
+          name: ${{ inputs.component }} ${{ inputs.release_tag_prefix }}${{ inputs.version }}
+          files: ${{ inputs.artifact_paths }}
+          draft: false
+          prerelease: ${{ inputs.is_prerelease }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
