@@ -2,7 +2,7 @@ name: F1 Assignment Backend CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [feature/ci-cd]
     paths:
       - 'backend/**'
       - '.github/workflows/backend.yml'
