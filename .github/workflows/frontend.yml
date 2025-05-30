@@ -99,7 +99,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
-          name: Release v${{ env.VERSION }}
+          name: Frontend Release v${{ env.VERSION }}
           files: |
             frontend/build/app/outputs/flutter-apk/app-release.apk
             frontend/ios-build.zip
@@ -109,4 +109,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
