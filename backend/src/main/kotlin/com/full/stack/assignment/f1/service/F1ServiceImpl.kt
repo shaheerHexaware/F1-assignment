@@ -65,6 +65,7 @@ class F1ServiceImpl(
     private fun getAndCacheSeason(year: Int): Season {
         val season = remoteRepository.getSeason(year)
         cacheRepository.saveSeason(season)
+        logger.info("Successfully retrieved and cached data for season $year.")
         return season
     }
 }

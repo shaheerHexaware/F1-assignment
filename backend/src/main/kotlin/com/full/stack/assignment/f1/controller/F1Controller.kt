@@ -21,6 +21,8 @@ const val FIRST_FORMULA1_YEAR = 1950
 class F1Controller(
     private val f1Service: F1Service,
 ) {
+    private val logger = org.slf4j.LoggerFactory.getLogger(javaClass)
+
     @GetMapping
     fun getSeasonsWithChampions(
         @RequestParam(name = "from", defaultValue = "2005")
@@ -31,15 +33,17 @@ class F1Controller(
         @MaxCurrentYear(message = "Invalid year. `to` year should be <= current year")
         to: Int?,
     ): List<Season> {
-        val currentYear = java.time.Year.now().value
-        val to = to ?: currentYear
+        val to = to ?: java.time.Year.now().value
         if (from > to) {
+            logger.warn("Invalid date range: from=$from > to=$to")
             throw InvalidDateRangeException(
                 "`from` year ($from) cannot be greater than `to` year ($to)",
             )
         }
 
-        return f1Service.getSeasons(from, to)
+        val results = f1Service.getSeasons(from, to)
+        logger.info("Successfully retrieved data for ${results.size} seasons.")
+        return results
     }
 
     @GetMapping(path = ["/{year}/races"])
@@ -49,6 +53,8 @@ class F1Controller(
         @MaxCurrentYear(message = "Invalid year. `to` year should be <= current year")
         year: Int,
     ): List<Race> {
-        return f1Service.getSeasonRaces(year)
+        val result = f1Service.getSeasonRaces(year)
+        logger.info("Successfully retrieved data for ${result.size} races in season $year.")
+        return result
     }
 }
