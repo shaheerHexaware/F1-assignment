@@ -10,11 +10,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
   api:
     container_name: api
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - APP_VERSION=${APP_VERSION}
+    image: ${DOCKER_USERNAME}/${DOCKER_REPO}:latest
     ports:
       - "8080:8080"
     env_file:
