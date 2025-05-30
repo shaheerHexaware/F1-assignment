@@ -2,7 +2,7 @@ name: Flutter CI/CD
 
 on:
   push:
-    branches: [feature/ci-cd]
+    branches: [main]
     paths:
       - "frontend/**"
       - '.github/workflows/frontend.yml'
