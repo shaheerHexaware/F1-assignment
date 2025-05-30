@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class OnStartDataInitializationService (
+class OnStartDataInitializationService(
     private val f1Controller: F1Controller,
     @Value("\${data.initializer.start.year}") private val startYear: Int,
     @Value("\${data.initializer.end.year}") private val endYear: Int? = null,

@@ -14,9 +14,7 @@ class F1Application {
     fun restTemplate(builder: RestTemplateBuilder): RestTemplate = builder.build()
 
     @Bean
-    fun initializeData(
-        initializationService: OnStartDataInitializationService,
-    ): CommandLineRunner {
+    fun initializeData(initializationService: OnStartDataInitializationService): CommandLineRunner {
         return CommandLineRunner {
             initializationService.initializeF1Data()
         }
