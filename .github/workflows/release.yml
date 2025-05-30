@@ -9,7 +9,7 @@ on:
       component:
         required: true
         type: string
-      artifact_paths:
+      artifact_names:  # Changed from artifact_paths to artifact_names
         required: true
         type: string
       release_tag_prefix:
@@ -27,12 +27,21 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+          name: ${{ inputs.artifact_names }}
+
+      - name: List files
+        run: ls -R release-artifacts
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ inputs.release_tag_prefix }}${{ inputs.version }}
           name: ${{ inputs.component }} ${{ inputs.release_tag_prefix }}${{ inputs.version }}
-          files: ${{ inputs.artifact_paths }}
+          files: release-artifacts/**/*
           draft: false
           prerelease: ${{ inputs.is_prerelease }}
           generate_release_notes: true

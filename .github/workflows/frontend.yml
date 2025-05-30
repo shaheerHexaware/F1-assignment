@@ -82,7 +82,20 @@ jobs:
           cd build/ios/iphoneos
           zip -r ../../../ios-build.zip .
 
-#      - name: Create Release
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload iOS Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: ios-build.zip
+
+
+  #      - name: Create Release
 #        uses: softprops/action-gh-release@v1
 #        with:
 #          tag_name: v${{ env.VERSION }}
@@ -102,8 +115,6 @@ jobs:
     with:
       version: ${{ needs.build.outputs.version }}
       component: "Frontend"
-      artifact_paths: |
-        frontend/build/app/outputs/flutter-apk/app-release.apk
-        frontend/ios-build.zip
+      artifact_names: "*"
       release_tag_prefix: "fe-v"
 
