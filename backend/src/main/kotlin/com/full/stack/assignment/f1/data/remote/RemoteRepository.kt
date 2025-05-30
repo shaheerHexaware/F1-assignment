@@ -29,8 +29,8 @@ class RemoteRepository(
         val response = apiClient.callApi(url, DriverStandingResponseDTO::class.java)
 
         if (response.statusCode.isError) {
-            logger.warn("Failed to retrieve season data for year $year")
-            throw RestClientException("Error retrieving season $year")
+            logger.warn("Failed to retrieve season data for year $year from API with error code: ${response.statusCode}")
+            throw RestClientException("Failed retrieving season $year with error code: ${response.statusCode}")
         }
 
         val winningDriver =
