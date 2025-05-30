@@ -9,7 +9,7 @@ on:
       component:
         required: true
         type: string
-      artifact_names:  # Changed from artifact_paths to artifact_names
+      artifact_names:
         required: true
         type: string
       release_tag_prefix:
@@ -32,6 +32,7 @@ jobs:
         with:
           path: release-artifacts
           name: ${{ inputs.artifact_names }}
+          merge-multiple: true
 
       - name: List files
         run: ls -R release-artifacts
