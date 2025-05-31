@@ -55,7 +55,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: app-jar
+          name: BE-${{ env.APP_VERSION }}
           path: backend/build/libs/f1-${{ env.APP_VERSION }}.jar
 
       - name: Set up QEMU
