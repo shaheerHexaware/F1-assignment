@@ -12,7 +12,6 @@ class F1ServiceImpl(
     private val remoteRepository: RemoteRepository,
     private val cacheRepository: CacheRepository,
 ) : F1Service {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun getSeasons(

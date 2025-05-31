@@ -81,7 +81,7 @@ class RemoteRepository(
             .map { (round, groupedData) ->
                 val winningPosition =
                     groupedData.flatMap { it.results }.find { it.position == 1 }
-                        ?: run{
+                        ?: run {
                             logger.warn("No winning driver found for race $round")
                             throw RestClientException("Error retrieving winning driver for race $round")
                         }
