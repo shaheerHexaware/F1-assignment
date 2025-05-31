@@ -2,7 +2,7 @@ name: F1 Assignment Frontend CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [feature/android-signing]
     paths:
       - "frontend/**"
       - '.github/workflows/frontend.yml'
@@ -59,6 +59,16 @@ jobs:
             "API_URL": "${{ secrets.ANDROID_BASE_URL }}",
             "SEASON_START_YEAR": "${{ secrets.APP_SEASON_START_YEAR }}"
           }' > env.json
+
+      - name: Set up keystore
+        run: |
+          cd android
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
+          echo "storeFile=app/keystore.jks" > key.properties
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
+          cd ..
 
       - name: Build Android APK
         run: flutter build apk --release --dart-define-from-file=env.json
