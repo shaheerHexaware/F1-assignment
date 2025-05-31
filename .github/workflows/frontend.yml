@@ -1,4 +1,4 @@
-name: Flutter CI/CD
+name: F1 Assignment Frontend CI/CD
 
 on:
   push:
