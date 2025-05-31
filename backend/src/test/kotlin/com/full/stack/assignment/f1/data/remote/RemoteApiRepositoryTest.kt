@@ -70,7 +70,7 @@ class RemoteApiRepositoryTest {
                 repository.getSeason(year)
             }
 
-        assertEquals("Error retrieving season $year", exception.message)
+        assertEquals("Failed retrieving season $year with error code: 500 INTERNAL_SERVER_ERROR", exception.message)
     }
 
     @Test
