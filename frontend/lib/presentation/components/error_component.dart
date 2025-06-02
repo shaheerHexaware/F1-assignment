@@ -15,7 +15,7 @@ class ErrorComponent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Error: ${message ?? AppMessages.genericErrorMessage}',
+            message ?? AppMessages.genericErrorMessage,
             textAlign: TextAlign.center,
             style: TextStyle(color: theme.colorScheme.error),
           ),
