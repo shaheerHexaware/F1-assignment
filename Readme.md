@@ -23,6 +23,8 @@ I will give a little overview of the service. It exposes two api end points
 - **GET /api/v1/seasons/{year}/races**
   - This api requires 'year' as a path variable that is not an optional parameter.
   - Here again, Spring Validations are in place to check request validity.
+
+For handling failures and "too many requests" issues with the Ergast API, a Resilience4j RateLimiter and Retry mechanism has been implemented. This ensures that API requests are limited to a controlled rate per second, and when rate limits are breached, the retry mechanism automatically kicks in, mitigating rate limit failures through exponential backoff.
 ### Cache
 The cache layer is implemented using Spring data JPA backed by a Postgres SQL database, which is being exposed by the Cache repository.
 
