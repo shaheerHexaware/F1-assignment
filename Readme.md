@@ -44,6 +44,8 @@ Extensive **Unit tests** are implemented for all the layers of the service.
 # Frontend
 <img src="images/seasons.png" width = "270" height = "600"/> <img src="./images/races.png" width = "270" height = "600"/>
 
+<img src="images/seasons-dark.png" width = "270" height = "600"/> <img src="./images/races-dark.png" width = "270" height = "600"/>
+
 ## Implementation Details
 The frontend of the application is implemented in Flutter.
 
