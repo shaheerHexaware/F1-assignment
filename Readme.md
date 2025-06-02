@@ -25,6 +25,9 @@ I will give a little overview of the service. It exposes two api end points
   - Here again, Spring Validations are in place to check request validity.
 ### Cache
 The cache layer is implemented using Spring data JPA backed by a Postgres SQL database, which is being exposed by the Cache repository.
+
+<img src="images/database-entity-relationship-diagram.png" height = "300"/>
+
 ### Testing
 Extensive **Unit tests** are implemented for all the layers of the service.
 ### CI/CD
