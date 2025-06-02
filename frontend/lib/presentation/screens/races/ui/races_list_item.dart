@@ -14,9 +14,11 @@ class RaceListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Card(
-        elevation: race.isWinnerChampion ? 6 : 2,
+        elevation: race.isWinnerChampion ? 6 : 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        color: race.isWinnerChampion ? theme.colorScheme.primaryFixed : null,
+        color: !race.isWinnerChampion
+            ? theme.colorScheme.onPrimaryContainer
+            : null,
         child: Stack(
           children: [
             Positioned(

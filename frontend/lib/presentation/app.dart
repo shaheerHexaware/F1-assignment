@@ -27,7 +27,17 @@ class _AppState extends State<App> {
             seedColor: seedColor,
             dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
           ),
+          useMaterial3: true,
         ),
+        darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: seedColor,
+            brightness: Brightness.dark,
+            dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
+          ),
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.system, // This will follow the system theme
         navigatorKey: widget.navigator.navigationKey,
         initialRoute: widget.navigator.initialRoute,
         onGenerateRoute: widget.navigator.generateRoute,

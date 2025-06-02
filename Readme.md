@@ -64,6 +64,7 @@ The following are the features implemented;
    - Both the android and iOS artifacts can be accessed from the GitHub release.
    - The Android apk can be installed in an emulator on a machine running the backend on localhost to run the application
    - For the iOS, unfortunately, to distribute the application, you need a paid developer's account. Only then you can configure signing and distribute on test flight. Which was not possible, hence I just created a runner and uploaded that as an artifact. But you can run locally and test on iOs as well.  
+7. **Dark Theme** supported
 
 ## How to run?
 - Have the backend running on localhost. 
